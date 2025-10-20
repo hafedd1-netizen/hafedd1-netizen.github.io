@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تحفيظ القرآن الكريم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Traditional Arabic', 'Scheherazade', 'Amiri', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            direction: rtl;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .controls select, .controls button {
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 18px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .controls button {
+            background: #667eea;
+            color: white;
+        }
+
+        .controls button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .controls select:hover {
+            border-color: #764ba2;
+        }
+
+        #quran-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .surah-title {
+            text-align: center;
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .verse {
+            font-size: 32px;
+            line-height: 2.5;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .verse:hover {
+            background: #f8f9ff;
+        }
+
+        .word {
+            display: inline-block;
+            padding: 5px 8px;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .word:hover {
+            background: #fff3cd;
+        }
+
+        .word.hidden {
+            color: transparent;
+            background: #ddd;
+            user-select: none;
+        }
+
+        .word.revealed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .verse-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .verse {
+                font-size: 24px;
+            }
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📖 منصة تحفيظ القرآن الكريم</h1>
+        <p class="subtitle">تحفيظ بالمحو التدريجي - بسيط وفعّال</p>
+    </header>
+
+    <div class="controls">
+        <label for="surah-select">اختر السورة:</label>
+        <select id="surah-select">
+            <option value="1">1 - الفاتحة</option>
+            <option value="2">2 - البقرة</option>
+            <option value="3">3 - آل عمران</option>
+            <option value="36">36 - يس</option>
+            <option value="67">67 - الملك</option>
+            <option value="112">112 - الإخلاص</option>
+            <option value="113">113 - الفلق</option>
+            <option value="114">114 - الناس</option>
+        </select>
+        <button id="hide-btn">إخفاء كلمات عشوائية</button>
+        <button id="reveal-btn">إظهار الكل</button>
+    </div>
+
+    <div id="quran-container">
+        <div class="loading">جاري تحميل القرآن الكريم...</div>
+    </div>
+
+    <script>
+        const quranContainer = document.getElementById('quran-container');
+        const surahSelect = document.getElementById('surah-select');
+        const hideBtn = document.getElementById('hide-btn');
+        const revealBtn = document.getElementById('reveal-btn');
+
+        // جلب السورة من API
+        async function loadSurah(surahNumber) {
+            try {
+                quranContainer.innerHTML = '<div class="loading">جاري تحميل السورة...</div>';
+                
+                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
+                const data = await response.json();
+                
+                if (data.status === 'OK') {
+                    displaySurah(data.data);
+                }
+            } catch (error) {
+                quranContainer.innerHTML = '<div class="loading">حدث خطأ في التحميل. يرجى المحاولة مرة أخرى.</div>';
+                console.error('خطأ:', error);
+            }
+        }
+
+        // عرض السورة
+        function displaySurah(surah) {
+            quranContainer.innerHTML = `
+                <h2 class="surah-title">${surah.name} - ${surah.englishName}</h2>
+            `;
+
+            surah.ayahs.forEach((ayah, index) => {
+                const verseDiv = document.createElement('div');
+                verseDiv.className = 'verse';
+                
+                // رقم الآية
+                const numberSpan = document.createElement('span');
+                numberSpan.className = 'verse-number';
+                numberSpan.textContent = ayah.numberInSurah;
+                verseDiv.appendChild(numberSpan);
+
+                // تقسيم الآية إلى كلمات
+                const words = ayah.text.split(' ');
+                words.forEach(word => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'word';
+                    wordSpan.textContent = word + ' ';
+                    
+                    // عند الضغط على الكلمة
+                    wordSpan.addEventListener('click', function() {
+                        if (this.classList.contains('hidden')) {
+                            this.classList.remove('hidden');
+                            this.classList.add('revealed');
+                        }
+                    });
+                    
+                    verseDiv.appendChild(wordSpan);
+                });
+
+                quranContainer.appendChild(verseDiv);
+            });
+        }
+
+        // إخفاء كلمات عشوائية
+        hideBtn.addEventListener('click', () => {
+            const words = document.querySelectorAll('.word');
+            words.forEach(word => {
+                word.classList.remove('revealed');
+            });
+
+            // إخفاء 50% من الكلمات عشوائياً
+            const wordsArray = Array.from(words);
+            const wordsToHide = Math.floor(wordsArray.length * 0.5);
+            
+            // ترتيب عشوائي
+            const shuffled = wordsArray.sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < wordsToHide; i++) {
+                shuffled[i].classList.add('hidden');
+            }
+        });
+
+        // إظهار كل الكلمات
+        revealBtn.addEventListener('click', () => {
+            const words = document.querySelectorAll('.word');
+            words.forEach(word => {
+                word.classList.remove('hidden');
+                word.classList.remove('revealed');
+            });
+        });
+
+        // تغيير السورة
+        surahSelect.addEventListener('change', (e) => {
+            loadSurah(e.target.value);
+        });
+
+        // تحميل سورة الفاتحة عند بدء الصفحة
+        loadSurah(1);
+    </script>
+</body>
+</html>
