@@ -48,6 +48,13 @@
             text-align: center;
         }
 
+        .controls label {
+            font-size: 20px;
+            color: #667eea;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
         .controls select, .controls button {
             padding: 12px 25px;
             margin: 10px;
@@ -83,6 +90,7 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             max-width: 900px;
             margin: 0 auto;
+            min-height: 400px;
         }
 
         .surah-title {
@@ -138,7 +146,7 @@
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 20px;
-            margin-right: 10px;
+            margin-left: 10px;
         }
 
         .loading {
@@ -167,122 +175,120 @@
     <div class="controls">
         <label for="surah-select">اختر السورة:</label>
         <select id="surah-select">
-           <select id="surah-select">
-    <option value="1">1 - الفاتحة</option>
-    <option value="2">2 - البقرة</option>
-    <option value="3">3 - آل عمران</option>
-    <option value="4">4 - النساء</option>
-    <option value="5">5 - المائدة</option>
-    <option value="6">6 - الأنعام</option>
-    <option value="7">7 - الأعراف</option>
-    <option value="8">8 - الأنفال</option>
-    <option value="9">9 - التوبة</option>
-    <option value="10">10 - يونس</option>
-    <option value="11">11 - هود</option>
-    <option value="12">12 - يوسف</option>
-    <option value="13">13 - الرعد</option>
-    <option value="14">14 - إبراهيم</option>
-    <option value="15">15 - الحجر</option>
-    <option value="16">16 - النحل</option>
-    <option value="17">17 - الإسراء</option>
-    <option value="18">18 - الكهف</option>
-    <option value="19">19 - مريم</option>
-    <option value="20">20 - طه</option>
-    <option value="21">21 - الأنبياء</option>
-    <option value="22">22 - الحج</option>
-    <option value="23">23 - المؤمنون</option>
-    <option value="24">24 - النور</option>
-    <option value="25">25 - الفرقان</option>
-    <option value="26">26 - الشعراء</option>
-    <option value="27">27 - النمل</option>
-    <option value="28">28 - القصص</option>
-    <option value="29">29 - العنكبوت</option>
-    <option value="30">30 - الروم</option>
-    <option value="31">31 - لقمان</option>
-    <option value="32">32 - السجدة</option>
-    <option value="33">33 - الأحزاب</option>
-    <option value="34">34 - سبأ</option>
-    <option value="35">35 - فاطر</option>
-    <option value="36">36 - يس</option>
-    <option value="37">37 - الصافات</option>
-    <option value="38">38 - ص</option>
-    <option value="39">39 - الزمر</option>
-    <option value="40">40 - غافر</option>
-    <option value="41">41 - فصلت</option>
-    <option value="42">42 - الشورى</option>
-    <option value="43">43 - الزخرف</option>
-    <option value="44">44 - الدخان</option>
-    <option value="45">45 - الجاثية</option>
-    <option value="46">46 - الأحقاف</option>
-    <option value="47">47 - محمد</option>
-    <option value="48">48 - الفتح</option>
-    <option value="49">49 - الحجرات</option>
-    <option value="50">50 - ق</option>
-    <option value="51">51 - الذاريات</option>
-    <option value="52">52 - الطور</option>
-    <option value="53">53 - النجم</option>
-    <option value="54">54 - القمر</option>
-    <option value="55">55 - الرحمن</option>
-    <option value="56">56 - الواقعة</option>
-    <option value="57">57 - الحديد</option>
-    <option value="58">58 - المجادلة</option>
-    <option value="59">59 - الحشر</option>
-    <option value="60">60 - الممتحنة</option>
-    <option value="61">61 - الصف</option>
-    <option value="62">62 - الجمعة</option>
-    <option value="63">63 - المنافقون</option>
-    <option value="64">64 - التغابن</option>
-    <option value="65">65 - الطلاق</option>
-    <option value="66">66 - التحريم</option>
-    <option value="67">67 - الملك</option>
-    <option value="68">68 - القلم</option>
-    <option value="69">69 - الحاقة</option>
-    <option value="70">70 - المعارج</option>
-    <option value="71">71 - نوح</option>
-    <option value="72">72 - الجن</option>
-    <option value="73">73 - المزمل</option>
-    <option value="74">74 - المدثر</option>
-    <option value="75">75 - القيامة</option>
-    <option value="76">76 - الإنسان</option>
-    <option value="77">77 - المرسلات</option>
-    <option value="78">78 - النبأ</option>
-    <option value="79">79 - النازعات</option>
-    <option value="80">80 - عبس</option>
-    <option value="81">81 - التكوير</option>
-    <option value="82">82 - الانفطار</option>
-    <option value="83">83 - المطففين</option>
-    <option value="84">84 - الانشقاق</option>
-    <option value="85">85 - البروج</option>
-    <option value="86">86 - الطارق</option>
-    <option value="87">87 - الأعلى</option>
-    <option value="88">88 - الغاشية</option>
-    <option value="89">89 - الفجر</option>
-    <option value="90">90 - البلد</option>
-    <option value="91">91 - الشمس</option>
-    <option value="92">92 - الليل</option>
-    <option value="93">93 - الضحى</option>
-    <option value="94">94 - الشرح</option>
-    <option value="95">95 - التين</option>
-    <option value="96">96 - العلق</option>
-    <option value="97">97 - القدر</option>
-    <option value="98">98 - البينة</option>
-    <option value="99">99 - الزلزلة</option>
-    <option value="100">100 - العاديات</option>
-    <option value="101">101 - القارعة</option>
-    <option value="102">102 - التكاثر</option>
-    <option value="103">103 - العصر</option>
-    <option value="104">104 - الهمزة</option>
-    <option value="105">105 - الفيل</option>
-    <option value="106">106 - قريش</option>
-    <option value="107">107 - الماعون</option>
-    <option value="108">108 - الكوثر</option>
-    <option value="109">109 - الكافرون</option>
-    <option value="110">110 - النصر</option>
-    <option value="111">111 - المسد</option>
-    <option value="112">112 - الإخلاص</option>
-    <option value="113">113 - الفلق</option>
-    <option value="114">114 - الناس</option>
-</select> 
+            <option value="1">1 - الفاتحة</option>
+            <option value="2">2 - البقرة</option>
+            <option value="3">3 - آل عمران</option>
+            <option value="4">4 - النساء</option>
+            <option value="5">5 - المائدة</option>
+            <option value="6">6 - الأنعام</option>
+            <option value="7">7 - الأعراف</option>
+            <option value="8">8 - الأنفال</option>
+            <option value="9">9 - التوبة</option>
+            <option value="10">10 - يونس</option>
+            <option value="11">11 - هود</option>
+            <option value="12">12 - يوسف</option>
+            <option value="13">13 - الرعد</option>
+            <option value="14">14 - إبراهيم</option>
+            <option value="15">15 - الحجر</option>
+            <option value="16">16 - النحل</option>
+            <option value="17">17 - الإسراء</option>
+            <option value="18">18 - الكهف</option>
+            <option value="19">19 - مريم</option>
+            <option value="20">20 - طه</option>
+            <option value="21">21 - الأنبياء</option>
+            <option value="22">22 - الحج</option>
+            <option value="23">23 - المؤمنون</option>
+            <option value="24">24 - النور</option>
+            <option value="25">25 - الفرقان</option>
+            <option value="26">26 - الشعراء</option>
+            <option value="27">27 - النمل</option>
+            <option value="28">28 - القصص</option>
+            <option value="29">29 - العنكبوت</option>
+            <option value="30">30 - الروم</option>
+            <option value="31">31 - لقمان</option>
+            <option value="32">32 - السجدة</option>
+            <option value="33">33 - الأحزاب</option>
+            <option value="34">34 - سبأ</option>
+            <option value="35">35 - فاطر</option>
+            <option value="36">36 - يس</option>
+            <option value="37">37 - الصافات</option>
+            <option value="38">38 - ص</option>
+            <option value="39">39 - الزمر</option>
+            <option value="40">40 - غافر</option>
+            <option value="41">41 - فصلت</option>
+            <option value="42">42 - الشورى</option>
+            <option value="43">43 - الزخرف</option>
+            <option value="44">44 - الدخان</option>
+            <option value="45">45 - الجاثية</option>
+            <option value="46">46 - الأحقاف</option>
+            <option value="47">47 - محمد</option>
+            <option value="48">48 - الفتح</option>
+            <option value="49">49 - الحجرات</option>
+            <option value="50">50 - ق</option>
+            <option value="51">51 - الذاريات</option>
+            <option value="52">52 - الطور</option>
+            <option value="53">53 - النجم</option>
+            <option value="54">54 - القمر</option>
+            <option value="55">55 - الرحمن</option>
+            <option value="56">56 - الواقعة</option>
+            <option value="57">57 - الحديد</option>
+            <option value="58">58 - المجادلة</option>
+            <option value="59">59 - الحشر</option>
+            <option value="60">60 - الممتحنة</option>
+            <option value="61">61 - الصف</option>
+            <option value="62">62 - الجمعة</option>
+            <option value="63">63 - المنافقون</option>
+            <option value="64">64 - التغابن</option>
+            <option value="65">65 - الطلاق</option>
+            <option value="66">66 - التحريم</option>
+            <option value="67">67 - الملك</option>
+            <option value="68">68 - القلم</option>
+            <option value="69">69 - الحاقة</option>
+            <option value="70">70 - المعارج</option>
+            <option value="71">71 - نوح</option>
+            <option value="72">72 - الجن</option>
+            <option value="73">73 - المزمل</option>
+            <option value="74">74 - المدثر</option>
+            <option value="75">75 - القيامة</option>
+            <option value="76">76 - الإنسان</option>
+            <option value="77">77 - المرسلات</option>
+            <option value="78">78 - النبأ</option>
+            <option value="79">79 - النازعات</option>
+            <option value="80">80 - عبس</option>
+            <option value="81">81 - التكوير</option>
+            <option value="82">82 - الانفطار</option>
+            <option value="83">83 - المطففين</option>
+            <option value="84">84 - الانشقاق</option>
+            <option value="85">85 - البروج</option>
+            <option value="86">86 - الطارق</option>
+            <option value="87">87 - الأعلى</option>
+            <option value="88">88 - الغاشية</option>
+            <option value="89">89 - الفجر</option>
+            <option value="90">90 - البلد</option>
+            <option value="91">91 - الشمس</option>
+            <option value="92">92 - الليل</option>
+            <option value="93">93 - الضحى</option>
+            <option value="94">94 - الشرح</option>
+            <option value="95">95 - التين</option>
+            <option value="96">96 - العلق</option>
+            <option value="97">97 - القدر</option>
+            <option value="98">98 - البينة</option>
+            <option value="99">99 - الزلزلة</option>
+            <option value="100">100 - العاديات</option>
+            <option value="101">101 - القارعة</option>
+            <option value="102">102 - التكاثر</option>
+            <option value="103">103 - العصر</option>
+            <option value="104">104 - الهمزة</option>
+            <option value="105">105 - الفيل</option>
+            <option value="106">106 - قريش</option>
+            <option value="107">107 - الماعون</option>
+            <option value="108">108 - الكوثر</option>
+            <option value="109">109 - الكافرون</option>
+            <option value="110">110 - النصر</option>
+            <option value="111">111 - المسد</option>
+            <option value="112">112 - الإخلاص</option>
+            <option value="113">113 - الفلق</option>
+            <option value="114">114 - الناس</option>
         </select>
         <button id="hide-btn">إخفاء كلمات عشوائية</button>
         <button id="reveal-btn">إظهار الكل</button>
@@ -308,6 +314,8 @@
                 
                 if (data.status === 'OK') {
                     displaySurah(data.data);
+                } else {
+                    quranContainer.innerHTML = '<div class="loading">حدث خطأ في التحميل.</div>';
                 }
             } catch (error) {
                 quranContainer.innerHTML = '<div class="loading">حدث خطأ في التحميل. يرجى المحاولة مرة أخرى.</div>';
@@ -317,11 +325,14 @@
 
         // عرض السورة
         function displaySurah(surah) {
-            quranContainer.innerHTML = `
-                <h2 class="surah-title">${surah.name} - ${surah.englishName}</h2>
-            `;
+            quranContainer.innerHTML = '';
+            
+            const titleDiv = document.createElement('h2');
+            titleDiv.className = 'surah-title';
+            titleDiv.textContent = `${surah.name} - ${surah.englishName}`;
+            quranContainer.appendChild(titleDiv);
 
-            surah.ayahs.forEach((ayah, index) => {
+            surah.ayahs.forEach((ayah) => {
                 const verseDiv = document.createElement('div');
                 verseDiv.className = 'verse';
                 
@@ -381,9 +392,11 @@
             });
         });
 
-        // تغيير السورة
-        surahSelect.addEventListener('change', (e) => {
-            loadSurah(e.target.value);
+        // تغيير السورة - هذا هو الجزء المهم!
+        surahSelect.addEventListener('change', function() {
+            const selectedSurah = this.value;
+            console.log('تغيير إلى سورة رقم:', selectedSurah);
+            loadSurah(selectedSurah);
         });
 
         // تحميل سورة الفاتحة عند بدء الصفحة
