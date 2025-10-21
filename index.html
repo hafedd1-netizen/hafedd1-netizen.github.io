@@ -378,3 +378,163 @@
             <label class="control-label">المحو التدريجي / Progressive Hiding</label>
             <div class="buttons-row">
                 <button id="hide-btn">
+                     من الكلمات / Hide 50%</button>
+                <button id="reveal-btn">إظهار الكل / Show All</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="loading">جاري التحميل... / Loading...</div>
+    </div>
+
+    <script>
+        let currentSurah = 1;
+        let currentEdition = 'ar';
+
+        // تحميل السورة مع الترجمة والـ transliteration
+        async function loadSurah(num, edition) {
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading">جاري التحميل... / Loading...</div>';
+
+            try {
+                // جلب النص العربي
+                const arResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
+                const arData = await arResponse.json();
+                
+                // جلب الـ transliteration
+                const trResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}/en.transliteration`);
+                const trData = await trResponse.json();
+                
+                // جلب الترجمة
+                let transData = null;
+                if (edition !== 'ar') {
+                    const transResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${edition}`);
+                    transData = await transResponse.json();
+                }
+
+                displaySurah(arData.data, trData.data, transData ? transData.data : null);
+            } catch (error) {
+                content.innerHTML = '<div class="loading">خطأ في التحميل / Loading error</div>';
+                console.error('Error:', error);
+            }
+        }
+
+        // عرض السورة
+        function displaySurah(ar, tr, trans) {
+            const content = document.getElementById('content');
+            let html = `<h2 class="surah-title">${ar.name} - ${ar.englishName}</h2>`;
+
+            ar.ayahs.forEach((ayah, verseIndex) => {
+                html += `<div class="verse-box">`;
+                html += `<div class="verse-num">آية ${ayah.numberInSurah} / Verse ${ayah.numberInSurah}</div>`;
+                
+                // النص العربي مع المحو
+                html += `<div class="verse-arabic">`;
+                const arWords = ayah.text.split(' ');
+                arWords.forEach((word, wordIndex) => {
+                    html += `<span class="word ar-word" data-v="${verseIndex}" data-w="${wordIndex}">${word} </span>`;
+                });
+                html += `</div>`;
+
+                // Transliteration مع المحو
+                if (tr.ayahs[verseIndex]) {
+                    html += `<div class="verse-translit">`;
+                    const trWords = tr.ayahs[verseIndex].text.split(' ');
+                    trWords.forEach((word, wordIndex) => {
+                        html += `<span class="word tr-word" data-v="${verseIndex}" data-w="${wordIndex}">${word} </span>`;
+                    });
+                    html += `</div>`;
+                }
+
+                // الترجمة (بدون محو)
+                if (trans && trans.ayahs[verseIndex]) {
+                    html += `<div class="verse-trans">${trans.ayahs[verseIndex].text}</div>`;
+                }
+
+                html += `</div>`;
+            });
+
+            content.innerHTML = html;
+
+            // إضافة وظيفة الضغط على الكلمات
+            document.querySelectorAll('.word').forEach(wordEl => {
+                wordEl.onclick = function() {
+                    if (this.classList.contains('hidden')) {
+                        this.classList.remove('hidden');
+                        this.classList.add('revealed');
+                        
+                        // إظهار الكلمة المقابلة
+                        const v = this.dataset.v;
+                        const w = this.dataset.w;
+                        const isArabic = this.classList.contains('ar-word');
+                        const pairClass = isArabic ? 'tr-word' : 'ar-word';
+                        const pair = document.querySelector(`.${pairClass}[data-v="${v}"][data-w="${w}"]`);
+                        if (pair) {
+                            pair.classList.remove('hidden');
+                            pair.classList.add('revealed');
+                        }
+                    }
+                };
+            });
+        }
+
+        // تبديل اللغة
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.onclick = function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentEdition = this.dataset.edition;
+                loadSurah(currentSurah, currentEdition);
+            };
+        });
+
+        // تغيير السورة
+        document.getElementById('surah-select').onchange = function() {
+            currentSurah = this.value;
+            loadSurah(currentSurah, currentEdition);
+        };
+
+        // إخفاء 50% من الكلمات (العربية والـ transliteration معاً)
+        document.getElementById('hide-btn').onclick = function() {
+            const allWords = document.querySelectorAll('.word');
+            allWords.forEach(w => {
+                w.classList.remove('revealed');
+                w.classList.remove('hidden');
+            });
+
+            const arWords = Array.from(document.querySelectorAll('.ar-word'));
+            const toHide = Math.floor(arWords.length * 0.5);
+            
+            // ترتيب عشوائي
+            arWords.sort(() => Math.random() - 0.5);
+
+            for (let i = 0; i < toHide; i++) {
+                const arWord = arWords[i];
+                arWord.classList.add('hidden');
+                
+                // إخفاء الكلمة المقابلة في transliteration
+                const v = arWord.dataset.v;
+                const w = arWord.dataset.w;
+                const trWord = document.querySelector(`.tr-word[data-v="${v}"][data-w="${w}"]`);
+                if (trWord) {
+                    trWord.classList.add('hidden');
+                }
+            }
+        };
+
+        // إظهار كل الكلمات
+        document.getElementById('reveal-btn').onclick = function() {
+            const allWords = document.querySelectorAll('.word');
+            allWords.forEach(w => {
+                w.classList.remove('hidden');
+                w.classList.remove('revealed');
+            });
+        };
+
+        // تحميل سورة الفاتحة عند البداية
+        loadSurah(1, 'ar');
+    </script>
+</body>
+</html>
+
