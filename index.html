@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تحفيظ القرآن الكريم</title>
+    <title>منصة تحفيظ القرآن</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -99,14 +99,6 @@
         .lang-btn { background: white; color: #667eea; font-size: 12px; min-width: 60px; }
         .lang-btn.active { background: #667eea; color: white; }
         
-        .audio-btn {
-            background: #ff6b6b;
-            border-color: #ff6b6b;
-            font-size: 14px;
-        }
-        .audio-btn:hover { background: #ff5252; border-color: #ff5252; }
-        .audio-btn.playing { background: #ffd93d; border-color: #ffd93d; color: #333; }
-        
         #reveal-btn {
             background: #28a745;
             border-color: #28a745;
@@ -138,12 +130,19 @@
             background: #f8f9ff;
             border-radius: 8px;
             transition: all 0.4s;
+            position: relative;
         }
         .verse:hover { box-shadow: 0 3px 10px rgba(102, 126, 234, 0.15); }
         .verse.playing {
             background: #fff3cd;
             box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-            transform: scale(1.01);
+        }
+        
+        .verse-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
         
         .num {
@@ -153,8 +152,38 @@
             padding: 3px 10px;
             border-radius: 15px;
             font-size: 13px;
-            margin-bottom: 6px;
             font-weight: bold;
+        }
+        
+        .verse-controls {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .verse-btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            min-width: auto;
+            border-radius: 12px;
+        }
+        
+        .play-verse-btn {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+        .play-verse-btn:hover {
+            background: #ff5252;
+            border-color: #ff5252;
+        }
+        
+        .repeat-verse-btn {
+            background: #ffd93d;
+            border-color: #ffd93d;
+            color: #333;
+        }
+        .repeat-verse-btn:hover {
+            background: #ffc107;
+            border-color: #ffc107;
         }
         
         .arabic {
@@ -220,30 +249,30 @@
             .controls-sidebar { width: 100%; }
             #content { max-height: none; }
         }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 22px; }
-            .arabic { font-size: 20px; }
-            .translit { font-size: 14px; }
-            .trans { font-size: 14px; }
-        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>📖 منصة تحفيظ القرآن الكريم مع الصوت</h1>
-        <p class="subtitle">Quran Memorization Platform with Audio</p>
+        <h1>📖 منصة تحفيظ القرآن الكريم</h1>
+        <p class="subtitle">Quran Memorization Platform</p>
     </div>
 
     <div class="main-container">
         <div class="controls-sidebar">
             <div class="controls">
                 <div class="section">
-                    <label class="label">السورة / Surah</label>
+                    <label class="label">السورة</label>
                     <select id="surah">
                         <option value="1">1 - الفاتحة</option>
                         <option value="2">2 - البقرة</option>
                         <option value="3">3 - آل عمران</option>
+                        <option value="4">4 - النساء</option>
+                        <option value="5">5 - المائدة</option>
+                        <option value="6">6 - الأنعام</option>
+                        <option value="7">7 - الأعراف</option>
+                        <option value="8">8 - الأنفال</option>
+                        <option value="9">9 - التوبة</option>
+                        <option value="10">10 - يونس</option>
                         <option value="18">18 - الكهف</option>
                         <option value="36">36 - يس</option>
                         <option value="55">55 - الرحمن</option>
@@ -256,7 +285,7 @@
                 </div>
 
                 <div class="section">
-                    <label class="label">القارئ / Reciter</label>
+                    <label class="label">القارئ</label>
                     <select id="reciter">
                         <option value="ar.alafasy">مشاري العفاسي</option>
                         <option value="ar.abdulbasitmurattal">عبدالباسط</option>
@@ -264,21 +293,11 @@
                         <option value="ar.shaatree">الشاطري</option>
                         <option value="ar.husary">الحصري</option>
                         <option value="ar.minshawi">المنشاوي</option>
-                        <option value="ar.muhammadayyoub">محمد أيوب</option>
                     </select>
                 </div>
 
                 <div class="section">
-                    <label class="label">الصوت / Audio</label>
-                    <div class="btn-row">
-                        <button id="play-btn" class="audio-btn">▶ تشغيل</button>
-                        <button id="pause-btn" class="audio-btn" disabled>⏸</button>
-                        <button id="stop-btn" class="audio-btn" disabled>⏹</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <label class="label">اللغة / Language</label>
+                    <label class="label">اللغة</label>
                     <div class="btn-row">
                         <button class="lang-btn active" data-ed="ar">ع</button>
                         <button class="lang-btn" data-ed="en.asad">EN</button>
@@ -290,7 +309,7 @@
                 </div>
 
                 <div class="section">
-                    <label class="label">النسبة / %</label>
+                    <label class="label">النسبة</label>
                     <select id="hide-percentage">
                         <option value="10">10%</option>
                         <option value="20">20%</option>
@@ -324,9 +343,7 @@
     <script>
         let curS = 1, curE = 'ar', curR = 'ar.alafasy';
         let audio = document.getElementById('audio-player');
-        let currentAyahIndex = 0;
-        let totalAyahs = 0;
-        let isPlaying = false;
+        let audioData = null;
 
         async function load(n, e) {
             const c = document.getElementById('content');
@@ -334,10 +351,13 @@
             try {
                 const ar = await fetch(`https://api.alquran.cloud/v1/surah/${n}`).then(r => r.json());
                 const tr = await fetch(`https://api.alquran.cloud/v1/surah/${n}/en.transliteration`).then(r => r.json());
+                const reciter = document.getElementById('reciter').value;
+                const audioRes = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${reciter}`).then(r => r.json());
+                audioData = audioRes.data.ayahs;
+                
                 let trans = null;
                 if (e !== 'ar') trans = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${e}`).then(r => r.json());
                 show(ar.data, tr.data, trans ? trans.data : null);
-                totalAyahs = ar.data.ayahs.length;
             } catch(err) {
                 c.innerHTML = '<div class="loading">خطأ / Error</div>';
             }
@@ -345,159 +365,4 @@
 
         function show(ar, tr, trans) {
             const c = document.getElementById('content');
-            let h = `<h2 class="title">${ar.name} - ${ar.englishName}</h2>`;
-            ar.ayahs.forEach((a, vi) => {
-                h += `<div class="verse" data-ayah="${vi}">`;
-                h += `<div class="num">${a.numberInSurah}</div>`;
-                h += `<div class="arabic">`;
-                a.text.split(' ').forEach((w, wi) => {
-                    h += `<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;
-                });
-                h += `</div>`;
-                if (tr.ayahs[vi]) {
-                    h += `<div class="translit">`;
-                    tr.ayahs[vi].text.split(' ').forEach((w, wi) => {
-                        h += `<span class="word tw" data-v="${vi}" data-w="${wi}">${w} </span>`;
-                    });
-                    h += `</div>`;
-                }
-                if (trans && trans.ayahs[vi]) {
-                    h += `<div class="trans">${trans.ayahs[vi].text}</div>`;
-                }
-                h += `</div>`;
-            });
-            c.innerHTML = h;
-            
-            document.querySelectorAll('.word').forEach(w => {
-                w.onclick = function() {
-                    if (this.classList.contains('hidden')) {
-                        this.classList.remove('hidden');
-                        this.classList.add('revealed');
-                        const v = this.dataset.v, wi = this.dataset.w;
-                        const pc = this.classList.contains('aw') ? 'tw' : 'aw';
-                        const p = document.querySelector(`.${pc}[data-v="${v}"][data-w="${wi}"]`);
-                        if (p) { p.classList.remove('hidden'); p.classList.add('revealed'); }
-                    }
-                };
-            });
-        }
-
-        function highlightAyah(index) {
-            document.querySelectorAll('.verse').forEach(v => v.classList.remove('playing'));
-            const verse = document.querySelector(`.verse[data-ayah="${index}"]`);
-            if (verse) {
-                verse.classList.add('playing');
-                verse.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                const hiddenWords = verse.querySelectorAll('.word.hidden');
-                hiddenWords.forEach(w => {
-                    w.classList.remove('hidden');
-                    w.classList.add('revealed');
-                });
-            }
-        }
-
-        document.getElementById('play-btn').onclick = async function() {
-            if (isPlaying) {
-                audio.play();
-                this.disabled = true;
-                document.getElementById('pause-btn').disabled = false;
-                return;
-            }
-            const reciter = document.getElementById('reciter').value;
-            const surah = document.getElementById('surah').value;
-            try {
-                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surah}/${reciter}`);
-                const data = await response.json();
-                currentAyahIndex = 0;
-                playNextAyah(data.data.ayahs);
-                isPlaying = true;
-                this.disabled = true;
-                document.getElementById('pause-btn').disabled = false;
-                document.getElementById('stop-btn').disabled = false;
-            } catch (err) {
-                alert('خطأ في تحميل الصوت');
-            }
-        };
-
-        function playNextAyah(ayahs) {
-            if (currentAyahIndex >= ayahs.length) {
-                stopAudio();
-                return;
-            }
-            highlightAyah(currentAyahIndex);
-            audio.src = ayahs[currentAyahIndex].audio;
-            audio.play();
-            audio.onended = () => {
-                currentAyahIndex++;
-                playNextAyah(ayahs);
-            };
-        }
-
-        document.getElementById('pause-btn').onclick = function() {
-            audio.pause();
-            this.disabled = true;
-            document.getElementById('play-btn').disabled = false;
-        };
-
-        document.getElementById('stop-btn').onclick = function() {
-            stopAudio();
-        };
-
-        function stopAudio() {
-            audio.pause();
-            audio.currentTime = 0;
-            currentAyahIndex = 0;
-            isPlaying = false;
-            document.querySelectorAll('.verse').forEach(v => v.classList.remove('playing'));
-            document.getElementById('play-btn').disabled = false;
-            document.getElementById('pause-btn').disabled = true;
-            document.getElementById('stop-btn').disabled = true;
-        }
-
-        document.querySelectorAll('.lang-btn').forEach(b => {
-            b.onclick = function() {
-                document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
-                this.classList.add('active');
-                curE = this.dataset.ed;
-                load(curS, curE);
-            };
-        });
-
-        document.getElementById('surah').onchange = function() {
-            curS = this.value;
-            stopAudio();
-            load(curS, curE);
-        };
-
-        document.getElementById('reciter').onchange = function() {
-            curR = this.value;
-            stopAudio();
-        };
-
-        document.getElementById('hide-btn').onclick = function() {
-            const p = parseInt(document.getElementById('hide-percentage').value);
-            const all = document.querySelectorAll('.word');
-            all.forEach(w => { w.classList.remove('revealed'); w.classList.remove('hidden'); });
-            const aw = Array.from(document.querySelectorAll('.aw'));
-            const hide = Math.floor(aw.length * (p / 100));
-            aw.sort(() => Math.random() - 0.5);
-            for (let i = 0; i < hide; i++) {
-                aw[i].classList.add('hidden');
-                const v = aw[i].dataset.v, wi = aw[i].dataset.w;
-                const tw = document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);
-                if (tw) tw.classList.add('hidden');
-            }
-        };
-
-        document.getElementById('reveal-btn').onclick = function() {
-            document.querySelectorAll('.word').forEach(w => {
-                w.classList.remove('hidden');
-                w.classList.remove('revealed');
-            });
-        };
-
-        load(1, 'ar');
-    </script>
-</body>
-</html>
-
+            let
