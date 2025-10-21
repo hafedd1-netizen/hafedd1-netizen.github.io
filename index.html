@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تحفيظ القرآن الكريم</title>
+    <title>منصة تحفيظ القرآن الكريم - Quran Memorization Platform</title>
     <style>
         * {
             margin: 0;
@@ -45,20 +45,26 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             margin-bottom: 30px;
-            text-align: center;
         }
 
-        .controls label {
-            font-size: 20px;
+        .control-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .control-row label {
+            font-size: 18px;
             color: #667eea;
             font-weight: bold;
-            margin-left: 10px;
         }
 
         .controls select, .controls button {
             padding: 12px 25px;
-            margin: 10px;
-            font-size: 18px;
+            font-size: 16px;
             border: 2px solid #667eea;
             border-radius: 25px;
             background: white;
@@ -83,12 +89,42 @@
             border-color: #764ba2;
         }
 
+        .language-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .language-btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .language-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .language-btn:hover {
+            background: #764ba2;
+            color: white;
+            border-color: #764ba2;
+        }
+
         #quran-container {
             background: white;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             min-height: 400px;
         }
@@ -102,17 +138,59 @@
             border-bottom: 2px solid #667eea;
         }
 
-        .verse {
-            font-size: 32px;
-            line-height: 2.5;
-            margin-bottom: 30px;
-            padding: 20px;
+        .verse-container {
+            margin-bottom: 40px;
+            padding: 25px;
             border-radius: 10px;
+            background: #f8f9ff;
             transition: all 0.3s;
         }
 
-        .verse:hover {
-            background: #f8f9ff;
+        .verse-container:hover {
+            box-shadow: 0 3px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .verse-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .verse-arabic {
+            font-size: 32px;
+            line-height: 2.5;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .verse-transliteration {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #555;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .verse-translation {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #333;
+            padding: 15px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            direction: ltr;
+            text-align: left;
         }
 
         .word {
@@ -139,16 +217,6 @@
             color: #155724;
         }
 
-        .verse-number {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 20px;
-            margin-left: 10px;
-        }
-
         .loading {
             text-align: center;
             padding: 50px;
@@ -157,11 +225,20 @@
         }
 
         @media (max-width: 768px) {
-            .verse {
+            .verse-arabic {
                 font-size: 24px;
             }
+            .verse-transliteration {
+                font-size: 16px;
+            }
+            .verse-translation {
+                font-size: 16px;
+            }
             h1 {
-                font-size: 32px;
+                font-size: 28px;
+            }
+            .control-row {
+                flex-direction: column;
             }
         }
     </style>
@@ -169,133 +246,49 @@
 <body>
     <header>
         <h1>📖 منصة تحفيظ القرآن الكريم</h1>
-        <p class="subtitle">تحفيظ بالمحو التدريجي - بسيط وفعّال</p>
+        <p class="subtitle">Quran Memorization Platform - Multilingual</p>
     </header>
 
     <div class="controls">
-        <label for="surah-select">اختر السورة:</label>
-        <select id="surah-select">
-            <option value="1">1 - الفاتحة</option>
-            <option value="2">2 - البقرة</option>
-            <option value="3">3 - آل عمران</option>
-            <option value="4">4 - النساء</option>
-            <option value="5">5 - المائدة</option>
-            <option value="6">6 - الأنعام</option>
-            <option value="7">7 - الأعراف</option>
-            <option value="8">8 - الأنفال</option>
-            <option value="9">9 - التوبة</option>
-            <option value="10">10 - يونس</option>
-            <option value="11">11 - هود</option>
-            <option value="12">12 - يوسف</option>
-            <option value="13">13 - الرعد</option>
-            <option value="14">14 - إبراهيم</option>
-            <option value="15">15 - الحجر</option>
-            <option value="16">16 - النحل</option>
-            <option value="17">17 - الإسراء</option>
-            <option value="18">18 - الكهف</option>
-            <option value="19">19 - مريم</option>
-            <option value="20">20 - طه</option>
-            <option value="21">21 - الأنبياء</option>
-            <option value="22">22 - الحج</option>
-            <option value="23">23 - المؤمنون</option>
-            <option value="24">24 - النور</option>
-            <option value="25">25 - الفرقان</option>
-            <option value="26">26 - الشعراء</option>
-            <option value="27">27 - النمل</option>
-            <option value="28">28 - القصص</option>
-            <option value="29">29 - العنكبوت</option>
-            <option value="30">30 - الروم</option>
-            <option value="31">31 - لقمان</option>
-            <option value="32">32 - السجدة</option>
-            <option value="33">33 - الأحزاب</option>
-            <option value="34">34 - سبأ</option>
-            <option value="35">35 - فاطر</option>
-            <option value="36">36 - يس</option>
-            <option value="37">37 - الصافات</option>
-            <option value="38">38 - ص</option>
-            <option value="39">39 - الزمر</option>
-            <option value="40">40 - غافر</option>
-            <option value="41">41 - فصلت</option>
-            <option value="42">42 - الشورى</option>
-            <option value="43">43 - الزخرف</option>
-            <option value="44">44 - الدخان</option>
-            <option value="45">45 - الجاثية</option>
-            <option value="46">46 - الأحقاف</option>
-            <option value="47">47 - محمد</option>
-            <option value="48">48 - الفتح</option>
-            <option value="49">49 - الحجرات</option>
-            <option value="50">50 - ق</option>
-            <option value="51">51 - الذاريات</option>
-            <option value="52">52 - الطور</option>
-            <option value="53">53 - النجم</option>
-            <option value="54">54 - القمر</option>
-            <option value="55">55 - الرحمن</option>
-            <option value="56">56 - الواقعة</option>
-            <option value="57">57 - الحديد</option>
-            <option value="58">58 - المجادلة</option>
-            <option value="59">59 - الحشر</option>
-            <option value="60">60 - الممتحنة</option>
-            <option value="61">61 - الصف</option>
-            <option value="62">62 - الجمعة</option>
-            <option value="63">63 - المنافقون</option>
-            <option value="64">64 - التغابن</option>
-            <option value="65">65 - الطلاق</option>
-            <option value="66">66 - التحريم</option>
-            <option value="67">67 - الملك</option>
-            <option value="68">68 - القلم</option>
-            <option value="69">69 - الحاقة</option>
-            <option value="70">70 - المعارج</option>
-            <option value="71">71 - نوح</option>
-            <option value="72">72 - الجن</option>
-            <option value="73">73 - المزمل</option>
-            <option value="74">74 - المدثر</option>
-            <option value="75">75 - القيامة</option>
-            <option value="76">76 - الإنسان</option>
-            <option value="77">77 - المرسلات</option>
-            <option value="78">78 - النبأ</option>
-            <option value="79">79 - النازعات</option>
-            <option value="80">80 - عبس</option>
-            <option value="81">81 - التكوير</option>
-            <option value="82">82 - الانفطار</option>
-            <option value="83">83 - المطففين</option>
-            <option value="84">84 - الانشقاق</option>
-            <option value="85">85 - البروج</option>
-            <option value="86">86 - الطارق</option>
-            <option value="87">87 - الأعلى</option>
-            <option value="88">88 - الغاشية</option>
-            <option value="89">89 - الفجر</option>
-            <option value="90">90 - البلد</option>
-            <option value="91">91 - الشمس</option>
-            <option value="92">92 - الليل</option>
-            <option value="93">93 - الضحى</option>
-            <option value="94">94 - الشرح</option>
-            <option value="95">95 - التين</option>
-            <option value="96">96 - العلق</option>
-            <option value="97">97 - القدر</option>
-            <option value="98">98 - البينة</option>
-            <option value="99">99 - الزلزلة</option>
-            <option value="100">100 - العاديات</option>
-            <option value="101">101 - القارعة</option>
-            <option value="102">102 - التكاثر</option>
-            <option value="103">103 - العصر</option>
-            <option value="104">104 - الهمزة</option>
-            <option value="105">105 - الفيل</option>
-            <option value="106">106 - قريش</option>
-            <option value="107">107 - الماعون</option>
-            <option value="108">108 - الكوثر</option>
-            <option value="109">109 - الكافرون</option>
-            <option value="110">110 - النصر</option>
-            <option value="111">111 - المسد</option>
-            <option value="112">112 - الإخلاص</option>
-            <option value="113">113 - الفلق</option>
-            <option value="114">114 - الناس</option>
-        </select>
-        <button id="hide-btn">إخفاء كلمات عشوائية</button>
-        <button id="reveal-btn">إظهار الكل</button>
+        <div class="control-row">
+            <label for="surah-select">اختر السورة / Choose Surah:</label>
+            <select id="surah-select">
+                <option value="1">1 - الفاتحة / Al-Fatiha</option>
+                <option value="2">2 - البقرة / Al-Baqarah</option>
+                <option value="3">3 - آل عمران / Ali 'Imran</option>
+                <option value="4">4 - النساء / An-Nisa</option>
+                <option value="5">5 - المائدة / Al-Ma'idah</option>
+                <option value="18">18 - الكهف / Al-Kahf</option>
+                <option value="36">36 - يس / Ya-Sin</option>
+                <option value="55">55 - الرحمن / Ar-Rahman</option>
+                <option value="67">67 - الملك / Al-Mulk</option>
+                <option value="78">78 - النبأ / An-Naba</option>
+                <option value="112">112 - الإخلاص / Al-Ikhlas</option>
+                <option value="113">113 - الفلق / Al-Falaq</option>
+                <option value="114">114 - الناس / An-Nas</option>
+            </select>
+        </div>
+
+        <div class="control-row">
+            <label>اختر اللغة / Select Language:</label>
+            <div class="language-buttons">
+                <button class="language-btn active" data-lang="ar" data-edition="quran-simple">العربية</button>
+                <button class="language-btn" data-lang="en" data-edition="en.asad">English</button>
+                <button class="language-btn" data-lang="fr" data-edition="fr.hamidullah">Français</button>
+                <button class="language-btn" data-lang="es" data-edition="es.cortes">Español</button>
+                <button class="language-btn" data-lang="de" data-edition="de.bubenheim">Deutsch</button>
+                <button class="language-btn" data-lang="it" data-edition="it.piccardo">Italiano</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <button id="hide-btn">إخفاء كلمات / Hide Words</button>
+            <button id="reveal-btn">إظهار الكل / Show All</button>
+        </div>
     </div>
 
     <div id="quran-container">
-        <div class="loading">جاري تحميل القرآن الكريم...</div>
+        <div class="loading">جاري التحميل... / Loading...</div>
     </div>
 
     <script>
@@ -303,79 +296,124 @@
         const surahSelect = document.getElementById('surah-select');
         const hideBtn = document.getElementById('hide-btn');
         const revealBtn = document.getElementById('reveal-btn');
+        const languageBtns = document.querySelectorAll('.language-btn');
 
-        // جلب السورة من API
-        async function loadSurah(surahNumber) {
+        let currentSurah = 1;
+        let currentLang = 'ar';
+        let currentEdition = 'quran-simple';
+
+        // تحميل السورة مع الترجمة والـ transliteration
+        async function loadSurah(surahNumber, translationEdition) {
             try {
-                quranContainer.innerHTML = '<div class="loading">جاري تحميل السورة...</div>';
+                quranContainer.innerHTML = '<div class="loading">جاري التحميل... / Loading...</div>';
                 
-                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
-                const data = await response.json();
+                // جلب النص العربي
+                const arabicResponse = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
+                const arabicData = await arabicResponse.json();
                 
-                if (data.status === 'OK') {
-                    displaySurah(data.data);
-                } else {
-                    quranContainer.innerHTML = '<div class="loading">حدث خطأ في التحميل.</div>';
+                // جلب الـ transliteration
+                const translitResponse = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.transliteration`);
+                const translitData = await translitResponse.json();
+                
+                // جلب الترجمة
+                let translationData = null;
+                if (translationEdition !== 'quran-simple') {
+                    const translationResponse = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/${translationEdition}`);
+                    translationData = await translationResponse.json();
+                }
+                
+                if (arabicData.status === 'OK') {
+                    displaySurah(arabicData.data, translitData.data, translationData ? translationData.data : null);
                 }
             } catch (error) {
-                quranContainer.innerHTML = '<div class="loading">حدث خطأ في التحميل. يرجى المحاولة مرة أخرى.</div>';
+                quranContainer.innerHTML = '<div class="loading">حدث خطأ / Error occurred</div>';
                 console.error('خطأ:', error);
             }
         }
 
-        // عرض السورة
-        function displaySurah(surah) {
+        // عرض السورة مع كل التفاصيل
+        function displaySurah(arabicSurah, translitSurah, translationSurah) {
             quranContainer.innerHTML = '';
             
             const titleDiv = document.createElement('h2');
             titleDiv.className = 'surah-title';
-            titleDiv.textContent = `${surah.name} - ${surah.englishName}`;
+            titleDiv.textContent = `${arabicSurah.name} - ${arabicSurah.englishName}`;
             quranContainer.appendChild(titleDiv);
 
-            surah.ayahs.forEach((ayah) => {
-                const verseDiv = document.createElement('div');
-                verseDiv.className = 'verse';
+            arabicSurah.ayahs.forEach((ayah, index) => {
+                const verseContainer = document.createElement('div');
+                verseContainer.className = 'verse-container';
                 
                 // رقم الآية
-                const numberSpan = document.createElement('span');
-                numberSpan.className = 'verse-number';
-                numberSpan.textContent = ayah.numberInSurah;
-                verseDiv.appendChild(numberSpan);
-
-                // تقسيم الآية إلى كلمات
+                const numberDiv = document.createElement('div');
+                numberDiv.className = 'verse-number';
+                numberDiv.textContent = `آية / Verse ${ayah.numberInSurah}`;
+                verseContainer.appendChild(numberDiv);
+                
+                // النص العربي (مع ميزة المحو)
+                const arabicDiv = document.createElement('div');
+                arabicDiv.className = 'verse-arabic';
                 const words = ayah.text.split(' ');
                 words.forEach(word => {
                     const wordSpan = document.createElement('span');
                     wordSpan.className = 'word';
                     wordSpan.textContent = word + ' ';
-                    
-                    // عند الضغط على الكلمة
                     wordSpan.addEventListener('click', function() {
                         if (this.classList.contains('hidden')) {
                             this.classList.remove('hidden');
                             this.classList.add('revealed');
                         }
                     });
-                    
-                    verseDiv.appendChild(wordSpan);
+                    arabicDiv.appendChild(wordSpan);
                 });
-
-                quranContainer.appendChild(verseDiv);
+                verseContainer.appendChild(arabicDiv);
+                
+                // Transliteration
+                if (translitSurah && translitSurah.ayahs[index]) {
+                    const translitDiv = document.createElement('div');
+                    translitDiv.className = 'verse-transliteration';
+                    translitDiv.textContent = translitSurah.ayahs[index].text;
+                    verseContainer.appendChild(translitDiv);
+                }
+                
+                // الترجمة
+                if (translationSurah && translationSurah.ayahs[index]) {
+                    const translationDiv = document.createElement('div');
+                    translationDiv.className = 'verse-translation';
+                    translationDiv.textContent = translationSurah.ayahs[index].text;
+                    verseContainer.appendChild(translationDiv);
+                }
+                
+                quranContainer.appendChild(verseContainer);
             });
         }
 
-        // إخفاء كلمات عشوائية
+        // تبديل اللغة
+        languageBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                languageBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentLang = this.dataset.lang;
+                currentEdition = this.dataset.edition;
+                
+                loadSurah(currentSurah, currentEdition);
+            });
+        });
+
+        // تغيير السورة
+        surahSelect.addEventListener('change', function() {
+            currentSurah = this.value;
+            loadSurah(currentSurah, currentEdition);
+        });
+
+        // إخفاء كلمات
         hideBtn.addEventListener('click', () => {
             const words = document.querySelectorAll('.word');
-            words.forEach(word => {
-                word.classList.remove('revealed');
-            });
+            words.forEach(word => word.classList.remove('revealed'));
 
-            // إخفاء 50% من الكلمات عشوائياً
             const wordsArray = Array.from(words);
             const wordsToHide = Math.floor(wordsArray.length * 0.5);
-            
-            // ترتيب عشوائي
             const shuffled = wordsArray.sort(() => Math.random() - 0.5);
             
             for (let i = 0; i < wordsToHide; i++) {
@@ -383,7 +421,7 @@
             }
         });
 
-        // إظهار كل الكلمات
+        // إظهار الكل
         revealBtn.addEventListener('click', () => {
             const words = document.querySelectorAll('.word');
             words.forEach(word => {
@@ -392,15 +430,8 @@
             });
         });
 
-        // تغيير السورة - هذا هو الجزء المهم!
-        surahSelect.addEventListener('change', function() {
-            const selectedSurah = this.value;
-            console.log('تغيير إلى سورة رقم:', selectedSurah);
-            loadSurah(selectedSurah);
-        });
-
-        // تحميل سورة الفاتحة عند بدء الصفحة
-        loadSurah(1);
+        // تحميل سورة الفاتحة عند البداية
+        loadSurah(1, 'quran-simple');
     </script>
 </body>
 </html>
