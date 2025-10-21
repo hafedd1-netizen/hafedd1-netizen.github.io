@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تحفيظ القرآن الكريم مع الصوت</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Traditional Arabic', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            direction: rtl;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h1 { color: #667eea; font-size: 36px; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 18px; }
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child { border-bottom: none; margin-bottom: 0; }
+        .label {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+        }
+        select {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #764ba2;
+            border-color: #764ba2;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .lang-btn { background: white; color: #667eea; }
+        .lang-btn.active { background: #667eea; color: white; }
+        #hide-btn { padding: 14px 45px; font-size: 18px; }
+        #reveal-btn {
+            background: #28a745;
+            border-color: #28a745;
+            padding: 14px 45px;
+            font-size: 18px;
+        }
+        #reveal-btn:hover { background: #218838; border-color: #218838; }
+        .audio-btn {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            padding: 14px 35px;
+            font-size: 18px;
+        }
+        .audio-btn:hover {
+            background: #ff5252;
+            border-color: #ff5252;
+        }
+        .audio-btn.playing {
+            background: #ffd93d;
+            border-color: #ffd93d;
+            color: #333;
+        }
+        .percent-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .percent-row label { font-size: 16px; color: #555; }
+        #hide-percentage {
+            max-width: 280px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #content {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 1100px;
+            margin: 0 auto;
+            min-height: 400px;
+        }
+        .title {
+            text-align: center;
+            color: #667eea;
+            font-size: 34px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        .verse {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            transition: all 0.5s;
+        }
+        .verse:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15); }
+        .verse.playing {
+            background: #fff3cd;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            transform: scale(1.02);
+        }
+        .num {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .arabic {
+            font-size: 30px;
+            line-height: 2.3;
+            margin-bottom: 12px;
+            direction: rtl;
+            text-align: right;
+            color: #1a1a1a;
+        }
+        .translit {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            color: #555;
+            font-style: italic;
+            direction: ltr;
+            text-align: left;
+            font-family: Georgia, serif;
+        }
+        .trans {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #333;
+            padding: 12px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 6px;
+            direction: ltr;
+            text-align: left;
+        }
+        .word {
+            display: inline-block;
+            padding: 4px 7px;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+        .word:hover { background: #fff3cd; }
+        .word.hidden {
+            color: transparent;
+            background: #ddd;
+            user-select: none;
+        }
+        .word.revealed {
+            background: #d4edda !important;
+            color: #155724 !important;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 24px;
+            color: #667eea;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 26px; }
+            .arabic { font-size: 24px; }
+            .translit { font-size: 17px; }
+            .trans { font-size: 17px; }
+            .percent-row { flex-direction: column; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📖 منصة تحفيظ القرآن الكريم مع الصوت</h1>
+        <p class="subtitle">Quran Memorization Platform with Audio</p>
+    </div>
+
+    <div class="controls">
+        <div class="section">
+            <label class="label">اختر السورة / Choose Surah</label>
+            <select id="surah">
+                <option value="1">1 - الفاتحة / Al-Fatihah</option>
+                <option value="2">2 - البقرة / Al-Baqarah</option>
+                <option value="3">3 - آل عمران / Ali 'Imran</option>
+                <option value="18">18 - الكهف / Al-Kahf</option>
+                <option value="36">36 - يس / Ya-Sin</option>
+                <option value="55">55 - الرحمن / Ar-Rahman</option>
+                <option value="67">67 - الملك / Al-Mulk</option>
+                <option value="78">78 - النبأ / An-Naba</option>
+                <option value="112">112 - الإخلاص / Al-Ikhlas</option>
+                <option value="113">113 - الفلق / Al-Falaq</option>
+                <option value="114">114 - الناس / An-Nas</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label class="label">اختر القارئ / Choose Reciter</label>
+            <select id="reciter">
+                <option value="ar.alafasy">مشاري العفاسي / Mishary Alafasy</option>
+                <option value="ar.abdulbasitmurattal">عبدالباسط عبدالصمد / Abdul Basit</option>
+                <option value="ar.abdurrahmaansudais">عبدالرحمن السديس / Abdurrahman As-Sudais</option>
+                <option value="ar.shaatree">أبو بكر الشاطري / Abu Bakr Ash-Shatri</option>
+                <option value="ar.husary">محمود خليل الحصري / Mahmoud Khalil Al-Hussary</option>
+                <option value="ar.minshawi">محمد صديق المنشاوي / Mohamed Siddiq Al-Minshawi</option>
+                <option value="ar.muhammadayyoub">محمد أيوب / Muhammad Ayyub</option>
+                <option value="ar.hani">هاني الرفاعي / Hani Ar-Rifai</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label class="label">التحكم في الصوت / Audio Controls</label>
+            <div class="btn-row">
+                <button id="play-btn" class="audio-btn">▶ تشغيل / Play</button>
+                <button id="pause-btn" class="audio-btn" disabled>⏸ إيقاف مؤقت / Pause</button>
+                <button id="stop-btn" class="audio-btn" disabled>⏹ إيقاف / Stop</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <label class="label">اختر اللغة / Language</label>
+            <div class="btn-row">
+                <button class="lang-btn active" data-ed="ar">العربية</button>
+                <button class="lang-btn" data-ed="en.asad">English</button>
+                <button class="lang-btn" data-ed="fr.hamidullah">Français</button>
+                <button class="lang-btn" data-ed="es.cortes">Español</button>
+                <button class="lang-btn" data-ed="de.bubenheim">Deutsch</button>
+                <button class="lang-btn" data-ed="it.piccardo">Italiano</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <label class="label">المحو التدريجي / Progressive Hiding</label>
+            <div class="percent-row">
+                <label>اختر النسبة:</label>
+                <select id="hide-percentage">
+                    <option value="10">10% - سهل جداً</option>
+                    <option value="20">20% - سهل</option>
+                    <option value="30">30% - متوسط</option>
+                    <option value="40">40% - متوسط+</option>
+                    <option value="50" selected>50% - متوسط++</option>
+                    <option value="60">60% - صعب</option>
+                    <option value="70">70% - صعب+</option>
+                    <option value="80">80% - صعب جداً</option>
+                    <option value="90">90% - خبير</option>
+                    <option value="100">100% - احترافي</option>
+                </select>
+            </div>
+            <div class="btn-row" style="margin-top:15px;">
+                <button id="hide-btn">🎯 إخفاء</button>
+                <button id="reveal-btn">✓ إظهار الكل</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="loading">جاري التحميل...</div>
+    </div>
+
+    <audio id="audio-player" style="display:none;"></audio>
+
+    <script>
+        let curS = 1, curE = 'ar', curR = 'ar.alafasy';
+        let audio = document.getElementById('audio-player');
+        let currentAyahIndex = 0;
+        let totalAyahs = 0;
+        let isPlaying = false;
+
+        async function load(n, e) {
+            const c = document.getElementById('content');
+            c.innerHTML = '<div class="loading">جاري التحميل...</div>';
+            try {
+                const ar = await fetch(`https://api.alquran.cloud/v1/surah/${n}`).then(r => r.json());
+                const tr = await fetch(`https://api.alquran.cloud/v1/surah/${n}/en.transliteration`).then(r => r.json());
+                let trans = null;
+                if (e !== 'ar') trans = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${e}`).then(r => r.json());
+                show(ar.data, tr.data, trans ? trans.data : null);
+                totalAyahs = ar.data.ayahs.length;
+            } catch(err) {
+                c.innerHTML = '<div class="loading">خطأ / Error</div>';
+            }
+        }
+
+        function show(ar, tr, trans) {
+            const c = document.getElementById('content');
+            let h = `<h2 class="title">${ar.name} - ${ar.englishName}</h2>`;
+            ar.ayahs.forEach((a, vi) => {
+                h += `<div class="verse" data-ayah="${vi}">`;
+                h += `<div class="num">آية ${a.numberInSurah}</div>`;
+                h += `<div class="arabic">`;
+                a.text.split(' ').forEach((w, wi) => {
+                    h += `<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;
+                });
+                h += `</div>`;
+                if (tr.ayahs[vi]) {
+                    h += `<div class="translit">`;
+                    tr.ayahs[vi].text.split(' ').forEach((w, wi) => {
+                        h += `<span class="word tw" data-v="${vi}" data-w="${wi}">${w} </span>`;
+                    });
+                    h += `</div>`;
+                }
+                if (trans && trans.ayahs[vi]) {
+                    h += `<div class="trans">${trans.ayahs[vi].text}</div>`;
+                }
+                h += `</div>`;
+            });
+            c.innerHTML = h;
+            
+            document.querySelectorAll('.word').forEach(w => {
+                w.onclick = function() {
+                    if (this.classList.contains('hidden')) {
+                        this.classList.remove('hidden');
+                        this.classList.add('revealed');
+                        const v = this.dataset.v, wi = this.dataset.w;
+                        const pc = this.classList.contains('aw') ? 'tw' : 'aw';
+                        const p = document.querySelector(`.${pc}[data-v="${v}"][data-w="${wi}"]`);
+                        if (p) { p.classList.remove('hidden'); p.classList.add('revealed'); }
+                    }
+                };
+            });
+        }
+
+        function highlightAyah(index) {
+            document.querySelectorAll('.verse').forEach(v => v.classList.remove('playing'));
+            const verse = document.querySelector(`.verse[data-ayah="${index}"]`);
+            if (verse) {
+                verse.classList.add('playing');
+                verse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // إظهار الكلمات المخفية في الآية الحالية
+                const hiddenWords = verse.querySelectorAll('.word.hidden');
+                hiddenWords.forEach(w => {
+                    w.classList.remove('hidden');
+                    w.classList.add('revealed');
+                });
+            }
+        }
+
+        document.getElementById('play-btn').onclick = async function() {
+            if (isPlaying) {
+                audio.play();
+                this.disabled = true;
+                document.getElementById('pause-btn').disabled = false;
+                return;
+            }
+
+            const reciter = document.getElementById('reciter').value;
+            const surah = document.getElementById('surah').value;
+            
+            try {
+                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surah}/${reciter}`);
+                const data = await response.json();
+                
+                currentAyahIndex = 0;
+                playNextAyah(data.data.ayahs);
+                isPlaying = true;
+                this.disabled = true;
+                document.getElementById('pause-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = false;
+            } catch (err) {
+                alert('خطأ في تحميل الصوت');
+            }
+        };
+
+        function playNextAyah(ayahs) {
+            if (currentAyahIndex >= ayahs.length) {
+                stopAudio();
+                return;
+            }
+
+            highlightAyah(currentAyahIndex);
+            audio.src = ayahs[currentAyahIndex].audio;
+            audio.play();
+
+            audio.onended = () => {
+                currentAyahIndex++;
+                playNextAyah(ayahs);
+            };
+        }
+
+        document.getElementById('pause-btn').onclick = function() {
+            audio.pause();
+            this.disabled = true;
+            document.getElementById('play-btn').disabled = false;
+        };
+
+        document.getElementById('stop-btn').onclick = function() {
+            stopAudio();
+        };
+
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0;
+            currentAyahIndex = 0;
+            isPlaying = false;
+            document.querySelectorAll('.verse').forEach(v => v.classList.remove('playing'));
+            document.getElementById('play-btn').disabled = false;
+            document.getElementById('pause-btn').disabled = true;
+            document.getElementById('stop-btn').disabled = true;
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.onclick = function() {
+                document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
+                this.classList.add('active');
+                curE = this.dataset.ed;
+                load(curS, curE);
+            };
+        });
+
+        document.getElementById('surah').onchange = function() {
+            curS = this.value;
+            stopAudio();
+            load(curS, curE);
+        };
+
+        document.getElementById('reciter').onchange = function() {
+            curR = this.value;
+            stopAudio();
+        };
+
+        document.getElementById('hide-btn').onclick = function() {
+            const p = parseInt(document.getElementById('hide-percentage').value);
+            const all = document.querySelectorAll('.word');
+            all.forEach(w => { w.classList.remove('revealed'); w.classList.remove('hidden'); });
+            const aw = Array.from(document.querySelectorAll('.aw'));
+            const hide = Math.floor(aw.length * (p / 100));
+            aw.sort(() => Math.random() - 0.5);
+            for (let i = 0; i < hide; i++) {
+                aw[i].classList.add('hidden');
+                const v = aw[i].dataset.v, wi = aw[i].dataset.w;
+                const tw = document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);
+                if (tw) tw.classList.add('hidden');
+            }
+        };
+
+        document.getElementById('reveal-btn').onclick = function() {
+            document.querySelectorAll('.word').forEach(w => {
+                w.classList.remove('hidden');
+                w.classList.remove('revealed');
+            });
+        };
+
+        load(1, 'ar');
+    </script>
+</body>
+</html>
