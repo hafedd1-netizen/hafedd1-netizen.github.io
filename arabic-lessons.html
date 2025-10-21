@@ -5,355 +5,239 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دروس اللغة العربية</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Traditional Arabic', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    direction: rtl;
-    min-height: 100vh;
-    padding: 15px;
-}
-
-.header {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-h1 {
-    color: #667eea;
-    font-size: 28px;
-    margin-bottom: 5px;
-}
-
-.subtitle {
-    color: #666;
-    font-size: 15px;
-}
-
-.nav {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.nav a {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #667eea;
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 14px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.menu {
-    display: block;
-}
-
-.menu.hidden {
-    display: none;
-}
-
-.lesson-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-}
-
-.lesson-card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.lesson-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
-.lesson-title {
-    color: #667eea;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.lesson-desc {
-    color: #666;
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-.lesson-content {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    display: none;
-}
-
-.lesson-content.active {
-    display: block;
-}
-
-.back-btn {
-    padding: 10px 25px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.back-btn:hover {
-    background: #218838;
-}
-
-.letter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.letter-box {
-    background: #f8f9ff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
-    border: 2px solid #667eea;
-    transition: 0.3s;
-}
-
-.letter-box:hover {
-    background: #667eea;
-    color: white;
-    transform: scale(1.05);
-}
-
-.letter-box.speaking {
-    background: #ffd93d;
-    transform: scale(1.1);
-}
-
-.letter-ar {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.letter-name {
-    font-size: 14px;
-    color: #666;
-}
-
-.letter-box:hover .letter-name {
-    color: white;
-}
-
-.info-box {
-    background: #e7f3ff;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
-    border-left: 4px solid #667eea;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
+.header{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
+h1{color:#667eea;font-size:28px;margin-bottom:5px}
+.subtitle{color:#666;font-size:15px}
+.nav{background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
+.nav a{display:inline-block;padding:10px 20px;background:#667eea;color:white;text-decoration:none;border-radius:20px;font-size:14px;transition:0.3s}
+.nav a:hover{background:#764ba2}
+.container{max-width:1200px;margin:0 auto}
+.menu{display:block}
+.menu.hidden{display:none}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px}
+.lesson-card{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);cursor:pointer;transition:0.3s}
+.lesson-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+.lesson-title{color:#667eea;font-size:22px;font-weight:bold;margin-bottom:10px}
+.lesson-desc{color:#666;font-size:15px;line-height:1.6}
+.lesson-content{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:none}
+.lesson-content.active{display:block}
+.back-btn{padding:10px 25px;background:#28a745;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;margin-bottom:20px}
+.back-btn:hover{background:#218838}
+.video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:20px 0}
+.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:15px;margin:20px 0}
+.letter-box{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;border:2px solid #667eea}
+.letter-ar{font-size:40px;font-weight:bold;margin-bottom:8px}
+.letter-name{font-size:14px;color:#666}
+.info-box{background:#e7f3ff;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #667eea}
+.word-card{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;border:2px solid #667eea;margin-bottom:15px}
 </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>📚 دروس اللغة العربية للمبتدئين</h1>
-    <p class="subtitle">Arabic Lessons for Beginners</p>
+<h1>📚 دروس اللغة العربية للمبتدئين</h1>
+<p class="subtitle">Arabic Lessons for Beginners</p>
 </div>
 
 <div class="nav">
-    <a href="index.html">← العودة للمنصة الرئيسية</a>
+<a href="index.html">← العودة للمنصة الرئيسية</a>
 </div>
 
 <div class="container">
-    <!-- القائمة الرئيسية -->
-    <div id="mainMenu" class="menu">
-        <div class="lesson-grid">
-            <div class="lesson-card" onclick="openLesson(1)">
-                <div class="lesson-title">1️⃣ الحروف العربية</div>
-                <div class="lesson-desc">28 حرفاً مع النطق الصوتي</div>
-            </div>
-            <div class="lesson-card" onclick="openLesson(2)">
-                <div class="lesson-title">2️⃣ الحركات</div>
-                <div class="lesson-desc">فتحة، ضمة، كسرة، سكون</div>
-            </div>
-            <div class="lesson-card" onclick="openLesson(3)">
-                <div class="lesson-title">3️⃣ كلمات بسيطة</div>
-                <div class="lesson-desc">كلمات من القرآن</div>
-            </div>
-            <div class="lesson-card" onclick="openLesson(4)">
-                <div class="lesson-title">4️⃣ تمارين القراءة</div>
-                <div class="lesson-desc">آيات من الفاتحة</div>
-            </div>
-        </div>
-    </div>
+<div id="mainMenu" class="menu">
+<div class="lesson-grid">
+<div class="lesson-card" onclick="openLesson(1)">
+<div class="lesson-title">1️⃣ الحروف العربية</div>
+<div class="lesson-desc">28 حرفاً مع فيديو تعليمي بنطق عربي أصيل</div>
+</div>
+<div class="lesson-card" onclick="openLesson(2)">
+<div class="lesson-title">2️⃣ الحركات</div>
+<div class="lesson-desc">فتحة، ضمة، كسرة، سكون، تنوين، شدة</div>
+</div>
+<div class="lesson-card" onclick="openLesson(3)">
+<div class="lesson-title">3️⃣ كلمات بسيطة</div>
+<div class="lesson-desc">كلمات من القرآن الكريم</div>
+</div>
+<div class="lesson-card" onclick="openLesson(4)">
+<div class="lesson-title">4️⃣ تمارين القراءة</div>
+<div class="lesson-desc">آيات من سورة الفاتحة</div>
+</div>
+</div>
+</div>
 
-    <!-- الدرس 1: الحروف -->
-    <div id="lesson1" class="lesson-content">
-        <button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-        <h2 style="color:#667eea; margin-bottom:20px">الحروف العربية</h2>
-        <div class="info-box">
-            <strong>🔊 اضغط على أي حرف لسماع نطقه</strong>
-        </div>
-        <div class="letter-grid" id="lettersGrid"></div>
-    </div>
+<div id="lesson1" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
+<h2 style="color:#667eea;margin-bottom:20px">الحروف العربية - Arabic Alphabet</h2>
 
-    <!-- الدرس 2: الحركات -->
-    <div id="lesson2" class="lesson-content">
-        <button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-        <h2 style="color:#667eea; margin-bottom:20px">الحركات (التشكيل)</h2>
-        <div class="info-box">
-            <strong>🔊 اضغط على الحركة لسماع نطقها</strong>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin:20px 0">
-            <div class="letter-box" onclick="speakText('بَ')">
-                <div class="letter-ar">بَ</div>
-                <div class="letter-name">فتحة - Fatha</div>
-            </div>
-            <div class="letter-box" onclick="speakText('بُ')">
-                <div class="letter-ar">بُ</div>
-                <div class="letter-name">ضمة - Damma</div>
-            </div>
-            <div class="letter-box" onclick="speakText('بِ')">
-                <div class="letter-ar">بِ</div>
-                <div class="letter-name">كسرة - Kasra</div>
-            </div>
-            <div class="letter-box" onclick="speakText('بْ')">
-                <div class="letter-ar">بْ</div>
-                <div class="letter-name">سكون - Sukun</div>
-            </div>
-        </div>
-    </div>
+<div class="info-box">
+<strong>🎥 شاهد الفيديو التعليمي بنطق عربي أصيل:</strong>
+</div>
 
-    <!-- الدرس 3: الكلمات -->
-    <div id="lesson3" class="lesson-content">
-        <button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-        <h2 style="color:#667eea; margin-bottom:20px">كلمات من سورة الفاتحة</h2>
-        <div class="info-box">
-            <strong>🔊 اضغط على الكلمة لسماع نطقها</strong>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:15px; margin:20px 0">
-            <div class="letter-box" style="flex:1; min-width:200px" onclick="speakText('بسم الله')">
-                <div class="letter-ar" style="font-size:32px">بِسْمِ اللَّهِ</div>
-                <div class="letter-name">Bismillah</div>
-            </div>
-            <div class="letter-box" style="flex:1; min-width:200px" onclick="speakText('الرحمن الرحيم')">
-                <div class="letter-ar" style="font-size:32px">الرَّحْمَٰنِ الرَّحِيمِ</div>
-                <div class="letter-name">Ar-Rahman Ar-Raheem</div>
-            </div>
-            <div class="letter-box" style="flex:1; min-width:200px" onclick="speakText('الحمد لله')">
-                <div class="letter-ar" style="font-size:32px">الْحَمْدُ لِلَّهِ</div>
-                <div class="letter-name">Alhamdulillah</div>
-            </div>
-        </div>
-    </div>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" allowfullscreen></iframe>
+</div>
 
-    <!-- الدرس 4: التمارين -->
-    <div id="lesson4" class="lesson-content">
-        <button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-        <h2 style="color:#667eea; margin-bottom:20px">تمارين القراءة</h2>
-        <div class="info-box">
-            <strong>📖 اضغط على الآية لسماع قراءتها</strong>
-        </div>
-        <div style="margin:20px 0">
-            <div class="letter-box" style="padding:25px; margin-bottom:20px" onclick="speakText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ')">
-                <div style="font-size:32px; line-height:2; margin-bottom:10px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-                <div class="letter-name">Bismillahi ar-Rahmani ar-Raheem</div>
-            </div>
-            <div class="letter-box" style="padding:25px" onclick="speakText('الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ')">
-                <div style="font-size:32px; line-height:2; margin-bottom:10px">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div>
-                <div class="letter-name">Alhamdu lillahi Rabbi al-Alameen</div>
-            </div>
-        </div>
-    </div>
+<h3 style="color:#667eea;margin:30px 0 15px">الحروف العربية الـ28:</h3>
+<div class="letter-grid" id="lettersGrid"></div>
+
+<div class="info-box" style="margin-top:20px">
+<strong>📺 فيديوهات إضافية مفيدة:</strong><br>
+<a href="https://www.youtube.com/watch?v=fJ9_79bg5H4" target="_blank" style="color:#667eea">• فيديو 2: استماع وتكرار</a><br>
+<a href="https://www.youtube.com/results?search_query=arabic+alphabet+pronunciation" target="_blank" style="color:#667eea">• المزيد من الفيديوهات التعليمية</a>
+</div>
+</div>
+
+<div id="lesson2" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
+<h2 style="color:#667eea;margin-bottom:20px">الحركات (التشكيل)</h2>
+
+<div class="info-box">
+<strong>📖 الحركات هي أساس القراءة الصحيحة في اللغة العربية</strong>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin:20px 0">
+<div class="word-card">
+<div class="letter-ar">بَ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">فتحة - Fatha</div>
+<div style="margin-top:10px;color:#666">النطق: "a" مثل bat</div>
+<div style="margin-top:5px;font-size:16px">مثال: كَتَبَ</div>
+</div>
+<div class="word-card">
+<div class="letter-ar">بُ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">ضمة - Damma</div>
+<div style="margin-top:10px;color:#666">النطق: "u" مثل put</div>
+<div style="margin-top:5px;font-size:16px">مثال: كُتُب</div>
+</div>
+<div class="word-card">
+<div class="letter-ar">بِ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">كسرة - Kasra</div>
+<div style="margin-top:10px;color:#666">النطق: "i" مثل sit</div>
+<div style="margin-top:5px;font-size:16px">مثال: كِتَاب</div>
+</div>
+<div class="word-card">
+<div class="letter-ar">بْ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">سكون - Sukun</div>
+<div style="margin-top:10px;color:#666">بدون حركة - صامت</div>
+<div style="margin-top:5px;font-size:16px">مثال: مَكْتَب</div>
+</div>
+<div class="word-card">
+<div class="letter-ar">بً بٌ بٍ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">تنوين - Tanween</div>
+<div style="margin-top:10px;color:#666">حركة مضاعفة + n</div>
+<div style="margin-top:5px;font-size:16px">مثال: كِتَابًا</div>
+</div>
+<div class="word-card">
+<div class="letter-ar">بّ</div>
+<div class="letter-name" style="color:#667eea;font-weight:bold">شدة - Shadda</div>
+<div style="margin-top:10px;color:#666">تضعيف الحرف</div>
+<div style="margin-top:5px;font-size:16px">مثال: مُعَلِّم</div>
+</div>
+</div>
+</div>
+
+<div id="lesson3" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
+<h2 style="color:#667eea;margin-bottom:20px">كلمات من سورة الفاتحة</h2>
+
+<div class="info-box">
+<strong>📖 هذه كلمات أساسية من سورة الفاتحة - أول سورة في القرآن</strong>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:20px 0">
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">بِسْمِ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Bismi</div>
+<div style="color:#667eea;font-weight:bold">باسم - In the name</div>
+</div>
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">اللَّهِ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Allah</div>
+<div style="color:#667eea;font-weight:bold">الله - God</div>
+</div>
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">الرَّحْمَٰنِ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Ar-Rahman</div>
+<div style="color:#667eea;font-weight:bold">الرحمن - The Gracious</div>
+</div>
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">الرَّحِيمِ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Ar-Raheem</div>
+<div style="color:#667eea;font-weight:bold">الرحيم - The Merciful</div>
+</div>
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">الْحَمْدُ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Alhamdu</div>
+<div style="color:#667eea;font-weight:bold">الحمد - All praise</div>
+</div>
+<div class="word-card">
+<div style="font-size:32px;font-weight:bold;margin-bottom:10px">لِلَّهِ</div>
+<div style="color:#666;font-style:italic;margin-bottom:5px">Lillahi</div>
+<div style="color:#667eea;font-weight:bold">لله - To Allah</div>
+</div>
+</div>
+</div>
+
+<div id="lesson4" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
+<h2 style="color:#667eea;margin-bottom:20px">تمارين القراءة - سورة الفاتحة</h2>
+
+<div class="info-box">
+<strong>🎥 شاهد تلاوة سورة الفاتحة كاملة:</strong>
+</div>
+
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/lVgK8htpNDI" allowfullscreen></iframe>
+</div>
+
+<h3 style="color:#667eea;margin:30px 0 15px">الآيات للتدريب:</h3>
+
+<div class="word-card" style="padding:25px">
+<div style="font-size:32px;line-height:2;margin-bottom:15px;text-align:center">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+<div style="text-align:center;color:#666;font-style:italic;margin-bottom:10px">Bismillahi ar-Rahmani ar-Raheem</div>
+<div style="text-align:center;color:#667eea">In the name of Allah, the Most Gracious, the Most Merciful</div>
+</div>
+
+<div class="word-card" style="padding:25px">
+<div style="font-size:32px;line-height:2;margin-bottom:15px;text-align:center">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div>
+<div style="text-align:center;color:#666;font-style:italic;margin-bottom:10px">Alhamdu lillahi Rabbi al-Alameen</div>
+<div style="text-align:center;color:#667eea">All praise to Allah, Lord of the worlds</div>
+</div>
+
+<div class="word-card" style="padding:25px">
+<div style="font-size:32px;line-height:2;margin-bottom:15px;text-align:center">الرَّحْمَٰنِ الرَّحِيمِ</div>
+<div style="text-align:center;color:#666;font-style:italic;margin-bottom:10px">Ar-Rahmani ar-Raheem</div>
+<div style="text-align:center;color:#667eea">The Most Gracious, the Most Merciful</div>
+</div>
+</div>
 </div>
 
 <script>
-const letters = [
-    'ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص',
-    'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'
-];
+const letters=['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي'];
+const letterNames=['Alif','Baa','Taa','Thaa','Jeem','Haa','Khaa','Dal','Dhal','Raa','Zay','Seen','Sheen','Sad','Dad','Taa','Dhaa','Ayn','Ghayn','Faa','Qaf','Kaf','Lam','Meem','Noon','Haa','Waw','Yaa'];
 
-const letterNames = [
-    'Alif', 'Baa', 'Taa', 'Thaa', 'Jeem', 'Haa', 'Khaa', 'Dal', 'Dhal', 
-    'Raa', 'Zay', 'Seen', 'Sheen', 'Sad', 'Dad', 'Taa', 'Dhaa', 'Ayn', 
-    'Ghayn', 'Faa', 'Qaf', 'Kaf', 'Lam', 'Meem', 'Noon', 'Haa', 'Waw', 'Yaa'
-];
-
-function openLesson(num) {
-    document.getElementById('mainMenu').classList.add('hidden');
-    document.getElementById('lesson' + num).classList.add('active');
-    
-    if (num === 1) {
-        loadLetters();
-    }
+function openLesson(num){
+document.getElementById('mainMenu').classList.add('hidden');
+document.getElementById('lesson'+num).classList.add('active');
+if(num===1)loadLetters();
 }
 
-function goBack() {
-    document.querySelectorAll('.lesson-content').forEach(el => {
-        el.classList.remove('active');
-    });
-    document.getElementById('mainMenu').classList.remove('hidden');
+function goBack(){
+document.querySelectorAll('.lesson-content').forEach(el=>el.classList.remove('active'));
+document.getElementById('mainMenu').classList.remove('hidden');
 }
 
-function loadLetters() {
-    const grid = document.getElementById('lettersGrid');
-    grid.innerHTML = '';
-    
-    letters.forEach((letter, index) => {
-        const box = document.createElement('div');
-        box.className = 'letter-box';
-        box.innerHTML = `
-            <div class="letter-ar">${letter}</div>
-            <div class="letter-name">${letterNames[index]}</div>
-        `;
-        box.onclick = function() {
-            speakText(letter);
-            this.classList.add('speaking');
-            setTimeout(() => this.classList.remove('speaking'), 1000);
-        };
-        grid.appendChild(box);
-    });
-}
-
-function speakText(text) {
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ar-SA';
-    utterance.rate = 0.7;
-    
-    synth.speak(utterance);
+function loadLetters(){
+const grid=document.getElementById('lettersGrid');
+grid.innerHTML='';
+letters.forEach((letter,index)=>{
+const box=document.createElement('div');
+box.className='letter-box';
+box.innerHTML=`<div class="letter-ar">${letter}</div><div class="letter-name">${letterNames[index]}</div>`;
+grid.appendChild(box);
+});
 }
 </script>
 
