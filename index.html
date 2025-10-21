@@ -120,23 +120,43 @@
             color: white;
         }
 
-        .hide-level-btn {
-            min-width: 70px;
-            padding: 10px 18px;
+        #hide-btn {
+            background: #667eea;
+            padding: 14px 45px;
             font-size: 18px;
-            font-weight: bold;
         }
 
         #reveal-btn {
             background: #28a745;
             border-color: #28a745;
-            padding: 12px 40px;
+            padding: 14px 45px;
             font-size: 18px;
         }
 
         #reveal-btn:hover {
             background: #218838;
             border-color: #218838;
+        }
+
+        .percentage-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .percentage-selector label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #hide-percentage {
+            max-width: 280px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         #content {
@@ -244,24 +264,17 @@
             color: #667eea;
         }
 
-        .difficulty-info {
-            text-align: center;
-            padding: 10px;
-            margin: 10px 0;
-            background: #e7f3ff;
-            border-radius: 8px;
-            color: #004085;
-            font-size: 16px;
-        }
-
         @media (max-width: 768px) {
             h1 { font-size: 26px; }
             .verse-arabic { font-size: 24px; }
             .verse-translit { font-size: 17px; }
             .verse-trans { font-size: 17px; }
-            .buttons-row { flex-direction: column; }
-            button { width: 100%; }
-            .hide-level-btn { width: auto; min-width: 60px; }
+            .percentage-selector {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -305,4 +318,12 @@
                 <option value="28">28 - القصص / Al-Qasas</option>
                 <option value="29">29 - العنكبوت / Al-'Ankabut</option>
                 <option value="30">30 - الروم / Ar-Rum</option>
-                <option value="31">31 - ل
+                <option value="31">31 - لقمان / Luqman</option>
+                <option value="32">32 - السجدة / As-Sajdah</option>
+                <option value="33">33 - الأحزاب / Al-Ahzab</option>
+                <option value="34">34 - سبأ / Saba</option>
+                <option value="35">35 - فاطر / Fatir</option>
+                <option value="36">36 - يس / Ya-Sin</option>
+                <option value="37">37 - الصافات / As-Saffat</option>
+                <option value="38">38 - ص / Sad</option>
+                <option
