@@ -152,4 +152,124 @@ const letters=[
 {ar:'ي',name:'ياء - Yaa'}
 ];
 
-const harakat=
+const harakat=[
+{ar:'بَ',name:'فتحة - Fatha',sound:'بَ',desc:'مثل: كَتَبَ'},
+{ar:'بُ',name:'ضمة - Damma',sound:'بُ',desc:'مثل: كُتُب'},
+{ar:'بِ',name:'كسرة - Kasra',sound:'بِ',desc:'مثل: كِتَاب'},
+{ar:'بْ',name:'سكون - Sukun',sound:'بْ',desc:'مثل: مَكْتَب'},
+{ar:'بًا',name:'تنوين فتح',sound:'بًا',desc:'مثل: كِتَابًا'},
+{ar:'بّ',name:'شدة - Shadda',sound:'بّ',desc:'مثل: مُعَلِّم'}
+];
+
+const words=[
+{ar:'بِسْمِ',translit:'Bismi',meaning:'باسم - In the name'},
+{ar:'اللَّهِ',translit:'Allah',meaning:'الله - God'},
+{ar:'الرَّحْمَٰنِ',translit:'Ar-Rahman',meaning:'الرحمن - The Gracious'},
+{ar:'الرَّحِيمِ',translit:'Ar-Raheem',meaning:'الرحيم - The Merciful'},
+{ar:'الْحَمْدُ',translit:'Alhamdu',meaning:'الحمد - All praise'},
+{ar:'لِلَّهِ',translit:'Lillahi',meaning:'لله - To Allah'},
+{ar:'رَبِّ',translit:'Rabbi',meaning:'رب - Lord'},
+{ar:'الْعَالَمِينَ',translit:'Al-Alameen',meaning:'العالمين - Worlds'}
+];
+
+const verses=[
+{ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',translit:'Bismillahi ar-Rahmani ar-Raheem',meaning:'In the name of Allah, the Most Gracious, the Most Merciful'},
+{ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',translit:'Alhamdu lillahi Rabbi al-Alameen',meaning:'All praise to Allah, Lord of the worlds'},
+{ar:'الرَّحْمَٰنِ الرَّحِيمِ',translit:'Ar-Rahmani ar-Raheem',meaning:'The Most Gracious, the Most Merciful'},
+{ar:'مَالِكِ يَوْمِ الدِّينِ',translit:'Maliki yawmi ad-Deen',meaning:'Master of the Day of Judgment'}
+];
+
+function speak(text,element){
+if(element){
+document.querySelectorAll('.speaking').forEach(e=>e.classList.remove('speaking'));
+element.classList.add('speaking');
+}
+responsiveVoice.speak(text,"Arabic Male",{
+rate:0.8,
+onend:function(){
+if(element)element.classList.remove('speaking');
+}
+});
+}
+
+function showLesson(id){
+document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+document.getElementById('lesson-menu').style.display='none';
+document.getElementById('lesson-'+id).classList.add('active');
+if(id==='letters')loadLetters();
+if(id==='harakat')loadHarakat();
+if(id==='words')loadWords();
+if(id==='practice')loadPractice();
+}
+
+function backToMenu(){
+responsiveVoice.cancel();
+document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+document.getElementById('lesson-menu').style.display='block';
+}
+
+function loadLetters(){
+const container=document.getElementById('letters-container');
+container.innerHTML='';
+letters.forEach(l=>{
+const box=document.createElement('div');
+box.className='letter-box';
+box.innerHTML=`
+<div class="letter-ar">${l.ar}</div>
+<div class="letter-name">${l.name}</div>
+`;
+box.onclick=function(){speak(l.ar,this);};
+container.appendChild(box);
+});
+}
+
+function loadHarakat(){
+const container=document.getElementById('harakat-container');
+container.innerHTML='';
+harakat.forEach(h=>{
+const box=document.createElement('div');
+box.className='haraka-box';
+box.innerHTML=`
+<div class="haraka-example">${h.ar}</div>
+<div class="haraka-name">${h.name}</div>
+<div class="haraka-sound">${h.desc}</div>
+`;
+box.onclick=function(){speak(h.sound,this);};
+container.appendChild(box);
+});
+}
+
+function loadWords(){
+const container=document.getElementById('words-container');
+container.innerHTML='';
+words.forEach(w=>{
+const card=document.createElement('div');
+card.className='word-card';
+card.innerHTML=`
+<div class="word-ar">${w.ar}</div>
+<div class="word-translit">${w.translit}</div>
+<div class="word-meaning">${w.meaning}</div>
+`;
+card.onclick=function(){speak(w.ar,this);};
+container.appendChild(card);
+});
+}
+
+function loadPractice(){
+const container=document.getElementById('practice-container');
+container.innerHTML='';
+verses.forEach(v=>{
+const box=document.createElement('div');
+box.className='verse-box';
+box.innerHTML=`
+<div style="font-size:32px;line-height:2;text-align:center;margin-bottom:15px">${v.ar}</div>
+<div style="font-size:16px;color:#666;text-align:center;font-style:italic;margin-bottom:10px">${v.translit}</div>
+<div style="font-size:15px;color:#667eea;text-align:center">${v.meaning}</div>
+`;
+box.onclick=function(){speak(v.ar,this);};
+container.appendChild(box);
+});
+}
+</script>
+</body>
+</html>
