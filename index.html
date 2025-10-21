@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تحفيظ القرآن</title>
+    <title>منصة تحفيظ القرآن الكريم</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -254,14 +254,14 @@
 <body>
     <div class="header">
         <h1>📖 منصة تحفيظ القرآن الكريم</h1>
-        <p class="subtitle">Quran Memorization Platform</p>
+        <p class="subtitle">Quran Memorization Platform with Audio</p>
     </div>
 
     <div class="main-container">
         <div class="controls-sidebar">
             <div class="controls">
                 <div class="section">
-                    <label class="label">السورة</label>
+                    <label class="label">السورة / Surah</label>
                     <select id="surah">
                         <option value="1">1 - الفاتحة</option>
                         <option value="2">2 - البقرة</option>
@@ -272,97 +272,3 @@
                         <option value="7">7 - الأعراف</option>
                         <option value="8">8 - الأنفال</option>
                         <option value="9">9 - التوبة</option>
-                        <option value="10">10 - يونس</option>
-                        <option value="18">18 - الكهف</option>
-                        <option value="36">36 - يس</option>
-                        <option value="55">55 - الرحمن</option>
-                        <option value="67">67 - الملك</option>
-                        <option value="78">78 - النبأ</option>
-                        <option value="112">112 - الإخلاص</option>
-                        <option value="113">113 - الفلق</option>
-                        <option value="114">114 - الناس</option>
-                    </select>
-                </div>
-
-                <div class="section">
-                    <label class="label">القارئ</label>
-                    <select id="reciter">
-                        <option value="ar.alafasy">مشاري العفاسي</option>
-                        <option value="ar.abdulbasitmurattal">عبدالباسط</option>
-                        <option value="ar.abdurrahmaansudais">السديس</option>
-                        <option value="ar.shaatree">الشاطري</option>
-                        <option value="ar.husary">الحصري</option>
-                        <option value="ar.minshawi">المنشاوي</option>
-                    </select>
-                </div>
-
-                <div class="section">
-                    <label class="label">اللغة</label>
-                    <div class="btn-row">
-                        <button class="lang-btn active" data-ed="ar">ع</button>
-                        <button class="lang-btn" data-ed="en.asad">EN</button>
-                        <button class="lang-btn" data-ed="fr.hamidullah">FR</button>
-                        <button class="lang-btn" data-ed="es.cortes">ES</button>
-                        <button class="lang-btn" data-ed="de.bubenheim">DE</button>
-                        <button class="lang-btn" data-ed="it.piccardo">IT</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <label class="label">النسبة</label>
-                    <select id="hide-percentage">
-                        <option value="10">10%</option>
-                        <option value="20">20%</option>
-                        <option value="30">30%</option>
-                        <option value="40">40%</option>
-                        <option value="50" selected>50%</option>
-                        <option value="60">60%</option>
-                        <option value="70">70%</option>
-                        <option value="80">80%</option>
-                        <option value="90">90%</option>
-                        <option value="100">100%</option>
-                    </select>
-                </div>
-
-                <div class="section">
-                    <div class="btn-row">
-                        <button id="hide-btn">🎯 إخفاء</button>
-                        <button id="reveal-btn">✓ إظهار</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="content">
-            <div class="loading">جاري التحميل...</div>
-        </div>
-    </div>
-
-    <audio id="audio-player" style="display:none;"></audio>
-
-    <script>
-        let curS = 1, curE = 'ar', curR = 'ar.alafasy';
-        let audio = document.getElementById('audio-player');
-        let audioData = null;
-
-        async function load(n, e) {
-            const c = document.getElementById('content');
-            c.innerHTML = '<div class="loading">جاري التحميل...</div>';
-            try {
-                const ar = await fetch(`https://api.alquran.cloud/v1/surah/${n}`).then(r => r.json());
-                const tr = await fetch(`https://api.alquran.cloud/v1/surah/${n}/en.transliteration`).then(r => r.json());
-                const reciter = document.getElementById('reciter').value;
-                const audioRes = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${reciter}`).then(r => r.json());
-                audioData = audioRes.data.ayahs;
-                
-                let trans = null;
-                if (e !== 'ar') trans = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${e}`).then(r => r.json());
-                show(ar.data, tr.data, trans ? trans.data : null);
-            } catch(err) {
-                c.innerHTML = '<div class="loading">خطأ / Error</div>';
-            }
-        }
-
-        function show(ar, tr, trans) {
-            const c = document.getElementById('content');
-            let
