@@ -3,127 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تحفيظ القرآن</title>
+    <title>منصة تحفيظ القرآن الكريم - Quran Memorization Platform</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 20px;
+            font-family: 'Traditional Arabic', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             direction: rtl;
             min-height: 100vh;
-            margin: 0;
+            padding: 20px;
         }
-        .container {
+
+        .header {
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            text-align: center;
         }
+
         h1 {
             color: #667eea;
-            text-align: center;
             font-size: 36px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
-        .buttons {
-            text-align: center;
-            margin: 30px 0;
-        }
-        button {
-            padding: 15px 30px;
-            margin: 10px;
+
+        .subtitle {
+            color: #666;
             font-size: 18px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
+        }
+
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .control-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .control-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 18px;
+            color: #667eea;
             font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
         }
-        button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-        }
+
         select {
             padding: 12px 20px;
             font-size: 16px;
             border: 2px solid #667eea;
             border-radius: 25px;
-            margin: 10px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
         }
+
+        .buttons-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #764ba2;
+            border-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .lang-btn {
+            background: white;
+            color: #667eea;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
         #content {
-            margin-top: 30px;
-            font-size: 20px;
-            line-height: 1.8;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 1100px;
+            margin: 0 auto;
+            min-height: 400px;
         }
-        .success {
-            background: #d4edda;
-            color: #155724;
-            padding: 20px;
-            border-radius: 10px;
+
+        .surah-title {
             text-align: center;
-            font-size: 20px;
-            margin: 20px 0;
+            color: #667eea;
+            font-size: 34px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .verse-box {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .verse-box:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .verse-num {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .verse-arabic {
+            font-size: 30px;
+            line-height: 2.3;
+            margin-bottom: 12px;
+            direction: rtl;
+            text-align: right;
+            color: #1a1a1a;
+        }
+
+        .verse-translit {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            color: #555;
+            font-style: italic;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Georgia', serif;
+        }
+
+        .verse-trans {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #333;
+            padding: 12px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 6px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .word {
+            display: inline-block;
+            padding: 4px 7px;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .word:hover {
+            background: #fff3cd;
+        }
+
+        .word.hidden {
+            color: transparent;
+            background: #ddd;
+            user-select: none;
+        }
+
+        .word.revealed {
+            background: #d4edda !important;
+            color: #155724 !important;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 26px; }
+            .verse-arabic { font-size: 24px; }
+            .verse-translit { font-size: 17px; }
+            .verse-trans { font-size: 17px; }
+            .buttons-row { flex-direction: column; }
+            button { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="header">
         <h1>📖 منصة تحفيظ القرآن الكريم</h1>
-        
-        <div class="success">
-            ✅ الموقع يعمل بنجاح!<br>
-            The website is working successfully!
-        </div>
+        <p class="subtitle">Quran Memorization Platform - Learn with Progressive Hiding Method</p>
+    </div>
 
-        <div class="buttons">
-            <button onclick="testButton()">اختبر الأزرار / Test Buttons</button>
-            <button onclick="loadQuran()">تحميل القرآن / Load Quran</button>
-        </div>
-
-        <div style="text-align: center; margin: 20px 0;">
+    <div class="controls">
+        <div class="control-section">
+            <label class="control-label">اختر السورة / Choose Surah</label>
             <select id="surah-select">
-                <option value="1">1 - الفاتحة</option>
-                <option value="112">112 - الإخلاص</option>
-                <option value="113">113 - الفلق</option>
-                <option value="114">114 - الناس</option>
+                <option value="1">1 - الفاتحة / Al-Fatihah</option>
+                <option value="2">2 - البقرة / Al-Baqarah</option>
+                <option value="3">3 - آل عمران / Ali 'Imran</option>
+                <option value="4">4 - النساء / An-Nisa</option>
+                <option value="5">5 - المائدة / Al-Ma'idah</option>
+                <option value="6">6 - الأنعام / Al-An'am</option>
+                <option value="7">7 - الأعراف / Al-A'raf</option>
+                <option value="8">8 - الأنفال / Al-Anfal</option>
+                <option value="9">9 - التوبة / At-Tawbah</option>
+                <option value="10">10 - يونس / Yunus</option>
+                <option value="11">11 - هود / Hud</option>
+                <option value="12">12 - يوسف / Yusuf</option>
+                <option value="13">13 - الرعد / Ar-Ra'd</option>
+                <option value="14">14 - إبراهيم / Ibrahim</option>
+                <option value="15">15 - الحجر / Al-Hijr</option>
+                <option value="16">16 - النحل / An-Nahl</option>
+                <option value="17">17 - الإسراء / Al-Isra</option>
+                <option value="18">18 - الكهف / Al-Kahf</option>
+                <option value="19">19 - مريم / Maryam</option>
+                <option value="20">20 - طه / Taha</option>
+                <option value="21">21 - الأنبياء / Al-Anbiya</option>
+                <option value="22">22 - الحج / Al-Hajj</option>
+                <option value="23">23 - المؤمنون / Al-Mu'minun</option>
+                <option value="24">24 - النور / An-Nur</option>
+                <option value="25">25 - الفرقان / Al-Furqan</option>
+                <option value="26">26 - الشعراء / Ash-Shu'ara</option>
+                <option value="27">27 - النمل / An-Naml</option>
+                <option value="28">28 - القصص / Al-Qasas</option>
+                <option value="29">29 - العنكبوت / Al-'Ankabut</option>
+                <option value="30">30 - الروم / Ar-Rum</option>
+                <option value="31">31 - لقمان / Luqman</option>
+                <option value="32">32 - السجدة / As-Sajdah</option>
+                <option value="33">33 - الأحزاب / Al-Ahzab</option>
+                <option value="34">34 - سبأ / Saba</option>
+                <option value="35">35 - فاطر / Fatir</option>
+                <option value="36">36 - يس / Ya-Sin</option>
+                <option value="37">37 - الصافات / As-Saffat</option>
+                <option value="38">38 - ص / Sad</option>
+                <option value="39">39 - الزمر / Az-Zumar</option>
+                <option value="40">40 - غافر / Ghafir</option>
+                <option value="41">41 - فصلت / Fussilat</option>
+                <option value="42">42 - الشورى / Ash-Shuraa</option>
+                <option value="43">43 - الزخرف / Az-Zukhruf</option>
+                <option value="44">44 - الدخان / Ad-Dukhan</option>
+                <option value="45">45 - الجاثية / Al-Jathiyah</option>
+                <option value="46">46 - الأحقاف / Al-Ahqaf</option>
+                <option value="47">47 - محمد / Muhammad</option>
+                <option value="48">48 - الفتح / Al-Fath</option>
+                <option value="49">49 - الحجرات / Al-Hujurat</option>
+                <option value="50">50 - ق / Qaf</option>
+                <option value="51">51 - الذاريات / Adh-Dhariyat</option>
+                <option value="52">52 - الطور / At-Tur</option>
+                <option value="53">53 - النجم / An-Najm</option>
+                <option value="54">54 - القمر / Al-Qamar</option>
+                <option value="55">55 - الرحمن / Ar-Rahman</option>
+                <option value="56">56 - الواقعة / Al-Waqi'ah</option>
+                <option value="57">57 - الحديد / Al-Hadid</option>
+                <option value="58">58 - المجادلة / Al-Mujadila</option>
+                <option value="59">59 - الحشر / Al-Hashr</option>
+                <option value="60">60 - الممتحنة / Al-Mumtahanah</option>
+                <option value="61">61 - الصف / As-Saf</option>
+                <option value="62">62 - الجمعة / Al-Jumu'ah</option>
+                <option value="63">63 - المنافقون / Al-Munafiqun</option>
+                <option value="64">64 - التغابن / At-Taghabun</option>
+                <option value="65">65 - الطلاق / At-Talaq</option>
+                <option value="66">66 - التحريم / At-Tahrim</option>
+                <option value="67">67 - الملك / Al-Mulk</option>
+                <option value="68">68 - القلم / Al-Qalam</option>
+                <option value="69">69 - الحاقة / Al-Haqqah</option>
+                <option value="70">70 - المعارج / Al-Ma'arij</option>
+                <option value="71">71 - نوح / Nuh</option>
+                <option value="72">72 - الجن / Al-Jinn</option>
+                <option value="73">73 - المزمل / Al-Muzzammil</option>
+                <option value="74">74 - المدثر / Al-Muddaththir</option>
+                <option value="75">75 - القيامة / Al-Qiyamah</option>
+                <option value="76">76 - الإنسان / Al-Insan</option>
+                <option value="77">77 - المرسلات / Al-Mursalat</option>
+                <option value="78">78 - النبأ / An-Naba</option>
+                <option value="79">79 - النازعات / An-Nazi'at</option>
+                <option value="80">80 - عبس / 'Abasa</option>
+                <option value="81">81 - التكوير / At-Takwir</option>
+                <option value="82">82 - الانفطار / Al-Infitar</option>
+                <option value="83">83 - المطففين / Al-Mutaffifin</option>
+                <option value="84">84 - الانشقاق / Al-Inshiqaq</option>
+                <option value="85">85 - البروج / Al-Buruj</option>
+                <option value="86">86 - الطارق / At-Tariq</option>
+                <option value="87">87 - الأعلى / Al-A'la</option>
+                <option value="88">88 - الغاشية / Al-Ghashiyah</option>
+                <option value="89">89 - الفجر / Al-Fajr</option>
+                <option value="90">90 - البلد / Al-Balad</option>
+                <option value="91">91 - الشمس / Ash-Shams</option>
+                <option value="92">92 - الليل / Al-Layl</option>
+                <option value="93">93 - الضحى / Ad-Duhaa</option>
+                <option value="94">94 - الشرح / Ash-Sharh</option>
+                <option value="95">95 - التين / At-Tin</option>
+                <option value="96">96 - العلق / Al-'Alaq</option>
+                <option value="97">97 - القدر / Al-Qadr</option>
+                <option value="98">98 - البينة / Al-Bayyinah</option>
+                <option value="99">99 - الزلزلة / Az-Zalzalah</option>
+                <option value="100">100 - العاديات / Al-'Adiyat</option>
+                <option value="101">101 - القارعة / Al-Qari'ah</option>
+                <option value="102">102 - التكاثر / At-Takathur</option>
+                <option value="103">103 - العصر / Al-'Asr</option>
+                <option value="104">104 - الهمزة / Al-Humazah</option>
+                <option value="105">105 - الفيل / Al-Fil</option>
+                <option value="106">106 - قريش / Quraysh</option>
+                <option value="107">107 - الماعون / Al-Ma'un</option>
+                <option value="108">108 - الكوثر / Al-Kawthar</option>
+                <option value="109">109 - الكافرون / Al-Kafirun</option>
+                <option value="110">110 - النصر / An-Nasr</option>
+                <option value="111">111 - المسد / Al-Masad</option>
+                <option value="112">112 - الإخلاص / Al-Ikhlas</option>
+                <option value="113">113 - الفلق / Al-Falaq</option>
+                <option value="114">114 - الناس / An-Nas</option>
             </select>
         </div>
 
-        <div id="content"></div>
-    </div>
+        <div class="control-section">
+            <label class="control-label">اختر اللغة / Select Language</label>
+            <div class="buttons-row">
+                <button class="lang-btn active" data-edition="ar">العربية</button>
+                <button class="lang-btn" data-edition="en.asad">English</button>
+                <button class="lang-btn" data-edition="fr.hamidullah">Français</button>
+                <button class="lang-btn" data-edition="es.cortes">Español</button>
+                <button class="lang-btn" data-edition="de.bubenheim">Deutsch</button>
+                <button class="lang-btn" data-edition="it.piccardo">Italiano</button>
+            </div>
+        </div>
 
-    <script>
-        function testButton() {
-            document.getElementById('content').innerHTML = 
-                '<div class="success">✅ الزر يعمل بشكل ممتاز! Button works perfectly!</div>';
-        }
-
-        function loadQuran() {
-            const surahNum = document.getElementById('surah-select').value;
-            const content = document.getElementById('content');
-            content.innerHTML = '<p style="text-align:center; color:#667eea;">جاري التحميل... Loading...</p>';
-
-            fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`)
-                .then(r => r.json())
-                .then(data => {
-                    let html = `<h2 style="color:#667eea; text-align:center;">${data.data.name} - ${data.data.englishName}</h2>`;
-                    data.data.ayahs.forEach(ayah => {
-                        html += `<p style="background:#f8f9ff; padding:15px; border-radius:8px; margin:10px 0;">
-                            <strong>[${ayah.numberInSurah}]</strong> ${ayah.text}
-                        </p>`;
-                    });
-                    content.innerHTML = html;
-                })
-                .catch(e => {
-                    content.innerHTML = '<p style="color:red; text-align:center;">خطأ في التحميل / Loading error</p>';
-                });
-        }
-    </script>
-</body>
-</html>
-
+        <div class="control-section">
+            <label class="control-label">المحو التدريجي / Progressive Hiding</label>
+            <div class="buttons-row">
+                <button id="hide-btn">
