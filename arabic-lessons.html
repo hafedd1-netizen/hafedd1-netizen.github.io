@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دروس اللغة العربية</title>
-<script src="https://code.responsivevoice.org/responsivevoice.js?key=4JJsping"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
@@ -36,7 +35,7 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 .word-ar{font-size:32px;font-weight:bold;margin-bottom:10px;color:#1a1a1a}
 .word-translit{font-size:16px;color:#666;font-style:italic;margin-bottom:5px}
 .word-meaning{font-size:14px;color:#667eea;font-weight:bold}
-.back-btn{display:inline-block;padding:10px 25px;background:#28a745;color:white;text-decoration:none;border-radius:20px;margin-bottom:20px;font-size:16px;border:none;cursor:pointer}
+.back-btn{display:inline-block;padding:10px 25px;background:#28a745;color:white;border-radius:20px;margin-bottom:20px;font-size:16px;border:none;cursor:pointer}
 .back-btn:hover{background:#218838}
 .harakat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin:20px 0}
 .haraka-box{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;border:2px solid #667eea;cursor:pointer;transition:0.3s}
@@ -62,7 +61,7 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 </div>
 
 <div class="container">
-<div id="lesson-menu">
+<div id="lesson-menu" style="display:block">
 <div class="lesson-grid">
 <div class="lesson-card" onclick="showLesson('letters')">
 <div class="lesson-title">1️⃣ الحروف العربية</div>
@@ -85,16 +84,16 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 
 <div id="lesson-letters" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
-<h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحروف العربية - Arabic Alphabet</h2>
+<h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحروف العربية</h2>
 <div class="info-box">
-<strong>🔊 اضغط على أي حرف لسماع نطقه الصحيح بصوت عربي</strong>
+<strong>🔊 اضغط على أي حرف لسماع نطقه الصحيح</strong>
 </div>
 <div class="letter-grid" id="letters-container"></div>
 </div>
 
 <div id="lesson-harakat" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
-<h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحركات - Vowel Marks</h2>
+<h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحركات</h2>
 <div class="info-box">
 <strong>🔊 اضغط على الحركة لسماع نطقها</strong>
 </div>
@@ -105,7 +104,7 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
 <h2 style="color:#667eea;font-size:26px;margin-bottom:20px">كلمات من سورة الفاتحة</h2>
 <div class="info-box">
-<strong>🔊 اضغط على أي كلمة لسماع نطقها بشكل منفصل</strong>
+<strong>🔊 اضغط على الكلمة لسماع نطقها</strong>
 </div>
 <div class="word-practice" id="words-container"></div>
 </div>
@@ -121,34 +120,18 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 </div>
 
 <script>
+const synth=window.speechSynthesis;
+
 const letters=[
-{ar:'ا',name:'ألف - Alif'},
-{ar:'ب',name:'باء - Baa'},
-{ar:'ت',name:'تاء - Taa'},
-{ar:'ث',name:'ثاء - Thaa'},
-{ar:'ج',name:'جيم - Jeem'},
-{ar:'ح',name:'حاء - Haa'},
-{ar:'خ',name:'خاء - Khaa'},
-{ar:'د',name:'دال - Dal'},
-{ar:'ذ',name:'ذال - Dhal'},
-{ar:'ر',name:'راء - Raa'},
-{ar:'ز',name:'زاي - Zay'},
-{ar:'س',name:'سين - Seen'},
-{ar:'ش',name:'شين - Sheen'},
-{ar:'ص',name:'صاد - Sad'},
-{ar:'ض',name:'ضاد - Dad'},
-{ar:'ط',name:'طاء - Taa'},
-{ar:'ظ',name:'ظاء - Dhaa'},
-{ar:'ع',name:'عين - Ayn'},
-{ar:'غ',name:'غين - Ghayn'},
-{ar:'ف',name:'فاء - Faa'},
-{ar:'ق',name:'قاف - Qaf'},
-{ar:'ك',name:'كاف - Kaf'},
-{ar:'ل',name:'لام - Lam'},
-{ar:'م',name:'ميم - Meem'},
-{ar:'ن',name:'نون - Noon'},
-{ar:'ه',name:'هاء - Haa'},
-{ar:'و',name:'واو - Waw'},
+{ar:'ا',name:'ألف - Alif'},{ar:'ب',name:'باء - Baa'},{ar:'ت',name:'تاء - Taa'},
+{ar:'ث',name:'ثاء - Thaa'},{ar:'ج',name:'جيم - Jeem'},{ar:'ح',name:'حاء - Haa'},
+{ar:'خ',name:'خاء - Khaa'},{ar:'د',name:'دال - Dal'},{ar:'ذ',name:'ذال - Dhal'},
+{ar:'ر',name:'راء - Raa'},{ar:'ز',name:'زاي - Zay'},{ar:'س',name:'سين - Seen'},
+{ar:'ش',name:'شين - Sheen'},{ar:'ص',name:'صاد - Sad'},{ar:'ض',name:'ضاد - Dad'},
+{ar:'ط',name:'طاء - Taa'},{ar:'ظ',name:'ظاء - Dhaa'},{ar:'ع',name:'عين - Ayn'},
+{ar:'غ',name:'غين - Ghayn'},{ar:'ف',name:'فاء - Faa'},{ar:'ق',name:'قاف - Qaf'},
+{ar:'ك',name:'كاف - Kaf'},{ar:'ل',name:'لام - Lam'},{ar:'م',name:'ميم - Meem'},
+{ar:'ن',name:'نون - Noon'},{ar:'ه',name:'هاء - Haa'},{ar:'و',name:'واو - Waw'},
 {ar:'ي',name:'ياء - Yaa'}
 ];
 
@@ -157,8 +140,8 @@ const harakat=[
 {ar:'بُ',name:'ضمة - Damma',sound:'بُ',desc:'مثال: كُتُب'},
 {ar:'بِ',name:'كسرة - Kasra',sound:'بِ',desc:'مثال: كِتَاب'},
 {ar:'بْ',name:'سكون - Sukun',sound:'بْ',desc:'مثال: مَكْتَب'},
-{ar:'بًا',name:'تنوين فتح',sound:'بًا',desc:'مثال: كِتَابًا'},
-{ar:'بّ',name:'شدة - Shadda',sound:'بّ',desc:'مثال: مُعَلِّم'}
+{ar:'بًا',name:'تنوين',sound:'بًا',desc:'مثال: كِتَابًا'},
+{ar:'بّ',name:'شدة',sound:'بّ',desc:'مثال: مُعَلِّم'}
 ];
 
 const words=[
@@ -173,10 +156,32 @@ const words=[
 ];
 
 const verses=[
-{ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',translit:'Bismillahi ar-Rahmani ar-Raheem',meaning:'In the name of Allah'},
-{ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',translit:'Alhamdu lillahi Rabbi al-Alameen',meaning:'All praise to Allah'},
-{ar:'الرَّحْمَٰنِ الرَّحِيمِ',translit:'Ar-Rahmani ar-Raheem',meaning:'The Most Gracious'},
-{ar:'مَالِكِ يَوْمِ الدِّينِ',translit:'Maliki yawmi ad-Deen',meaning:'Master of Judgment Day'}
+{ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',translit:'Bismillahi ar-Rahmani ar-Raheem'},
+{ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',translit:'Alhamdu lillahi Rabbi al-Alameen'},
+{ar:'الرَّحْمَٰنِ الرَّحِيمِ',translit:'Ar-Rahmani ar-Raheem'},
+{ar:'مَالِكِ يَوْمِ الدِّينِ',translit:'Maliki yawmi ad-Deen'}
 ];
 
-function speak
+function speak(text,el){
+synth.cancel();
+if(el){
+document.querySelectorAll('.speaking').forEach(e=>e.classList.remove('speaking'));
+el.classList.add('speaking');
+}
+const utterance=new SpeechSynthesisUtterance(text);
+utterance.lang='ar-SA';
+utterance.rate=0.7;
+utterance.onend=()=>{
+if(el)el.classList.remove('speaking');
+};
+synth.speak(utterance);
+}
+
+function showLesson(id){
+document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+document.getElementById('lesson-menu').style.display='none';
+document.getElementById('lesson-'+id).classList.add('active');
+if(id==='letters')loadLetters();
+if(id==='harakat')loadHarakat();
+if(id==='words')loadWords();
+if(id==='practice')loadPractice
