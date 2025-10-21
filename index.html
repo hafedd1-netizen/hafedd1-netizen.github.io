@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تحفيظ القرآن</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+            direction: rtl;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        select {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            margin: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        #content {
+            margin-top: 30px;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 منصة تحفيظ القرآن الكريم</h1>
+        
+        <div class="success">
+            ✅ الموقع يعمل بنجاح!<br>
+            The website is working successfully!
+        </div>
+
+        <div class="buttons">
+            <button onclick="testButton()">اختبر الأزرار / Test Buttons</button>
+            <button onclick="loadQuran()">تحميل القرآن / Load Quran</button>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <select id="surah-select">
+                <option value="1">1 - الفاتحة</option>
+                <option value="112">112 - الإخلاص</option>
+                <option value="113">113 - الفلق</option>
+                <option value="114">114 - الناس</option>
+            </select>
+        </div>
+
+        <div id="content"></div>
+    </div>
+
+    <script>
+        function testButton() {
+            document.getElementById('content').innerHTML = 
+                '<div class="success">✅ الزر يعمل بشكل ممتاز! Button works perfectly!</div>';
+        }
+
+        function loadQuran() {
+            const surahNum = document.getElementById('surah-select').value;
+            const content = document.getElementById('content');
+            content.innerHTML = '<p style="text-align:center; color:#667eea;">جاري التحميل... Loading...</p>';
+
+            fetch(`https://api.alquran.cloud/v1/surah/${surahNum}`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = `<h2 style="color:#667eea; text-align:center;">${data.data.name} - ${data.data.englishName}</h2>`;
+                    data.data.ayahs.forEach(ayah => {
+                        html += `<p style="background:#f8f9ff; padding:15px; border-radius:8px; margin:10px 0;">
+                            <strong>[${ayah.numberInSurah}]</strong> ${ayah.text}
+                        </p>`;
+                    });
+                    content.innerHTML = html;
+                })
+                .catch(e => {
+                    content.innerHTML = '<p style="color:red; text-align:center;">خطأ في التحميل / Loading error</p>';
+                });
+        }
+    </script>
+</body>
+</html>
+
