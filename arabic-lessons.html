@@ -21,11 +21,14 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 .lesson-desc{color:#666;font-size:15px;line-height:1.6}
 .lesson-content{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;display:none}
 .lesson-content.active{display:block}
-.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin:20px 0}
-.letter-box{background:#f8f9ff;padding:15px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea;position:relative}
-.letter-box:hover{background:#667eea;color:white;transform:scale(1.1)}
-.letter-ar{font-size:36px;font-weight:bold;margin-bottom:5px}
-.letter-name{font-size:14px;color:#666}
+.video-section{margin:30px 0}
+.video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2)}
+.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:15px;margin:20px 0}
+.letter-box{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea}
+.letter-box:hover{background:#667eea;color:white;transform:scale(1.05)}
+.letter-ar{font-size:40px;font-weight:bold;margin-bottom:8px}
+.letter-name{font-size:14px;color:#666;margin-bottom:5px}
 .letter-box:hover .letter-name{color:white}
 .word-practice{display:flex;flex-wrap:wrap;gap:15px;margin:20px 0}
 .word-card{background:#f8f9ff;padding:20px;border-radius:8px;flex:1;min-width:200px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea}
@@ -41,14 +44,15 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 .haraka-example{font-size:40px;font-weight:bold;color:#1a1a1a;margin-bottom:10px}
 .haraka-name{font-size:18px;color:#667eea;font-weight:bold;margin-bottom:5px}
 .haraka-sound{font-size:14px;color:#666;font-style:italic}
-.speaker-icon{display:inline-block;margin-right:5px;color:#ff6b6b}
 .info-box{background:#e7f3ff;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #667eea}
+.video-link{display:inline-block;margin:10px 5px;padding:8px 20px;background:#ff6b6b;color:white;text-decoration:none;border-radius:20px;font-size:14px;transition:0.3s}
+.video-link:hover{background:#ff5252;transform:translateY(-2px)}
 </style>
 </head>
 <body>
 <div class="header">
 <h1>📚 دروس اللغة العربية للمبتدئين</h1>
-<p class="subtitle">Arabic Lessons for Beginners</p>
+<p class="subtitle">Arabic Lessons with Native Pronunciation</p>
 </div>
 
 <div class="nav">
@@ -60,7 +64,7 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 <div class="lesson-grid">
 <div class="lesson-card" onclick="showLesson('letters')">
 <div class="lesson-title">1️⃣ الحروف العربية</div>
-<div class="lesson-desc">تعلم الأبجدية العربية الكاملة (28 حرف) مع النطق الصحيح</div>
+<div class="lesson-desc">تعلم الأبجدية العربية (28 حرف) مع فيديوهات نطق عربي أصيل</div>
 </div>
 <div class="lesson-card" onclick="showLesson('harakat')">
 <div class="lesson-title">2️⃣ الحركات (التشكيل)</div>
@@ -80,45 +84,82 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 <div id="lesson-letters" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
 <h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحروف العربية - Arabic Alphabet</h2>
+
 <div class="info-box">
-<strong>💡 نصيحة:</strong> اضغط على أي حرف لسماع النطق الصحيح من القرآن الكريم
+<strong>🎥 شاهد الفيديوهات التعليمية بنطق عربي أصيل:</strong>
 </div>
+
+<div class="video-section">
+<h3 style="color:#667eea;margin-bottom:15px">فيديو 1: الحروف العربية كاملة مع النطق</h3>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" allowfullscreen></iframe>
+</div>
+</div>
+
+<div class="video-section">
+<h3 style="color:#667eea;margin-bottom:15px">فيديو 2: استماع وتكرار - Arabic Alphabet</h3>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/fJ9_79bg5H4" allowfullscreen></iframe>
+</div>
+</div>
+
+<div style="margin:30px 0">
+<h3 style="color:#667eea;margin-bottom:15px">الحروف العربية - اضغط على الحرف لمشاهدة نطقه</h3>
 <div class="letter-grid" id="letters-container"></div>
+</div>
+
+<div class="info-box" style="margin-top:20px">
+<strong>📌 فيديوهات إضافية مفيدة:</strong><br>
+<a href="https://www.youtube.com/watch?v=gMkivcOw0hQ" target="_blank" class="video-link">الأصوات السميكة والرقيقة</a>
+<a href="https://www.youtube.com/results?search_query=arabic+alphabet+pronunciation" target="_blank" class="video-link">المزيد من الفيديوهات</a>
+</div>
 </div>
 
 <div id="lesson-harakat" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
 <h2 style="color:#667eea;font-size:26px;margin-bottom:20px">الحركات - Vowel Marks</h2>
+
+<div class="info-box">
+<strong>🎥 شاهد شرح الحركات بالفيديو:</strong><br>
+<a href="https://www.youtube.com/results?search_query=arabic+harakat+vowels" target="_blank" class="video-link">شرح الحركات بالفيديو</a>
+</div>
+
 <div class="harakat-grid">
 <div class="haraka-box">
 <div class="haraka-example">بَ</div>
 <div class="haraka-name">فتحة - Fatha</div>
-<div class="haraka-sound">Sound: "a" كما في "bat"</div>
+<div class="haraka-sound">النطق: "a" مثل "bat"</div>
+<div style="margin-top:10px;font-size:16px">مثال: كَتَبَ</div>
 </div>
 <div class="haraka-box">
 <div class="haraka-example">بُ</div>
 <div class="haraka-name">ضمة - Damma</div>
-<div class="haraka-sound">Sound: "u" كما في "put"</div>
+<div class="haraka-sound">النطق: "u" مثل "put"</div>
+<div style="margin-top:10px;font-size:16px">مثال: كُتُب</div>
 </div>
 <div class="haraka-box">
 <div class="haraka-example">بِ</div>
 <div class="haraka-name">كسرة - Kasra</div>
-<div class="haraka-sound">Sound: "i" كما في "sit"</div>
+<div class="haraka-sound">النطق: "i" مثل "sit"</div>
+<div style="margin-top:10px;font-size:16px">مثال: كِتَاب</div>
 </div>
 <div class="haraka-box">
 <div class="haraka-example">بْ</div>
 <div class="haraka-name">سكون - Sukun</div>
-<div class="haraka-sound">No vowel - صامت</div>
+<div class="haraka-sound">بدون حركة - صامت</div>
+<div style="margin-top:10px;font-size:16px">مثال: مَكْتَب</div>
 </div>
 <div class="haraka-box">
 <div class="haraka-example">بً بٌ بٍ</div>
 <div class="haraka-name">تنوين - Tanween</div>
-<div class="haraka-sound">Double vowel + n</div>
+<div class="haraka-sound">حركة مضاعفة + ن</div>
+<div style="margin-top:10px;font-size:16px">مثال: كِتَابًا</div>
 </div>
 <div class="haraka-box">
 <div class="haraka-example">بّ</div>
 <div class="haraka-name">شدة - Shadda</div>
-<div class="haraka-sound">Doubled letter</div>
+<div class="haraka-sound">تضعيف الحرف</div>
+<div style="margin-top:10px;font-size:16px">مثال: مُعَلِّم</div>
 </div>
 </div>
 </div>
@@ -126,19 +167,30 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 <div id="lesson-words" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
 <h2 style="color:#667eea;font-size:26px;margin-bottom:20px">كلمات من سورة الفاتحة</h2>
+
 <div class="info-box">
-<strong>🔊 اضغط على الكلمة لسماع النطق الصحيح</strong>
+<strong>🔊 اضغط على الكلمة لسماع النطق من القرآن الكريم</strong>
 </div>
+
 <div class="word-practice" id="words-container"></div>
 </div>
 
 <div id="lesson-practice" class="lesson-content">
 <button class="back-btn" onclick="backToMenu()">← العودة للدروس</button>
 <h2 style="color:#667eea;font-size:26px;margin-bottom:20px">تمارين القراءة - Reading Practice</h2>
+
 <div class="info-box">
-<strong>📖 اقرأ الآيات التالية ببطء، ثم اضغط عليها لسماع القراءة الصحيحة</strong>
+<strong>📖 اقرأ الآيات ببطء، ثم اضغط عليها لسماع القراءة الصحيحة</strong>
 </div>
+
 <div id="practice-container"></div>
+
+<div class="video-section" style="margin-top:30px">
+<h3 style="color:#667eea;margin-bottom:15px">🎥 شاهد وتعلم: سورة الفاتحة كاملة</h3>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/lVgK8htpNDI" allowfullscreen></iframe>
+</div>
+</div>
 </div>
 </div>
 
@@ -148,38 +200,38 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 let audio=document.getElementById('audio-player');
 
 const letters=[
-{ar:'ا',name:'Alif',example:'أَبْ'},
-{ar:'ب',name:'Baa',example:'بَيْت'},
-{ar:'ت',name:'Taa',example:'تِين'},
-{ar:'ث',name:'Thaa',example:'ثَوْب'},
-{ar:'ج',name:'Jeem',example:'جَمَل'},
-{ar:'ح',name:'Haa',example:'حَبْل'},
-{ar:'خ',name:'Khaa',example:'خُبْز'},
-{ar:'د',name:'Dal',example:'دَرْس'},
-{ar:'ذ',name:'Dhal',example:'ذَهَب'},
-{ar:'ر',name:'Raa',example:'رَجُل'},
-{ar:'ز',name:'Zay',example:'زَيْت'},
-{ar:'س',name:'Seen',example:'سَمَك'},
-{ar:'ش',name:'Sheen',example:'شَمْس'},
-{ar:'ص',name:'Sad',example:'صَبْر'},
-{ar:'ض',name:'Dad',example:'ضَرْب'},
-{ar:'ط',name:'Taa',example:'طِفْل'},
-{ar:'ظ',name:'Dhaa',example:'ظُلْم'},
-{ar:'ع',name:'Ayn',example:'عِلْم'},
-{ar:'غ',name:'Ghayn',example:'غَنِي'},
-{ar:'ف',name:'Faa',example:'فِيل'},
-{ar:'ق',name:'Qaf',example:'قَلْب'},
-{ar:'ك',name:'Kaf',example:'كِتَاب'},
-{ar:'ل',name:'Lam',example:'لَيْل'},
-{ar:'م',name:'Meem',example:'مَاء'},
-{ar:'ن',name:'Noon',example:'نَار'},
-{ar:'ه',name:'Haa',example:'هِلَال'},
-{ar:'و',name:'Waw',example:'وَرْد'},
-{ar:'ي',name:'Yaa',example:'يَد'}
+{ar:'ا',name:'Alif - ألف'},
+{ar:'ب',name:'Baa - باء'},
+{ar:'ت',name:'Taa - تاء'},
+{ar:'ث',name:'Thaa - ثاء'},
+{ar:'ج',name:'Jeem - جيم'},
+{ar:'ح',name:'Haa - حاء'},
+{ar:'خ',name:'Khaa - خاء'},
+{ar:'د',name:'Dal - دال'},
+{ar:'ذ',name:'Dhal - ذال'},
+{ar:'ر',name:'Raa - راء'},
+{ar:'ز',name:'Zay - زاي'},
+{ar:'س',name:'Seen - سين'},
+{ar:'ش',name:'Sheen - شين'},
+{ar:'ص',name:'Sad - صاد'},
+{ar:'ض',name:'Dad - ضاد'},
+{ar:'ط',name:'Taa - طاء'},
+{ar:'ظ',name:'Dhaa - ظاء'},
+{ar:'ع',name:'Ayn - عين'},
+{ar:'غ',name:'Ghayn - غين'},
+{ar:'ف',name:'Faa - فاء'},
+{ar:'ق',name:'Qaf - قاف'},
+{ar:'ك',name:'Kaf - كاف'},
+{ar:'ل',name:'Lam - لام'},
+{ar:'م',name:'Meem - ميم'},
+{ar:'ن',name:'Noon - نون'},
+{ar:'ه',name:'Haa - هاء'},
+{ar:'و',name:'Waw - واو'},
+{ar:'ي',name:'Yaa - ياء'}
 ];
 
 const fatihaWords=[
-{ar:'بِسْمِ',translit:'Bismi',meaning:'In the name of',audio:'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3'},
+{ar:'بِسْمِ',translit:'Bismi',meaning:'In the name',audio:'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3'},
 {ar:'اللَّهِ',translit:'Allah',meaning:'God',audio:'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3'},
 {ar:'الرَّحْمَٰنِ',translit:'Ar-Rahman',meaning:'The Most Gracious',audio:'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3'},
 {ar:'الرَّحِيمِ',translit:'Ar-Raheem',meaning:'The Most Merciful',audio:'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3'},
@@ -214,14 +266,17 @@ document.getElementById('lesson-menu').style.display='block';
 function loadLetters(){
 const container=document.getElementById('letters-container');
 container.innerHTML='';
-letters.forEach(l=>{
+letters.forEach((l,i)=>{
 const box=document.createElement('div');
 box.className='letter-box';
 box.innerHTML=`
 <div class="letter-ar">${l.ar}</div>
 <div class="letter-name">${l.name}</div>
-<div style="font-size:12px;color:#888;margin-top:5px">${l.example}</div>
 `;
+box.onclick=()=>{
+const time=i*3;
+window.open(`https://www.youtube.com/watch?v=8_60iWXl7dw&t=${time}s`,'_blank');
+};
 container.appendChild(box);
 });
 }
@@ -252,7 +307,7 @@ container.appendChild(card);
 function loadPractice(){
 const container=document.getElementById('practice-container');
 container.innerHTML='';
-fatihaVerses.forEach((v,i)=>{
+fatihaVerses.forEach(v=>{
 const box=document.createElement('div');
 box.style.cssText='background:#f8f9ff;padding:25px;border-radius:12px;margin:20px 0;cursor:pointer;border:2px solid #667eea;transition:0.3s';
 box.innerHTML=`
