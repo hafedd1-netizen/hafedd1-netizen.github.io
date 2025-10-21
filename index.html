@@ -120,6 +120,25 @@
             color: white;
         }
 
+        .hide-level-btn {
+            min-width: 70px;
+            padding: 10px 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #reveal-btn {
+            background: #28a745;
+            border-color: #28a745;
+            padding: 12px 40px;
+            font-size: 18px;
+        }
+
+        #reveal-btn:hover {
+            background: #218838;
+            border-color: #218838;
+        }
+
         #content {
             background: white;
             padding: 35px;
@@ -225,6 +244,16 @@
             color: #667eea;
         }
 
+        .difficulty-info {
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+            background: #e7f3ff;
+            border-radius: 8px;
+            color: #004085;
+            font-size: 16px;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 26px; }
             .verse-arabic { font-size: 24px; }
@@ -232,13 +261,14 @@
             .verse-trans { font-size: 17px; }
             .buttons-row { flex-direction: column; }
             button { width: 100%; }
+            .hide-level-btn { width: auto; min-width: 60px; }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>📖 منصة تحفيظ القرآن الكريم</h1>
-        <p class="subtitle">Quran Memorization Platform - Learn with Progressive Hiding Method</p>
+        <p class="subtitle">Quran Memorization Platform - Progressive Learning Method</p>
     </div>
 
     <div class="controls">
@@ -275,266 +305,4 @@
                 <option value="28">28 - القصص / Al-Qasas</option>
                 <option value="29">29 - العنكبوت / Al-'Ankabut</option>
                 <option value="30">30 - الروم / Ar-Rum</option>
-                <option value="31">31 - لقمان / Luqman</option>
-                <option value="32">32 - السجدة / As-Sajdah</option>
-                <option value="33">33 - الأحزاب / Al-Ahzab</option>
-                <option value="34">34 - سبأ / Saba</option>
-                <option value="35">35 - فاطر / Fatir</option>
-                <option value="36">36 - يس / Ya-Sin</option>
-                <option value="37">37 - الصافات / As-Saffat</option>
-                <option value="38">38 - ص / Sad</option>
-                <option value="39">39 - الزمر / Az-Zumar</option>
-                <option value="40">40 - غافر / Ghafir</option>
-                <option value="41">41 - فصلت / Fussilat</option>
-                <option value="42">42 - الشورى / Ash-Shuraa</option>
-                <option value="43">43 - الزخرف / Az-Zukhruf</option>
-                <option value="44">44 - الدخان / Ad-Dukhan</option>
-                <option value="45">45 - الجاثية / Al-Jathiyah</option>
-                <option value="46">46 - الأحقاف / Al-Ahqaf</option>
-                <option value="47">47 - محمد / Muhammad</option>
-                <option value="48">48 - الفتح / Al-Fath</option>
-                <option value="49">49 - الحجرات / Al-Hujurat</option>
-                <option value="50">50 - ق / Qaf</option>
-                <option value="51">51 - الذاريات / Adh-Dhariyat</option>
-                <option value="52">52 - الطور / At-Tur</option>
-                <option value="53">53 - النجم / An-Najm</option>
-                <option value="54">54 - القمر / Al-Qamar</option>
-                <option value="55">55 - الرحمن / Ar-Rahman</option>
-                <option value="56">56 - الواقعة / Al-Waqi'ah</option>
-                <option value="57">57 - الحديد / Al-Hadid</option>
-                <option value="58">58 - المجادلة / Al-Mujadila</option>
-                <option value="59">59 - الحشر / Al-Hashr</option>
-                <option value="60">60 - الممتحنة / Al-Mumtahanah</option>
-                <option value="61">61 - الصف / As-Saf</option>
-                <option value="62">62 - الجمعة / Al-Jumu'ah</option>
-                <option value="63">63 - المنافقون / Al-Munafiqun</option>
-                <option value="64">64 - التغابن / At-Taghabun</option>
-                <option value="65">65 - الطلاق / At-Talaq</option>
-                <option value="66">66 - التحريم / At-Tahrim</option>
-                <option value="67">67 - الملك / Al-Mulk</option>
-                <option value="68">68 - القلم / Al-Qalam</option>
-                <option value="69">69 - الحاقة / Al-Haqqah</option>
-                <option value="70">70 - المعارج / Al-Ma'arij</option>
-                <option value="71">71 - نوح / Nuh</option>
-                <option value="72">72 - الجن / Al-Jinn</option>
-                <option value="73">73 - المزمل / Al-Muzzammil</option>
-                <option value="74">74 - المدثر / Al-Muddaththir</option>
-                <option value="75">75 - القيامة / Al-Qiyamah</option>
-                <option value="76">76 - الإنسان / Al-Insan</option>
-                <option value="77">77 - المرسلات / Al-Mursalat</option>
-                <option value="78">78 - النبأ / An-Naba</option>
-                <option value="79">79 - النازعات / An-Nazi'at</option>
-                <option value="80">80 - عبس / 'Abasa</option>
-                <option value="81">81 - التكوير / At-Takwir</option>
-                <option value="82">82 - الانفطار / Al-Infitar</option>
-                <option value="83">83 - المطففين / Al-Mutaffifin</option>
-                <option value="84">84 - الانشقاق / Al-Inshiqaq</option>
-                <option value="85">85 - البروج / Al-Buruj</option>
-                <option value="86">86 - الطارق / At-Tariq</option>
-                <option value="87">87 - الأعلى / Al-A'la</option>
-                <option value="88">88 - الغاشية / Al-Ghashiyah</option>
-                <option value="89">89 - الفجر / Al-Fajr</option>
-                <option value="90">90 - البلد / Al-Balad</option>
-                <option value="91">91 - الشمس / Ash-Shams</option>
-                <option value="92">92 - الليل / Al-Layl</option>
-                <option value="93">93 - الضحى / Ad-Duhaa</option>
-                <option value="94">94 - الشرح / Ash-Sharh</option>
-                <option value="95">95 - التين / At-Tin</option>
-                <option value="96">96 - العلق / Al-'Alaq</option>
-                <option value="97">97 - القدر / Al-Qadr</option>
-                <option value="98">98 - البينة / Al-Bayyinah</option>
-                <option value="99">99 - الزلزلة / Az-Zalzalah</option>
-                <option value="100">100 - العاديات / Al-'Adiyat</option>
-                <option value="101">101 - القارعة / Al-Qari'ah</option>
-                <option value="102">102 - التكاثر / At-Takathur</option>
-                <option value="103">103 - العصر / Al-'Asr</option>
-                <option value="104">104 - الهمزة / Al-Humazah</option>
-                <option value="105">105 - الفيل / Al-Fil</option>
-                <option value="106">106 - قريش / Quraysh</option>
-                <option value="107">107 - الماعون / Al-Ma'un</option>
-                <option value="108">108 - الكوثر / Al-Kawthar</option>
-                <option value="109">109 - الكافرون / Al-Kafirun</option>
-                <option value="110">110 - النصر / An-Nasr</option>
-                <option value="111">111 - المسد / Al-Masad</option>
-                <option value="112">112 - الإخلاص / Al-Ikhlas</option>
-                <option value="113">113 - الفلق / Al-Falaq</option>
-                <option value="114">114 - الناس / An-Nas</option>
-            </select>
-        </div>
-
-        <div class="control-section">
-            <label class="control-label">اختر اللغة / Select Language</label>
-            <div class="buttons-row">
-                <button class="lang-btn active" data-edition="ar">العربية</button>
-                <button class="lang-btn" data-edition="en.asad">English</button>
-                <button class="lang-btn" data-edition="fr.hamidullah">Français</button>
-                <button class="lang-btn" data-edition="es.cortes">Español</button>
-                <button class="lang-btn" data-edition="de.bubenheim">Deutsch</button>
-                <button class="lang-btn" data-edition="it.piccardo">Italiano</button>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <label class="control-label">المحو التدريجي / Progressive Hiding</label>
-            <div class="buttons-row">
-                <button id="hide-btn">
-                     من الكلمات / Hide 50%</button>
-                <button id="reveal-btn">إظهار الكل / Show All</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="content">
-        <div class="loading">جاري التحميل... / Loading...</div>
-    </div>
-
-    <script>
-        let currentSurah = 1;
-        let currentEdition = 'ar';
-
-        // تحميل السورة مع الترجمة والـ transliteration
-        async function loadSurah(num, edition) {
-            const content = document.getElementById('content');
-            content.innerHTML = '<div class="loading">جاري التحميل... / Loading...</div>';
-
-            try {
-                // جلب النص العربي
-                const arResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
-                const arData = await arResponse.json();
-                
-                // جلب الـ transliteration
-                const trResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}/en.transliteration`);
-                const trData = await trResponse.json();
-                
-                // جلب الترجمة
-                let transData = null;
-                if (edition !== 'ar') {
-                    const transResponse = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${edition}`);
-                    transData = await transResponse.json();
-                }
-
-                displaySurah(arData.data, trData.data, transData ? transData.data : null);
-            } catch (error) {
-                content.innerHTML = '<div class="loading">خطأ في التحميل / Loading error</div>';
-                console.error('Error:', error);
-            }
-        }
-
-        // عرض السورة
-        function displaySurah(ar, tr, trans) {
-            const content = document.getElementById('content');
-            let html = `<h2 class="surah-title">${ar.name} - ${ar.englishName}</h2>`;
-
-            ar.ayahs.forEach((ayah, verseIndex) => {
-                html += `<div class="verse-box">`;
-                html += `<div class="verse-num">آية ${ayah.numberInSurah} / Verse ${ayah.numberInSurah}</div>`;
-                
-                // النص العربي مع المحو
-                html += `<div class="verse-arabic">`;
-                const arWords = ayah.text.split(' ');
-                arWords.forEach((word, wordIndex) => {
-                    html += `<span class="word ar-word" data-v="${verseIndex}" data-w="${wordIndex}">${word} </span>`;
-                });
-                html += `</div>`;
-
-                // Transliteration مع المحو
-                if (tr.ayahs[verseIndex]) {
-                    html += `<div class="verse-translit">`;
-                    const trWords = tr.ayahs[verseIndex].text.split(' ');
-                    trWords.forEach((word, wordIndex) => {
-                        html += `<span class="word tr-word" data-v="${verseIndex}" data-w="${wordIndex}">${word} </span>`;
-                    });
-                    html += `</div>`;
-                }
-
-                // الترجمة (بدون محو)
-                if (trans && trans.ayahs[verseIndex]) {
-                    html += `<div class="verse-trans">${trans.ayahs[verseIndex].text}</div>`;
-                }
-
-                html += `</div>`;
-            });
-
-            content.innerHTML = html;
-
-            // إضافة وظيفة الضغط على الكلمات
-            document.querySelectorAll('.word').forEach(wordEl => {
-                wordEl.onclick = function() {
-                    if (this.classList.contains('hidden')) {
-                        this.classList.remove('hidden');
-                        this.classList.add('revealed');
-                        
-                        // إظهار الكلمة المقابلة
-                        const v = this.dataset.v;
-                        const w = this.dataset.w;
-                        const isArabic = this.classList.contains('ar-word');
-                        const pairClass = isArabic ? 'tr-word' : 'ar-word';
-                        const pair = document.querySelector(`.${pairClass}[data-v="${v}"][data-w="${w}"]`);
-                        if (pair) {
-                            pair.classList.remove('hidden');
-                            pair.classList.add('revealed');
-                        }
-                    }
-                };
-            });
-        }
-
-        // تبديل اللغة
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.onclick = function() {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentEdition = this.dataset.edition;
-                loadSurah(currentSurah, currentEdition);
-            };
-        });
-
-        // تغيير السورة
-        document.getElementById('surah-select').onchange = function() {
-            currentSurah = this.value;
-            loadSurah(currentSurah, currentEdition);
-        };
-
-        // إخفاء 50% من الكلمات (العربية والـ transliteration معاً)
-        document.getElementById('hide-btn').onclick = function() {
-            const allWords = document.querySelectorAll('.word');
-            allWords.forEach(w => {
-                w.classList.remove('revealed');
-                w.classList.remove('hidden');
-            });
-
-            const arWords = Array.from(document.querySelectorAll('.ar-word'));
-            const toHide = Math.floor(arWords.length * 0.5);
-            
-            // ترتيب عشوائي
-            arWords.sort(() => Math.random() - 0.5);
-
-            for (let i = 0; i < toHide; i++) {
-                const arWord = arWords[i];
-                arWord.classList.add('hidden');
-                
-                // إخفاء الكلمة المقابلة في transliteration
-                const v = arWord.dataset.v;
-                const w = arWord.dataset.w;
-                const trWord = document.querySelector(`.tr-word[data-v="${v}"][data-w="${w}"]`);
-                if (trWord) {
-                    trWord.classList.add('hidden');
-                }
-            }
-        };
-
-        // إظهار كل الكلمات
-        document.getElementById('reveal-btn').onclick = function() {
-            const allWords = document.querySelectorAll('.word');
-            allWords.forEach(w => {
-                w.classList.remove('hidden');
-                w.classList.remove('revealed');
-            });
-        };
-
-        // تحميل سورة الفاتحة عند البداية
-        loadSurah(1, 'ar');
-    </script>
-</body>
-</html>
-
+                <option value="31">31 - ل
