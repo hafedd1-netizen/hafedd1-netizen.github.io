@@ -23,12 +23,12 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 .lesson-content{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;display:none}
 .lesson-content.active{display:block}
 .letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:15px;margin:20px 0}
-.letter-box{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea;position:relative}
+.letter-box{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea}
 .letter-box:hover{background:#667eea;color:white;transform:scale(1.08)}
 .letter-box.speaking{background:#ffd93d;transform:scale(1.1);box-shadow:0 5px 20px rgba(255,215,0,0.6)}
 .letter-ar{font-size:40px;font-weight:bold;margin-bottom:8px}
 .letter-name{font-size:14px;color:#666;margin-bottom:5px}
-.letter-box:hover .letter-name,.letter-box.speaking .letter-name{color:#333}
+.letter-box:hover .letter-name{color:white}
 .word-practice{display:flex;flex-wrap:wrap;gap:15px;margin:20px 0}
 .word-card{background:#f8f9ff;padding:20px;border-radius:8px;flex:1;min-width:200px;text-align:center;cursor:pointer;transition:0.3s;border:2px solid #667eea}
 .word-card:hover{background:#fff3cd;transform:scale(1.05)}
@@ -153,123 +153,30 @@ const letters=[
 ];
 
 const harakat=[
-{ar:'بَ',name:'فتحة - Fatha',sound:'بَ',desc:'مثل: كَتَبَ'},
-{ar:'بُ',name:'ضمة - Damma',sound:'بُ',desc:'مثل: كُتُب'},
-{ar:'بِ',name:'كسرة - Kasra',sound:'بِ',desc:'مثل: كِتَاب'},
-{ar:'بْ',name:'سكون - Sukun',sound:'بْ',desc:'مثل: مَكْتَب'},
-{ar:'بًا',name:'تنوين فتح',sound:'بًا',desc:'مثل: كِتَابًا'},
-{ar:'بّ',name:'شدة - Shadda',sound:'بّ',desc:'مثل: مُعَلِّم'}
+{ar:'بَ',name:'فتحة - Fatha',sound:'بَ',desc:'مثال: كَتَبَ'},
+{ar:'بُ',name:'ضمة - Damma',sound:'بُ',desc:'مثال: كُتُب'},
+{ar:'بِ',name:'كسرة - Kasra',sound:'بِ',desc:'مثال: كِتَاب'},
+{ar:'بْ',name:'سكون - Sukun',sound:'بْ',desc:'مثال: مَكْتَب'},
+{ar:'بًا',name:'تنوين فتح',sound:'بًا',desc:'مثال: كِتَابًا'},
+{ar:'بّ',name:'شدة - Shadda',sound:'بّ',desc:'مثال: مُعَلِّم'}
 ];
 
 const words=[
-{ar:'بِسْمِ',translit:'Bismi',meaning:'باسم - In the name'},
-{ar:'اللَّهِ',translit:'Allah',meaning:'الله - God'},
-{ar:'الرَّحْمَٰنِ',translit:'Ar-Rahman',meaning:'الرحمن - The Gracious'},
-{ar:'الرَّحِيمِ',translit:'Ar-Raheem',meaning:'الرحيم - The Merciful'},
-{ar:'الْحَمْدُ',translit:'Alhamdu',meaning:'الحمد - All praise'},
-{ar:'لِلَّهِ',translit:'Lillahi',meaning:'لله - To Allah'},
-{ar:'رَبِّ',translit:'Rabbi',meaning:'رب - Lord'},
-{ar:'الْعَالَمِينَ',translit:'Al-Alameen',meaning:'العالمين - Worlds'}
+{ar:'بِسْمِ',translit:'Bismi',meaning:'باسم'},
+{ar:'اللَّهِ',translit:'Allah',meaning:'الله'},
+{ar:'الرَّحْمَٰنِ',translit:'Ar-Rahman',meaning:'الرحمن'},
+{ar:'الرَّحِيمِ',translit:'Ar-Raheem',meaning:'الرحيم'},
+{ar:'الْحَمْدُ',translit:'Alhamdu',meaning:'الحمد'},
+{ar:'لِلَّهِ',translit:'Lillahi',meaning:'لله'},
+{ar:'رَبِّ',translit:'Rabbi',meaning:'رب'},
+{ar:'الْعَالَمِينَ',translit:'Al-Alameen',meaning:'العالمين'}
 ];
 
 const verses=[
-{ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',translit:'Bismillahi ar-Rahmani ar-Raheem',meaning:'In the name of Allah, the Most Gracious, the Most Merciful'},
-{ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',translit:'Alhamdu lillahi Rabbi al-Alameen',meaning:'All praise to Allah, Lord of the worlds'},
-{ar:'الرَّحْمَٰنِ الرَّحِيمِ',translit:'Ar-Rahmani ar-Raheem',meaning:'The Most Gracious, the Most Merciful'},
-{ar:'مَالِكِ يَوْمِ الدِّينِ',translit:'Maliki yawmi ad-Deen',meaning:'Master of the Day of Judgment'}
+{ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',translit:'Bismillahi ar-Rahmani ar-Raheem',meaning:'In the name of Allah'},
+{ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',translit:'Alhamdu lillahi Rabbi al-Alameen',meaning:'All praise to Allah'},
+{ar:'الرَّحْمَٰنِ الرَّحِيمِ',translit:'Ar-Rahmani ar-Raheem',meaning:'The Most Gracious'},
+{ar:'مَالِكِ يَوْمِ الدِّينِ',translit:'Maliki yawmi ad-Deen',meaning:'Master of Judgment Day'}
 ];
 
-function speak(text,element){
-if(element){
-document.querySelectorAll('.speaking').forEach(e=>e.classList.remove('speaking'));
-element.classList.add('speaking');
-}
-responsiveVoice.speak(text,"Arabic Male",{
-rate:0.8,
-onend:function(){
-if(element)element.classList.remove('speaking');
-}
-});
-}
-
-function showLesson(id){
-document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
-document.getElementById('lesson-menu').style.display='none';
-document.getElementById('lesson-'+id).classList.add('active');
-if(id==='letters')loadLetters();
-if(id==='harakat')loadHarakat();
-if(id==='words')loadWords();
-if(id==='practice')loadPractice();
-}
-
-function backToMenu(){
-responsiveVoice.cancel();
-document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
-document.getElementById('lesson-menu').style.display='block';
-}
-
-function loadLetters(){
-const container=document.getElementById('letters-container');
-container.innerHTML='';
-letters.forEach(l=>{
-const box=document.createElement('div');
-box.className='letter-box';
-box.innerHTML=`
-<div class="letter-ar">${l.ar}</div>
-<div class="letter-name">${l.name}</div>
-`;
-box.onclick=function(){speak(l.ar,this);};
-container.appendChild(box);
-});
-}
-
-function loadHarakat(){
-const container=document.getElementById('harakat-container');
-container.innerHTML='';
-harakat.forEach(h=>{
-const box=document.createElement('div');
-box.className='haraka-box';
-box.innerHTML=`
-<div class="haraka-example">${h.ar}</div>
-<div class="haraka-name">${h.name}</div>
-<div class="haraka-sound">${h.desc}</div>
-`;
-box.onclick=function(){speak(h.sound,this);};
-container.appendChild(box);
-});
-}
-
-function loadWords(){
-const container=document.getElementById('words-container');
-container.innerHTML='';
-words.forEach(w=>{
-const card=document.createElement('div');
-card.className='word-card';
-card.innerHTML=`
-<div class="word-ar">${w.ar}</div>
-<div class="word-translit">${w.translit}</div>
-<div class="word-meaning">${w.meaning}</div>
-`;
-card.onclick=function(){speak(w.ar,this);};
-container.appendChild(card);
-});
-}
-
-function loadPractice(){
-const container=document.getElementById('practice-container');
-container.innerHTML='';
-verses.forEach(v=>{
-const box=document.createElement('div');
-box.className='verse-box';
-box.innerHTML=`
-<div style="font-size:32px;line-height:2;text-align:center;margin-bottom:15px">${v.ar}</div>
-<div style="font-size:16px;color:#666;text-align:center;font-style:italic;margin-bottom:10px">${v.translit}</div>
-<div style="font-size:15px;color:#667eea;text-align:center">${v.meaning}</div>
-`;
-box.onclick=function(){speak(v.ar,this);};
-container.appendChild(box);
-});
-}
-</script>
-</body>
-</html>
+function speak
