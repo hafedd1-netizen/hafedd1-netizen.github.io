@@ -3,216 +3,52 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تمارين اختيار من متعدد متقدمة</title>
+<title>تمارين تفاعلية بسيطة</title>
 <style>
-  body {
-    font-family: 'Traditional Arabic', Arial, sans-serif;
-    background: #667eea;
-    margin: 0;
-    padding: 15px;
-    direction: rtl;
-    color: #333;
-  }
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  h1 {
-    color: #344eeb;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  .exercise {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  .question-text {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  .options label {
-    display: block;
-    margin: 6px 0;
-    cursor: pointer;
-  }
-  button.check-btn {
-    cursor: pointer;
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 10px;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  .result {
-    margin-top: 8px;
-    font-weight: bold;
-    min-height: 20px;
-  }
-  .correct {
-    color: green;
-  }
-  .incorrect {
-    color: red;
-  }
-  .pagination {
-    text-align: center;
-    margin-top: 20px;
-  }
-  .page-btn {
-    cursor: pointer;
-    padding: 8px 18px;
-    margin: 3px;
-    border-radius: 8px;
-    background: #667eea;
-    color: white;
-    border: none;
-    font-size: 16px;
-  }
-  .page-btn.disabled {
-    background: #a5b1ff;
-    cursor: default;
-  }
+  body { font-family: Arial, sans-serif; direction: rtl; padding: 15px; }
+  .btn { padding: 10px 15px; background: #667eea; color: white; border: none; border-radius: 7px; cursor: pointer; margin: 5px; }
+  .exercise-container { margin-top: 30px; }
+  .exercise { background: #eee; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
+  .hidden { display: none; }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>تمارين اختيار من متعدد متقدمة</h1>
-  <div id="exercisesContainer"></div>
-  <div class="pagination" id="pagination"></div>
+<h1>تمارين اللغة العربية</h1>
+
+<button class="btn" onclick="showExercises(1)">تمرين 1</button>
+<button class="btn" onclick="showExercises(2)">تمرين 2</button>
+<button class="btn" onclick="showExercises(3)">تمرين 3</button>
+
+<div id="exerciseContent" class="exercise-container">
+  <!-- يتم عرض التمرين هنا -->
 </div>
 
 <script>
-  const exercises = [
-    {
-      question: "ما معنى كلمة 'كتاب'؟",
-      options: ["دفتر", "قلم", "كتاب", "محفظة"],
-      correctIndex: 2
-    },
-    {
-      question: "ما هي أول سورة في القرآن؟",
-      options: ["البقرة", "الناس", "الفاتحة", "الإخلاص"],
-      correctIndex: 2
-    },
-    {
-      question: "متى يبدأ شهر رمضان؟",
-      options: ["1 من يناير", "غروب القمر في الشهر التاسع الهجري", "31 ديسمبر", "يوم الجمعة"],
-      correctIndex: 1
-    },
-    {
-      question: "كم عدد حروف الأبجدية العربية؟",
-      options: ["26", "27", "28", "29"],
-      correctIndex: 2
-    }
-    // يمكنك إضافة أكثر من 100 تمرين هنا مع تنويع الأسئلة
-  ];
+  const exercisesData = {
+    1: [
+      "ما معنى كلمة 'كتاب'؟<br>أ) قلم<br>ب) دفتر<br>ج) كتاب<br>د) لوحة",
+      "كم عدد حروف الأبجدية العربية؟<br>أ) 26<br>ب) 28<br>ج) 30<br>د) 24"
+    ],
+    2: [
+      "ما هي أول سورة في القرآن؟<br>أ) الفاتحة<br>ب) البقرة<br>ج) الكهف<br>د) الناس",
+      "متى يبدأ شهر رمضان؟<br>أ) 1 يناير<br>ب) غروب القمر<br>ج) 31 ديسمبر<br>د) يوم الجمعة"
+    ],
+    3: [
+      "ما هي الحركات الأساسية في العربية؟<br>أ) فتحة، ضمة، كسرة<br>ب) تنوين فقط<br>ج) سكون فقط<br>د) لا شيء",
+      "ما هو حرف الشمس في كلمة 'الشمس'؟<br>أ) ش<br>ب) ل<br>ج) م<br>د) س"
+    ]
+  };
 
-  const exercisesPerPage = 5;
-  let currentPage = 1;
-  const totalPages = Math.ceil(exercises.length / exercisesPerPage);
-
-  function renderExercises(page) {
-    const container = document.getElementById("exercisesContainer");
-    container.innerHTML = "";
-    const start = (page - 1) * exercisesPerPage;
-    const end = Math.min(start + exercisesPerPage, exercises.length);
-
-    for(let i = start; i < end; i++) {
-      const ex = exercises[i];
-      const exDiv = document.createElement("div");
-      exDiv.className = "exercise";
-
-      exDiv.innerHTML = `
-        <div class="question-text">${i+1}. ${ex.question}</div>
-        <div class="options">
-          ${ex.options.map((opt, idx) =>
-              `<label><input type="radio" name="q${i}" value="${idx}"> ${opt}</label>`
-            ).join('')}
-        </div>
-        <button class="check-btn" onclick="checkAnswer(${i}, this)">تحقق</button>
-        <div class="result" id="result${i}"></div>
-      `;
-      container.appendChild(exDiv);
-    }
-    renderPagination(page);
-  }
-
-  function renderPagination(page) {
-    const pagination = document.getElementById("pagination");
-    pagination.innerHTML = "";
-
-    const prevBtn = document.createElement("button");
-    prevBtn.className = "page-btn";
-    prevBtn.textContent = "السابق";
-    prevBtn.disabled = page === 1;
-    if(prevBtn.disabled) prevBtn.classList.add("disabled");
-    prevBtn.onclick = () => {
-      if(currentPage > 1) {
-        currentPage--;
-        renderExercises(currentPage);
-      }
-    };
-    pagination.appendChild(prevBtn);
-
-    for(let i = 1; i <= totalPages; i++) {
-      const btn = document.createElement("button");
-      btn.className = "page-btn " + (i === page ? "disabled" : "");
-      btn.textContent = i;
-      if(i !== page) {
-        btn.onclick = () => {
-          currentPage = i;
-          renderExercises(i);
-        };
-      }
-      pagination.appendChild(btn);
-    }
-
-    const nextBtn = document.createElement("button");
-    nextBtn.className = "page-btn";
-    nextBtn.textContent = "التالي";
-    nextBtn.disabled = page === totalPages;
-    if(nextBtn.disabled) nextBtn.classList.add("disabled");
-    nextBtn.onclick = () => {
-      if(currentPage < totalPages) {
-        currentPage++;
-        renderExercises(currentPage);
-      }
-    };
-    pagination.appendChild(nextBtn);
-  }
-
-  function checkAnswer(exIndex, btn) {
-    const inputs = document.getElementsByName(`q${exIndex}`);
-    let selected = -1;
-    for(let input of inputs) {
-      if(input.checked) {
-        selected = parseInt(input.value);
-        break;
-      }
-    }
-    if(selected === -1) {
-      alert("يرجى اختيار إجابة أولاً");
+  function showExercises(num){
+    const container = document.getElementById('exerciseContent');
+    const exercises = exercisesData[num];
+    if(!exercises){
+      container.innerHTML = "<p>لا توجد تمارين لهذا الرقم.</p>";
       return;
     }
-    const resultDiv = document.getElementById(`result${exIndex}`);
-    if(selected === exercises[exIndex].correctIndex) {
-      resultDiv.textContent = "✅ إجابة صحيحة!";
-      resultDiv.className = "result correct";
-    } else {
-      resultDiv.textContent = "❌ إجابة خاطئة!";
-      resultDiv.className = "result incorrect";
-    }
-    btn.disabled = true;
+    container.innerHTML = exercises.map((ex,i) => `<div class="exercise"><strong>السؤال ${i+1}:</strong> <p>${ex}</p></div>`).join('');
   }
-
-  // عرض التمارين أول مرة
-  renderExercises(currentPage);
 </script>
 
 </body>
