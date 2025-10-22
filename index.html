@@ -9,7 +9,7 @@
 body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
 .header{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
 h1{color:#667eea;font-size:28px;margin-bottom:5px}
-.subtitle{color:#666;font-size:15px}
+.subtitle{color:#666;font-size:15px;margin-bottom:10px}
 .main-container{display:flex;gap:15px;max-width:1600px;margin:0 auto}
 .controls-sidebar{width:320px;flex-shrink:0}
 .controls{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px}
@@ -25,22 +25,22 @@ button:disabled{opacity:0.5;cursor:not-allowed}
 .lang-btn.active{background:#667eea;color:white}
 #reveal-btn{background:#28a745;border-color:#28a745}
 #reveal-btn:hover{background:#218838;border-color:#218838}
-#content{flex:1;background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);max-height:calc(100vh - 100px);overflow-y:auto}
-.title{text-align:center;color:#667eea;font-size:26px;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #667eea}
-.verse{margin-bottom:15px;padding:12px;background:#f8f9ff;border-radius:8px;transition:all 0.4s;position:relative}
-.verse:hover{box-shadow:0 3px 10px rgba(102,126,234,0.15)}
-.verse.playing{background:#fff3cd;box-shadow:0 5px 15px rgba(255,215,0,0.4)}
-.verse-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.num{display:inline-block;background:#667eea;color:white;padding:3px 10px;border-radius:15px;font-size:13px;font-weight:bold}
+#content{flex:1;background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);max-height:calc(100vh - 100px);overflow-y:auto}
+.title{text-align:center;color:#667eea;font-size:24px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #667eea}
+.verse{margin-bottom:5px;padding:6px;background:#f8f9ff;border-radius:6px;transition:all 0.4s;position:relative}
+.verse:hover{box-shadow:0 2px 8px rgba(102,126,234,0.15)}
+.verse.playing{background:#fff3cd;box-shadow:0 4px 12px rgba(255,215,0,0.4)}
+.verse-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.num{display:inline-block;background:#667eea;color:white;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:bold}
 .verse-controls{display:flex;gap:4px}
-.verse-btn{padding:4px 10px;font-size:11px;min-width:auto;border-radius:12px}
+.verse-btn{padding:3px 8px;font-size:10px;min-width:auto;border-radius:10px}
 .play-verse-btn{background:#ff6b6b;border-color:#ff6b6b}
 .play-verse-btn:hover{background:#ff5252;border-color:#ff5252}
 .repeat-verse-btn{background:#ffd93d;border-color:#ffd93d;color:#333}
 .repeat-verse-btn:hover{background:#ffc107;border-color:#ffc107}
-.arabic{font-size:22px;line-height:1.8;margin-bottom:6px;direction:rtl;text-align:right;color:#1a1a1a}
-.translit{font-size:15px;line-height:1.5;margin-bottom:6px;color:#555;font-style:italic;direction:ltr;text-align:left;font-family:Georgia,serif}
-.trans{font-size:15px;line-height:1.5;color:#333;padding:8px;background:white;border-left:3px solid #667eea;border-radius:5px;direction:ltr;text-align:left}
+.arabic{font-size:22px;line-height:1.4;margin-bottom:3px;direction:rtl;text-align:right;color:#1a1a1a}
+.translit{font-size:15px;line-height:1.3;margin-bottom:3px;color:#555;font-style:italic;direction:ltr;text-align:left;font-family:Georgia,serif}
+.trans{font-size:15px;line-height:1.3;color:#333;padding:6px;background:white;border-left:3px solid #667eea;border-radius:4px;direction:ltr;text-align:left}
 .word{display:inline-block;padding:2px 4px;margin:1px;cursor:pointer;transition:all 0.3s;border-radius:3px}
 .word:hover{background:#fff3cd}
 .word.hidden{color:transparent;background:#ddd;user-select:none}
@@ -53,7 +53,7 @@ button:disabled{opacity:0.5;cursor:not-allowed}
 <div class="header">
 <h1>📖 منصة تحفيظ القرآن الكريم</h1>
 <p class="subtitle">Quran Memorization Platform</p>
-<a href="arabic-lessons.html" style="display:inline-block;margin-top:10px;padding:10px 25px;background:#28a745;color:white;text-decoration:none;border-radius:20px;font-size:16px">📚 دروس اللغة العربية</a>
+<a href="arabic-lessons.html" style="display:inline-block;padding:8px 20px;background:#28a745;color:white;text-decoration:none;border-radius:15px;font-size:14px">📚 دروس اللغة العربية</a>
 </div>
 <div class="main-container">
 <div class="controls-sidebar">
