@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>دروس العربية</title>
+<style>
+body{font-family:Arial;background:#667eea;padding:20px;margin:0}
+.box{background:white;padding:20px;border-radius:10px;margin-bottom:20px;max-width:1000px;margin-left:auto;margin-right:auto}
+.card{background:#f0f0f0;padding:15px;margin:10px;border-radius:8px;cursor:pointer;display:inline-block;width:200px}
+.card:hover{background:#667eea;color:white}
+.hide{display:none}
+button{background:#28a745;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin-bottom:15px}
+button:hover{background:#218838}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h1>📚 دروس اللغة العربية</h1>
+<a href="index.html" style="color:#667eea">← العودة</a>
+</div>
+
+<div id="main" class="box">
+<h2>اختر درساً:</h2>
+<div class="card" onclick="open1()">1️⃣ الحروف العربية</div>
+<div class="card" onclick="open2()">2️⃣ الحركات</div>
+<div class="card" onclick="open3()">3️⃣ كلمات من القرآن</div>
+<div class="card" onclick="open4()">4️⃣ السور القصيرة</div>
+<div class="card" onclick="open5()">5️⃣ أسماء الله الحسنى</div>
+<div class="card" onclick="open6()">6️⃣ أذكار يومية</div>
+</div>
+
+<div id="p1" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>الحروف العربية</h2>
+<div style="position:relative;padding-bottom:56%;height:0;margin:20px 0">
+<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>
+</div>
+<p>ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي</p>
+</div>
+
+<div id="p2" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>الحركات</h2>
+<p style="font-size:30px">بَ - فتحة | بُ - ضمة | بِ - كسرة | بْ - سكون</p>
+</div>
+
+<div id="p3" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>كلمات من القرآن</h2>
+<p style="font-size:20px">بِسْمِ - اللَّهِ - الرَّحْمَٰنِ - الرَّحِيمِ - الْحَمْدُ - لِلَّهِ</p>
+</div>
+
+<div id="p4" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>سورة الإخلاص</h2>
+<p style="font-size:22px;line-height:2">
+بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
+قُلْ هُوَ اللَّهُ أَحَدٌ<br>
+اللَّهُ الصَّمَدُ<br>
+لَمْ يَلِدْ وَلَمْ يُولَدْ<br>
+وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ
+</p>
+</div>
+
+<div id="p5" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>أسماء الله الحسنى</h2>
+<p style="font-size:20px">الرَّحْمَنُ - الرَّحِيمُ - الْمَلِكُ - الْقُدُّوسُ - السَّلَامُ - الْعَزِيزُ</p>
+</div>
+
+<div id="p6" class="box hide">
+<button onclick="back()">← عودة</button>
+<h2>أذكار يومية</h2>
+<p style="font-size:18px;line-height:1.8">
+<strong>دعاء الصباح:</strong><br>
+اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ
+</p>
+</div>
+
+<script>
+function open1(){document.getElementById('main').className='box hide';document.getElementById('p1').className='box'}
+function open2(){document.getElementById('main').className='box hide';document.getElementById('p2').className='box'}
+function open3(){document.getElementById('main').className='box hide';document.getElementById('p3').className='box'}
+function open4(){document.getElementById('main').className='box hide';document.getElementById('p4').className='box'}
+function open5(){document.getElementById('main').className='box hide';document.getElementById('p5').className='box'}
+function open6(){document.getElementById('main').className='box hide';document.getElementById('p6').className='box'}
+function back(){
+document.getElementById('p1').className='box hide';
+document.getElementById('p2').className='box hide';
+document.getElementById('p3').className='box hide';
+document.getElementById('p4').className='box hide';
+document.getElementById('p5').className='box hide';
+document.getElementById('p6').className='box hide';
+document.getElementById('main').className='box';
+}
+</script>
+
+</body>
+</html>
