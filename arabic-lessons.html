@@ -3,115 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دروس اللغة العربية التفاعلية</title>
+<title>دروس اللغة العربية</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
-.header{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
-h1{color:#667eea;font-size:28px;margin-bottom:5px}
-.subtitle{color:#666;font-size:15px}
-.nav{background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
-.nav a{display:inline-block;padding:10px 20px;background:#667eea;color:white;text-decoration:none;border-radius:20px;font-size:14px;transition:0.3s;margin:5px}
-.nav a:hover{background:#764ba2}
-.container{max-width:1200px;margin:0 auto}
-.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.lesson-card{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);cursor:pointer;transition:0.3s}
-.lesson-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.3)}
-.lesson-title{color:#667eea;font-size:18px;font-weight:bold;margin-bottom:8px}
-.lesson-desc{color:#666;font-size:13px;line-height:1.5}
-.content{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:none}
-.content.active{display:block!important}
-.back-btn{padding:10px 25px;background:#28a745;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;margin-bottom:20px}
-.back-btn:hover{background:#218838}
-.info-box{background:#e7f3ff;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #667eea}
-.quiz-box{background:#f8f9ff;padding:20px;border-radius:8px;border:2px solid #667eea;margin-bottom:15px}
-.quiz-options{display:grid;gap:10px;margin-top:15px}
-.quiz-option{padding:12px;background:white;border:2px solid #667eea;border-radius:8px;cursor:pointer;transition:0.3s;text-align:center}
-.quiz-option:hover{background:#667eea;color:white}
-.quiz-option.correct{background:#28a745;color:white;border-color:#28a745;pointer-events:none}
-.quiz-option.incorrect{background:#dc3545;color:white;border-color:#dc3545;pointer-events:none}
-.word-card{background:#f8f9ff;padding:18px;border-radius:8px;text-align:center;border:2px solid #667eea;margin-bottom:12px}
-.check-btn{padding:12px 30px;background:#667eea;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;margin-top:10px}
-.check-btn:hover{background:#764ba2}
-.score{background:#28a745;color:white;padding:20px;border-radius:12px;text-align:center;font-size:24px;font-weight:bold;margin:20px 0}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;direction:rtl}
+.header{background:white;padding:20px;border-radius:12px;margin-bottom:20px;text-align:center}
+h1{color:#667eea;font-size:26px}
+.nav{background:white;padding:15px;border-radius:12px;margin-bottom:20px;text-align:center}
+.nav a{padding:10px 20px;background:#667eea;color:white;text-decoration:none;border-radius:20px;margin:5px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;max-width:1200px;margin:0 auto}
+.card{background:white;padding:20px;border-radius:12px;cursor:pointer;transition:0.3s}
+.card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+.title{color:#667eea;font-size:18px;font-weight:bold;margin-bottom:10px}
+.desc{color:#666;font-size:14px}
+.page{display:none;background:white;padding:30px;border-radius:12px;max-width:1200px;margin:0 auto}
+.page.show{display:block}
+.btn{padding:10px 20px;background:#28a745;color:white;border:none;border-radius:20px;cursor:pointer;margin-bottom:20px}
+.btn:hover{background:#218838}
+.box{background:#f8f9ff;padding:20px;border-radius:8px;border:2px solid #667eea;margin:15px 0}
 </style>
 </head>
 <body>
 
 <div class="header">
-<h1>📚 منصة تعليم اللغة العربية التفاعلية</h1>
-<p class="subtitle">Interactive Arabic Learning Platform</p>
+<h1>📚 دروس اللغة العربية التفاعلية</h1>
 </div>
 
 <div class="nav">
 <a href="index.html">← المنصة الرئيسية</a>
-<a href="#" onclick="location.reload()">🏠 القائمة الرئيسية</a>
+<a href="#" onclick="location.reload()">🏠 الرئيسية</a>
 </div>
 
-<div class="container">
-
-<!-- القائمة الرئيسية -->
-<div id="mainMenu">
-<div class="lesson-grid">
-<div class="lesson-card" onclick="showContent(1)">
-<div class="lesson-title">1️⃣ الحروف العربية</div>
-<div class="lesson-desc">28 حرفاً مع فيديو تعليمي</div>
+<div id="menu" class="grid">
+<div class="card" onclick="show(1)">
+<div class="title">1️⃣ الحروف العربية</div>
+<div class="desc">28 حرفاً مع فيديو</div>
 </div>
-<div class="lesson-card" onclick="showContent(2)">
-<div class="lesson-title">2️⃣ الحركات</div>
-<div class="lesson-desc">التشكيل والنطق الصحيح</div>
+<div class="card" onclick="show(2)">
+<div class="title">2️⃣ الحركات</div>
+<div class="desc">التشكيل</div>
 </div>
-<div class="lesson-card" onclick="showContent(3)">
-<div class="lesson-title">3️⃣ اختبار الحروف</div>
-<div class="lesson-desc">اختيار من متعدد تفاعلي</div>
+<div class="card" onclick="show(3)">
+<div class="title">3️⃣ كلمات</div>
+<div class="desc">من القرآن</div>
 </div>
-<div class="lesson-card" onclick="showContent(4)">
-<div class="lesson-title">4️⃣ كلمات من القرآن</div>
-<div class="lesson-desc">كلمات أساسية مع المعاني</div>
+<div class="card" onclick="show(4)">
+<div class="title">4️⃣ السور</div>
+<div class="desc">سور قصيرة</div>
 </div>
-<div class="lesson-card" onclick="showContent(5)">
-<div class="lesson-title">5️⃣ تمارين الكتابة</div>
-<div class="lesson-desc">تدرّب على الكتابة العربية</div>
+<div class="card" onclick="show(5)">
+<div class="title">5️⃣ الأسماء</div>
+<div class="desc">أسماء الله</div>
 </div>
-<div class="lesson-card" onclick="showContent(6)">
-<div class="lesson-title">6️⃣ السور القصيرة</div>
-<div class="lesson-desc">5 سور للحفظ والتدريب</div>
-</div>
-<div class="lesson-card" onclick="showContent(7)">
-<div class="lesson-title">7️⃣ أسماء الله الحسنى</div>
-<div class="lesson-desc">15 اسماً مع المعاني</div>
-</div>
-<div class="lesson-card" onclick="showContent(8)">
-<div class="lesson-title">8️⃣ أذكار يومية</div>
-<div class="lesson-desc">أذكار وأدعية مهمة</div>
-</div>
-<div class="lesson-card" onclick="showContent(9)">
-<div class="lesson-title">9️⃣ جمل مفيدة</div>
-<div class="lesson-desc">12 جملة يومية</div>
-</div>
-<div class="lesson-card" onclick="showContent(10)">
-<div class="lesson-title">🔟 اختبار شامل</div>
-<div class="lesson-desc">تقييم مستواك النهائي</div>
-</div>
+<div class="card" onclick="show(6)">
+<div class="title">6️⃣ أذكار</div>
+<div class="desc">يومية</div>
 </div>
 </div>
 
-<!-- المحتويات -->
-<div id="content1" class="content">
-<button class="back-btn" onclick="hideAll()">← العودة</button>
+<div id="page1" class="page">
+<button class="btn" onclick="hide()">← عودة</button>
 <h2 style="color:#667eea;margin-bottom:20px">الحروف العربية</h2>
-<div class="info-box"><strong>🎥 شاهد الفيديو التعليمي:</strong></div>
-<div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;margin:20px 0">
-<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen></iframe>
+<div style="position:relative;padding-bottom:56.25%;height:0;margin:20px 0">
+<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>
 </div>
-<h3 style="color:#667eea;margin:20px 0">الحروف الـ28:</h3>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px">
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ا</div><div style="font-size:12px;color:#666">Alif</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ب</div><div style="font-size:12px;color:#666">Baa</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ت</div><div style="font-size:12px;color:#666">Taa</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ث</div><div style="font-size:12px;color:#666">Thaa</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ج</div><div style="font-size:12px;color:#666">Jeem</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ح</div><div style="font-size:12px;color:#666">Haa</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">خ</div><div style="font-size:12px;color:#666">Khaa</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">د</div><div style="font-size:12px;color:#666">Dal</div></div>
-<div class="word-card"><div style="font-size:32px;font-weight:bold">ذ
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:20px">
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ا</div><div style="font-size:11px">Alif</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ب</div><div style="font-size:11px">Baa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ت</div><div style="font-size:11px">Taa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ث</div><div style="font-size:11px">Thaa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ج</div><div style="font-size:11px">Jeem</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ح</div><div style="font-size:11px">Haa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">خ</div><div style="font-size:11px">Khaa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">د</div><div style="font-size:11px">Dal</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ذ</div><div style="font-size:11px">Dhal</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ر</div><div style="font-size:11px">Raa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ز</div><div style="font-size:11px">Zay</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">س</div><div style="font-size:11px">Seen</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ش</div><div style="font-size:11px">Sheen</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ص</div><div style="font-size:11px">Sad</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ض</div><div style="font-size:11px">Dad</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ط</div><div style="font-size:11px">Taa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ظ</div><div style="font-size:11px">Dhaa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ع</div><div style="font-size:11px">Ayn</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">غ</div><div style="font-size:11px">Ghayn</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ف</div><div style="font-size:11px">Faa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ق</div><div style="font-size:11px">Qaf</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ك</div><div style="font-size:11px">Kaf</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ل</div><div style="font-size:11px">Lam</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">م</div><div style="font-size:11px">Meem</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ن</div><div style="font-size:11px">Noon</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ه</div><div style="font-size:11px">Haa</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">و</div><div style="font-size:11px">Waw</div></div>
+<div class="box" style="text-align:center;padding:10px"><div style="font-size:28px">ي</div><div style="font-size:11px">Yaa</div></div>
+</div>
+</div>
+
+<div id="page2" class="page">
