@@ -1,70 +1,9 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تمارين اللغة العربية مع أزرار</title>
-<style>
-  body { font-family: Arial, sans-serif; direction: rtl; padding: 15px; }
-  .btn { padding: 10px 15px; background: #667eea; color: white; border: none; border-radius: 7px; cursor: pointer; margin: 5px; }
-  .exercise-container { margin-top: 30px; }
-  .exercise { background: #eee; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
-  .hidden { display: none; }
-</style>
-</head>
-<body>
-
-<h1>تمارين اللغة العربية</h1>
-
-<button class="btn" onclick="showExercises(1)">1️⃣ الحروف العربية</button>
-<button class="btn" onclick="showExercises(2)">2️⃣ الحركات</button>
-<button class="btn" onclick="showExercises(3)">3️⃣ كلمات من القرآن</button>
-<button class="btn" onclick="showExercises(4)">4️⃣ السور القصيرة</button>
-<button class="btn" onclick="showExercises(5)">5️⃣ أسماء الله الحسنى</button>
-<button class="btn" onclick="showExercises(6)">6️⃣ أذكار يومية</button>
-
-<div id="exerciseContent" class="exercise-container">
-  <!-- يتم عرض التمرين هنا -->
-</div>
+<button onclick="goHome()" style="background:#dc3545;color:white;padding:10px 20px;border:none;border-radius:7px;cursor:pointer;margin-bottom:15px">
+  ← العودة للصفحة الرئيسية
+</button>
 
 <script>
-  const exercisesData = {
-    1: [
-      "ما معنى كلمة 'كتاب'؟<br>أ) قلم<br>ب) دفتر<br>ج) كتاب<br>د) لوحة",
-      "كم عدد حروف الأبجدية العربية؟<br>أ) 26<br>ب) 28<br>ج) 30<br>د) 24"
-    ],
-    2: [
-      "ما هي الحركات الأساسية في العربية؟<br>أ) فتحة، ضمة، كسرة<br>ب) تنوين فقط<br>ج) سكون فقط<br>د) لا شيء",
-      "ما هو صوت الفتحة؟<br>أ) a<br>ب) u<br>ج) i<br>د) o"
-    ],
-    3: [
-      "ماذا تعني كلمة 'بسم'؟<br>أ) بداية<br>ب) اسم<br>ج) بداية ب<br>د) اسم الله",
-      "ما هي أول كلمة في القرآن؟<br>أ) بسم<br>ب) الرحمن<br>ج) الحمد<br>د) الله"
-    ],
-    4: [
-      "في أي سورة توجد الآية 'قل هو الله أحد'؟<br>أ) الإخلاص<br>ب) الناس<br>ج) الفلق<br>د) الكافرون",
-      "ما هو عدد آيات سورة الفلق؟<br>أ) 6<br>ب) 5<br>ج) 7<br>د) 4"
-    ],
-    5: [
-      "ما معنى اسم الله 'الرحمن'؟<br>أ) الرحيم<br>ب) الملك<br>ج) الغفور<br>د) المنان",
-      "ما معنى اسم الله 'الملك'؟<br>أ) الحاكم<br>ب) الغني<br>ج) الكريم<br>د) العزيز"
-    ],
-    6: [
-      "ما هو دعاء الصباح؟<br>أ) اللهم بك أصبحنا<br>ب) سبحان الله<br>ج) الحمد لله<br>د) لا إله إلا الله",
-      "متى يقال دعاء السفر؟<br>أ) عند بداية السفر<br>ب) عند الصلاة<br>ج) عند المغاربة<br>د) عند النوم"
-    ]
-  };
-
-  function showExercises(num){
-    const container = document.getElementById('exerciseContent');
-    const exercises = exercisesData[num];
-    if(!exercises){
-      container.innerHTML = "<p>لا توجد تمارين لهذا الرقم.</p>";
-      return;
-    }
-    container.innerHTML = exercises.map((ex,i) => `<div class="exercise"><strong>السؤال ${i+1}:</strong> <p>${ex}</p></div>`).join('');
+  function goHome() {
+    window.location.href = 'index.html';  // أو الرابط الصحيح للصفحة الرئيسية
   }
 </script>
-
-</body>
-</html>
