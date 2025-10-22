@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دروس اللغة العربية</title>
+<title>دروس اللغة العربية - منصة شاملة</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
@@ -11,46 +11,62 @@ body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradien
 h1{color:#667eea;font-size:28px;margin-bottom:5px}
 .subtitle{color:#666;font-size:15px}
 .nav{background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
-.nav a{display:inline-block;padding:10px 20px;background:#667eea;color:white;text-decoration:none;border-radius:20px;font-size:14px;transition:0.3s}
+.nav a{display:inline-block;padding:10px 20px;background:#667eea;color:white;text-decoration:none;border-radius:20px;font-size:14px;transition:0.3s;margin:5px}
 .nav a:hover{background:#764ba2}
 .container{max-width:1200px;margin:0 auto}
 .menu{display:block}
 .menu.hidden{display:none}
-.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
-.lesson-card{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);cursor:pointer;transition:0.3s}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.lesson-card{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);cursor:pointer;transition:0.3s}
 .lesson-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.3)}
-.lesson-title{color:#667eea;font-size:20px;font-weight:bold;margin-bottom:10px}
-.lesson-desc{color:#666;font-size:14px;line-height:1.6}
+.lesson-title{color:#667eea;font-size:18px;font-weight:bold;margin-bottom:8px}
+.lesson-desc{color:#666;font-size:13px;line-height:1.5}
 .lesson-content{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:none}
 .lesson-content.active{display:block}
 .back-btn{padding:10px 25px;background:#28a745;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;margin-bottom:20px}
 .back-btn:hover{background:#218838}
-.video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:20px 0}
-.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
-.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:12px;margin:20px 0}
-.letter-box{background:#f8f9ff;padding:15px;border-radius:8px;text-align:center;border:2px solid #667eea}
-.letter-ar{font-size:36px;font-weight:bold;margin-bottom:6px}
-.letter-name{font-size:13px;color:#666}
 .info-box{background:#e7f3ff;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #667eea}
-.word-card{background:#f8f9ff;padding:20px;border-radius:8px;text-align:center;border:2px solid #667eea;margin-bottom:15px}
-.exercise-box{background:#f8f9ff;padding:20px;border-radius:8px;border:2px solid #667eea;margin-bottom:15px}
-.write-input{width:100%;padding:15px;font-size:24px;border:2px solid #667eea;border-radius:8px;text-align:center;font-family:'Traditional Arabic',Arial;direction:rtl;margin-top:10px}
-.check-btn{padding:10px 30px;background:#667eea;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;margin-top:10px}
+.quiz-question{background:#f8f9ff;padding:20px;border-radius:8px;border:2px solid #667eea;margin-bottom:15px}
+.quiz-options{display:grid;gap:10px;margin-top:15px}
+.quiz-option{padding:12px;background:white;border:2px solid #667eea;border-radius:8px;cursor:pointer;transition:0.3s;text-align:center}
+.quiz-option:hover{background:#667eea;color:white}
+.quiz-option.correct{background:#28a745;color:white;border-color:#28a745}
+.quiz-option.incorrect{background:#dc3545;color:white;border-color:#dc3545}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0}
+.match-item{padding:15px;background:#f8f9ff;border:2px solid #667eea;border-radius:8px;cursor:pointer;text-align:center;transition:0.3s}
+.match-item:hover{background:#667eea;color:white}
+.match-item.selected{background:#ffd93d;border-color:#ffc107}
+.match-item.matched{background:#28a745;color:white;border-color:#28a745}
+.word-card{background:#f8f9ff;padding:18px;border-radius:8px;text-align:center;border:2px solid #667eea;margin-bottom:12px}
+.letter-scramble{display:flex;justify-content:center;gap:10px;margin:20px 0;flex-wrap:wrap}
+.letter-btn{padding:15px 20px;font-size:24px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;min-width:60px}
+.letter-btn:hover{background:#764ba2}
+.answer-input{width:100%;padding:15px;font-size:20px;border:2px solid #667eea;border-radius:8px;text-align:center;font-family:'Traditional Arabic',Arial;margin:15px 0}
+.check-btn{padding:12px 30px;background:#667eea;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer}
 .check-btn:hover{background:#764ba2}
-.correct{border-color:#28a745!important;background:#d4edda!important}
-.incorrect{border-color:#dc3545!important;background:#f8d7da!important}
-.surah-box{background:#f8f9ff;padding:25px;border-radius:12px;border:2px solid #667eea;margin-bottom:20px}
+.score-display{background:#28a745;color:white;padding:20px;border-radius:12px;text-align:center;font-size:24px;font-weight:bold;margin:20px 0}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+.memory-card{aspect-ratio:1;background:#667eea;color:white;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;transition:0.3s}
+.memory-card:hover{transform:scale(1.05)}
+.memory-card.flipped{background:white;color:#667eea;border:2px solid #667eea}
+.memory-card.matched{background:#28a745;color:white}
+.names-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:20px 0}
+.name-box{background:#f8f9ff;padding:15px;border-radius:8px;border:2px solid #667eea;text-align:center}
+.name-ar{font-size:24px;font-weight:bold;color:#667eea;margin-bottom:5px}
+.name-trans{font-size:14px;color:#666;font-style:italic;margin-bottom:3px}
+.name-meaning{font-size:13px;color:#333}
 </style>
 </head>
 <body>
 
 <div class="header">
-<h1>📚 دروس اللغة العربية للمبتدئين</h1>
-<p class="subtitle">Arabic Lessons for Beginners</p>
+<h1>📚 منصة تعليم اللغة العربية الشاملة</h1>
+<p class="subtitle">Comprehensive Arabic Learning Platform</p>
 </div>
 
 <div class="nav">
-<a href="index.html">← العودة للمنصة الرئيسية</a>
+<a href="index.html">← المنصة الرئيسية</a>
+<a href="#" onclick="location.reload()">🏠 الصفحة الرئيسية</a>
 </div>
 
 <div class="container">
@@ -62,340 +78,132 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 </div>
 <div class="lesson-card" onclick="openLesson(2)">
 <div class="lesson-title">2️⃣ الحركات</div>
-<div class="lesson-desc">فتحة، ضمة، كسرة، سكون</div>
+<div class="lesson-desc">التشكيل والنطق الصحيح</div>
 </div>
 <div class="lesson-card" onclick="openLesson(3)">
-<div class="lesson-title">3️⃣ كلمات بسيطة</div>
-<div class="lesson-desc">كلمات من القرآن</div>
+<div class="lesson-title">3️⃣ اختبار الحروف</div>
+<div class="lesson-desc">اختيار من متعدد تفاعلي</div>
 </div>
 <div class="lesson-card" onclick="openLesson(4)">
-<div class="lesson-title">4️⃣ تمارين القراءة</div>
-<div class="lesson-desc">سور قصيرة وآيات</div>
+<div class="lesson-title">4️⃣ مطابقة الكلمات</div>
+<div class="lesson-desc">اربط الكلمة بمعناها</div>
 </div>
 <div class="lesson-card" onclick="openLesson(5)">
-<div class="lesson-title">5️⃣ تمارين الكتابة</div>
-<div class="lesson-desc">تدرّب على الكتابة</div>
+<div class="lesson-title">5️⃣ ترتيب الحروف</div>
+<div class="lesson-desc">كوّن الكلمة الصحيحة</div>
 </div>
 <div class="lesson-card" onclick="openLesson(6)">
-<div class="lesson-title">6️⃣ جمل وعبارات</div>
-<div class="lesson-desc">جمل يومية مفيدة</div>
+<div class="lesson-title">6️⃣ ملء الفراغات</div>
+<div class="lesson-desc">أكمل الآيات القرآنية</div>
+</div>
+<div class="lesson-card" onclick="openLesson(7)">
+<div class="lesson-title">7️⃣ لعبة الذاكرة</div>
+<div class="lesson-desc">طابق البطاقات المتشابهة</div>
+</div>
+<div class="lesson-card" onclick="openLesson(8)">
+<div class="lesson-title">8️⃣ أسماء الله الحسنى</div>
+<div class="lesson-desc">99 اسماً مع المعاني</div>
+</div>
+<div class="lesson-card" onclick="openLesson(9)">
+<div class="lesson-title">9️⃣ أذكار يومية</div>
+<div class="lesson-desc">أذكار الصباح والمساء</div>
+</div>
+<div class="lesson-card" onclick="openLesson(10)">
+<div class="lesson-title">🔟 اختبار شامل</div>
+<div class="lesson-desc">تقييم مستواك النهائي</div>
 </div>
 </div>
 </div>
 
 <!-- الدرس 1: الحروف -->
 <div id="lesson1" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
+<button class="back-btn" onclick="goBack()">← العودة</button>
 <h2 style="color:#667eea;margin-bottom:20px">الحروف العربية</h2>
-<div class="info-box">
-<strong>🎥 شاهد الفيديو التعليمي بنطق عربي أصيل:</strong>
+<div class="info-box"><strong>🎥 شاهد الفيديو التعليمي:</strong></div>
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:20px 0">
+<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen></iframe>
 </div>
-<div class="video-container">
-<iframe src="https://www.youtube.com/embed/8_60iWXl7dw" allowfullscreen></iframe>
-</div>
-<h3 style="color:#667eea;margin:30px 0 15px">الحروف العربية الـ28:</h3>
-<div class="letter-grid" id="lettersGrid"></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin:20px 0" id="lettersGrid"></div>
 </div>
 
 <!-- الدرس 2: الحركات -->
 <div id="lesson2" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-<h2 style="color:#667eea;margin-bottom:20px">الحركات (التشكيل)</h2>
-<div class="info-box">
-<strong>📖 الحركات هي أساس القراءة الصحيحة</strong>
-</div>
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">الحركات</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0">
-<div class="word-card">
-<div class="letter-ar">بَ</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">فتحة - Fatha</div>
-<div style="color:#666;font-size:14px">صوت: "a"</div>
-<div style="margin-top:8px;font-size:18px">مثال: كَتَبَ</div>
-</div>
-<div class="word-card">
-<div class="letter-ar">بُ</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">ضمة - Damma</div>
-<div style="color:#666;font-size:14px">صوت: "u"</div>
-<div style="margin-top:8px;font-size:18px">مثال: كُتُب</div>
-</div>
-<div class="word-card">
-<div class="letter-ar">بِ</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">كسرة - Kasra</div>
-<div style="color:#666;font-size:14px">صوت: "i"</div>
-<div style="margin-top:8px;font-size:18px">مثال: كِتَاب</div>
-</div>
-<div class="word-card">
-<div class="letter-ar">بْ</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">سكون - Sukun</div>
-<div style="color:#666;font-size:14px">صامت</div>
-<div style="margin-top:8px;font-size:18px">مثال: مَكْتَب</div>
-</div>
-<div class="word-card">
-<div class="letter-ar">بًا</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">تنوين - Tanween</div>
-<div style="color:#666;font-size:14px">مضاعف + n</div>
-<div style="margin-top:8px;font-size:18px">مثال: كِتَابًا</div>
-</div>
-<div class="word-card">
-<div class="letter-ar">بّ</div>
-<div style="color:#667eea;font-weight:bold;margin:8px 0">شدة - Shadda</div>
-<div style="color:#666;font-size:14px">تضعيف</div>
-<div style="margin-top:8px;font-size:18px">مثال: مُعَلِّم</div>
-</div>
+<div class="word-card"><div style="font-size:40px;margin-bottom:8px">بَ</div><div style="color:#667eea;font-weight:bold">فتحة - Fatha</div><div style="font-size:14px;color:#666">صوت: a</div></div>
+<div class="word-card"><div style="font-size:40px;margin-bottom:8px">بُ</div><div style="color:#667eea;font-weight:bold">ضمة - Damma</div><div style="font-size:14px;color:#666">صوت: u</div></div>
+<div class="word-card"><div style="font-size:40px;margin-bottom:8px">بِ</div><div style="color:#667eea;font-weight:bold">كسرة - Kasra</div><div style="font-size:14px;color:#666">صوت: i</div></div>
+<div class="word-card"><div style="font-size:40px;margin-bottom:8px">بْ</div><div style="color:#667eea;font-weight:bold">سكون - Sukun</div><div style="font-size:14px;color:#666">صامت</div></div>
 </div>
 </div>
 
-<!-- الدرس 3: الكلمات -->
+<!-- الدرس 3: اختبار الحروف -->
 <div id="lesson3" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-<h2 style="color:#667eea;margin-bottom:20px">كلمات من القرآن الكريم</h2>
-<div class="info-box">
-<strong>📖 كلمات أساسية من سورة الفاتحة</strong>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:20px 0">
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">بِسْمِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Bismi</div>
-<div style="color:#667eea;font-weight:bold">باسم</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">اللَّهِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Allah</div>
-<div style="color:#667eea;font-weight:bold">الله</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">الرَّحْمَٰنِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Ar-Rahman</div>
-<div style="color:#667eea;font-weight:bold">الرحمن</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">الرَّحِيمِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Ar-Raheem</div>
-<div style="color:#667eea;font-weight:bold">الرحيم</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">الْحَمْدُ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Alhamdu</div>
-<div style="color:#667eea;font-weight:bold">الحمد</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">رَبِّ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Rabbi</div>
-<div style="color:#667eea;font-weight:bold">رب</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">الْعَالَمِينَ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Al-Alameen</div>
-<div style="color:#667eea;font-weight:bold">العالمين</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">مَالِكِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Maliki</div>
-<div style="color:#667eea;font-weight:bold">مالك</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">يَوْمِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Yawmi</div>
-<div style="color:#667eea;font-weight:bold">يوم</div>
-</div>
-<div class="word-card">
-<div style="font-size:28px;font-weight:bold;margin-bottom:8px">الدِّينِ</div>
-<div style="color:#666;font-style:italic;margin-bottom:5px">Ad-Deen</div>
-<div style="color:#667eea;font-weight:bold">الدين</div>
-</div>
-</div>
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">اختبار الحروف</h2>
+<div class="info-box"><strong>اختر الإجابة الصحيحة:</strong></div>
+<div id="quizContainer"></div>
+<div id="quizScore" style="display:none" class="score-display"></div>
 </div>
 
-<!-- الدرس 4: تمارين القراءة الموسعة -->
+<!-- الدرس 4: مطابقة الكلمات -->
 <div id="lesson4" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-<h2 style="color:#667eea;margin-bottom:20px">تمارين القراءة</h2>
-
-<div class="info-box">
-<strong>📖 سور قصيرة للتدريب على القراءة</strong>
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">مطابقة الكلمات</h2>
+<div class="info-box"><strong>اضغط على الكلمة ثم على معناها:</strong></div>
+<div class="match-grid" id="matchGrid"></div>
+<div id="matchScore" style="display:none" class="score-display"></div>
 </div>
 
-<div class="surah-box">
-<h3 style="color:#667eea;text-align:center;margin-bottom:15px">سورة الفاتحة</h3>
-<div style="font-size:24px;line-height:2;text-align:center">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
-الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ<br>
-الرَّحْمَٰنِ الرَّحِيمِ<br>
-مَالِكِ يَوْمِ الدِّينِ<br>
-إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ<br>
-اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ<br>
-صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ
-</div>
-</div>
-
-<div class="surah-box">
-<h3 style="color:#667eea;text-align:center;margin-bottom:15px">سورة الإخلاص</h3>
-<div style="font-size:26px;line-height:2;text-align:center">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
-قُلْ هُوَ اللَّهُ أَحَدٌ<br>
-اللَّهُ الصَّمَدُ<br>
-لَمْ يَلِدْ وَلَمْ يُولَدْ<br>
-وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ
-</div>
-</div>
-
-<div class="surah-box">
-<h3 style="color:#667eea;text-align:center;margin-bottom:15px">سورة الفلق</h3>
-<div style="font-size:26px;line-height:2;text-align:center">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
-قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ<br>
-مِنْ شَرِّ مَا خَلَقَ<br>
-وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ<br>
-وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ<br>
-وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ
-</div>
-</div>
-
-<div class="surah-box">
-<h3 style="color:#667eea;text-align:center;margin-bottom:15px">سورة الناس</h3>
-<div style="font-size:26px;line-height:2;text-align:center">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
-قُلْ أَعُوذُ بِرَبِّ النَّاسِ<br>
-مَلِكِ النَّاسِ<br>
-إِلَٰهِ النَّاسِ<br>
-مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ<br>
-الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ<br>
-مِنَ الْجِنَّةِ وَالنَّاسِ
-</div>
-</div>
-
-<div class="surah-box">
-<h3 style="color:#667eea;text-align:center;margin-bottom:15px">سورة الكوثر</h3>
-<div style="font-size:26px;line-height:2;text-align:center">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
-إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ<br>
-فَصَلِّ لِرَبِّكَ وَانْحَرْ<br>
-إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ
-</div>
-</div>
-
-<div class="info-box" style="margin-top:20px">
-<strong>🎥 شاهد تلاوة هذه السور:</strong><br>
-<a href="https://www.youtube.com/watch?v=lVgK8htpNDI" target="_blank" style="color:#667eea">• سورة الفاتحة</a><br>
-<a href="https://www.youtube.com/watch?v=iW4n4rWNjC4" target="_blank" style="color:#667eea">• السور القصيرة</a>
-</div>
-</div>
-
-<!-- الدرس 5: تمارين الكتابة -->
+<!-- الدرس 5: ترتيب الحروف -->
 <div id="lesson5" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-<h2 style="color:#667eea;margin-bottom:20px">تمارين الكتابة</h2>
-
-<div class="info-box">
-<strong>✍️ اكتب الكلمات التالية في المربعات واضغط "تحقق"</strong>
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">ترتيب الحروف</h2>
+<div class="info-box"><strong>رتب الحروف لتكوين الكلمة:</strong></div>
+<div id="scrambleContainer"></div>
 </div>
 
-<div class="exercise-box">
-<div style="font-size:20px;margin-bottom:10px;color:#667eea;font-weight:bold">تمرين 1: اكتب "بسم الله"</div>
-<input type="text" class="write-input" id="ex1" placeholder="اكتب هنا...">
-<button class="check-btn" onclick="checkAnswer('ex1','بسم الله')">تحقق</button>
-<div id="result1" style="margin-top:10px;font-weight:bold"></div>
-</div>
-
-<div class="exercise-box">
-<div style="font-size:20px;margin-bottom:10px;color:#667eea;font-weight:bold">تمرين 2: اكتب "الحمد لله"</div>
-<input type="text" class="write-input" id="ex2" placeholder="اكتب هنا...">
-<button class="check-btn" onclick="checkAnswer('ex2','الحمد لله')">تحقق</button>
-<div id="result2" style="margin-top:10px;font-weight:bold"></div>
-</div>
-
-<div class="exercise-box">
-<div style="font-size:20px;margin-bottom:10px;color:#667eea;font-weight:bold">تمرين 3: اكتب "السلام عليكم"</div>
-<input type="text" class="write-input" id="ex3" placeholder="اكتب هنا...">
-<button class="check-btn" onclick="checkAnswer('ex3','السلام عليكم')">تحقق</button>
-<div id="result3" style="margin-top:10px;font-weight:bold"></div>
-</div>
-
-<div class="exercise-box">
-<div style="font-size:20px;margin-bottom:10px;color:#667eea;font-weight:bold">تمرين 4: اكتب "أنا مسلم"</div>
-<input type="text" class="write-input" id="ex4" placeholder="اكتب هنا...">
-<button class="check-btn" onclick="checkAnswer('ex4','أنا مسلم')">تحقق</button>
-<div id="result4" style="margin-top:10px;font-weight:bold"></div>
-</div>
-
-<div class="exercise-box">
-<div style="font-size:20px;margin-bottom:10px;color:#667eea;font-weight:bold">تمرين 5: اكتب "الله أكبر"</div>
-<input type="text" class="write-input" id="ex5" placeholder="اكتب هنا...">
-<button class="check-btn" onclick="checkAnswer('ex5','الله أكبر')">تحقق</button>
-<div id="result5" style="margin-top:10px;font-weight:bold"></div>
-</div>
-</div>
-
-<!-- الدرس 6: جمل وعبارات -->
+<!-- الدرس 6: ملء الفراغات -->
 <div id="lesson6" class="lesson-content">
-<button class="back-btn" onclick="goBack()">← العودة للدروس</button>
-<h2 style="color:#667eea;margin-bottom:20px">جمل وعبارات مفيدة</h2>
-
-<div class="info-box">
-<strong>💬 تعلم هذه الجمل اليومية الهامة</strong>
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">ملء الفراغات</h2>
+<div class="info-box"><strong>أكمل الآيات الناقصة:</strong></div>
+<div id="fillContainer"></div>
 </div>
 
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:20px 0">
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">السَّلَامُ عَلَيْكُمْ</div>
-<div style="color:#666;font-style:italic">As-salamu alaykum</div>
-<div style="color:#667eea;margin-top:5px">Peace be upon you</div>
+<!-- الدرس 7: لعبة الذاكرة -->
+<div id="lesson7" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">لعبة الذاكرة</h2>
+<div class="info-box"><strong>اقلب البطاقات وطابق الأزواج المتشابهة:</strong></div>
+<div class="memory-grid" id="memoryGrid"></div>
+<div id="memoryScore" style="margin-top:20px;text-align:center;font-size:18px;font-weight:bold;color:#667eea"></div>
 </div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">وَعَلَيْكُمُ السَّلَامُ</div>
-<div style="color:#666;font-style:italic">Wa alaykumu as-salam</div>
-<div style="color:#667eea;margin-top:5px">And upon you peace</div>
+
+<!-- الدرس 8: أسماء الله الحسنى -->
+<div id="lesson8" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">أسماء الله الحسنى</h2>
+<div class="info-box"><strong>99 اسماً من أسماء الله الحسنى:</strong></div>
+<div class="names-grid" id="namesGrid"></div>
 </div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">كَيْفَ حَالُكَ؟</div>
-<div style="color:#666;font-style:italic">Kayfa haluka?</div>
-<div style="color:#667eea;margin-top:5px">How are you?</div>
+
+<!-- الدرس 9: أذكار يومية -->
+<div id="lesson9" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">أذكار وأدعية</h2>
+<div class="info-box"><strong>أذكار الصباح والمساء وأدعية من القرآن:</strong></div>
+<div id="adhkarContainer"></div>
 </div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">بِخَيْرٍ، الْحَمْدُ لِلَّهِ</div>
-<div style="color:#666;font-style:italic">Bikhayr, alhamdulillah</div>
-<div style="color:#667eea;margin-top:5px">Fine, praise be to Allah</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">مَا اسْمُكَ؟</div>
-<div style="color:#666;font-style:italic">Ma ismuka?</div>
-<div style="color:#667eea;margin-top:5px">What is your name?</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">شُكْرًا لَكَ</div>
-<div style="color:#666;font-style:italic">Shukran laka</div>
-<div style="color:#667eea;margin-top:5px">Thank you</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">مِنْ فَضْلِكَ</div>
-<div style="color:#666;font-style:italic">Min fadlika</div>
-<div style="color:#667eea;margin-top:5px">Please</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">عَفْوًا</div>
-<div style="color:#666;font-style:italic">Afwan</div>
-<div style="color:#667eea;margin-top:5px">You're welcome / Excuse me</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">آسِفٌ</div>
-<div style="color:#666;font-style:italic">Asif</div>
-<div style="color:#667eea;margin-top:5px">Sorry</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">مَعَ السَّلَامَةِ</div>
-<div style="color:#666;font-style:italic">Ma'a as-salamah</div>
-<div style="color:#667eea;margin-top:5px">Goodbye</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">أَهْلًا وَسَهْلًا</div>
-<div style="color:#666;font-style:italic">Ahlan wa sahlan</div>
-<div style="color:#667eea;margin-top:5px">Welcome</div>
-</div>
-<div class="word-card">
-<div style="font-size:24px;font-weight:bold;margin-bottom:8px">إِنْ شَاءَ اللَّهُ</div>
-<div style="color:#666;font-style:italic">In sha Allah</div>
-<div style="color:#667eea;margin-top:5px">If Allah wills</div>
-</div>
-</div>
+
+<!-- الدرس 10: اختبار شامل -->
+<div id="lesson10" class="lesson-content">
+<button class="back-btn" onclick="goBack()">← العودة</button>
+<h2 style="color:#667eea;margin-bottom:20px">الاختبار الشامل</h2>
+<div class="info-box"><strong>اختبر مستواك النهائي في 10 أسئلة:</strong></div>
+<div id="finalTestContainer"></div>
+<div id="finalScore" style="display:none" class="score-display"></div>
 </div>
 
 </div>
@@ -404,43 +212,4 @@ h1{color:#667eea;font-size:28px;margin-bottom:5px}
 const letters=['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي'];
 const letterNames=['Alif','Baa','Taa','Thaa','Jeem','Haa','Khaa','Dal','Dhal','Raa','Zay','Seen','Sheen','Sad','Dad','Taa','Dhaa','Ayn','Ghayn','Faa','Qaf','Kaf','Lam','Meem','Noon','Haa','Waw','Yaa'];
 
-function openLesson(num){
-document.getElementById('mainMenu').classList.add('hidden');
-document.getElementById('lesson'+num).classList.add('active');
-if(num===1)loadLetters();
-}
-
-function goBack(){
-document.querySelectorAll('.lesson-content').forEach(el=>el.classList.remove('active'));
-document.getElementById('mainMenu').classList.remove('hidden');
-}
-
-function loadLetters(){
-const grid=document.getElementById('lettersGrid');
-grid.innerHTML='';
-letters.forEach((letter,index)=>{
-const box=document.createElement('div');
-box.className='letter-box';
-box.innerHTML=`<div class="letter-ar">${letter}</div><div class="letter-name">${letterNames[index]}</div>`;
-grid.appendChild(box);
-});
-}
-
-function checkAnswer(inputId,correct){
-const input=document.getElementById(inputId);
-const result=document.getElementById('result'+inputId.replace('ex',''));
-const userAnswer=input.value.trim();
-if(userAnswer===correct){
-input.className='write-input correct';
-result.innerHTML='✅ صحيح! أحسنت!';
-result.style.color='#28a745';
-}else{
-input.className='write-input incorrect';
-result.innerHTML='❌ خطأ. حاول مرة أخرى. الإجابة الصحيحة: '+correct;
-result.style.color='#dc3545';
-}
-}
-</script>
-
-</body>
-</html>
+const quizData=
