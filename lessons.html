@@ -3,72 +3,123 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تمارين اللغة العربية مع زر العودة</title>
+<title>دروس اللغة العربية التفاعلية</title>
 <style>
-  body { font-family: Arial, sans-serif; direction: rtl; padding: 15px; }
-  .btn { padding: 10px 15px; background: #667eea; color: white; border: none; border-radius: 7px; cursor: pointer; margin: 5px; }
-  .back-btn { background: #dc3545; margin-bottom: 20px; }
-  .exercise-container { margin-top: 30px; }
-  .exercise { background: #eee; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
+  body { 
+    font-family: Arial, sans-serif; 
+    direction: rtl; 
+    padding: 15px; 
+    background: #f4f4f9;
+  }
+  .btn-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .btn { 
+    padding: 10px 15px; 
+    background: #667eea; 
+    color: white; 
+    border: none; 
+    border-radius: 7px; 
+    cursor: pointer; 
+    margin: 5px; 
+    font-size: 16px;
+  }
+  .back-btn { 
+    background: #dc3545; 
+  }
+  .exercise-container { 
+    margin-top: 20px; 
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  /* تصميم بطاقة الكلمة مع زر النطق */
+  .word-card {
+    background: #f0f0f0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+  }
+  .speak-btn {
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+  }
 </style>
 </head>
 <body>
 
-<button class="btn back-btn" onclick="goHome()">← العودة إلى الصفحة الرئيسية</button>
+<h1>دروس اللغة العربية</h1>
 
-<h1>تمارين اللغة العربية</h1>
+<div class="btn-container">
+  <button class="btn back-btn" onclick="goHome()">← العودة إلى الصفحة الرئيسية</button>
+  <hr style="margin: 20px 0; border-color: #ddd;">
+  <button class="btn" onclick="showContent(1)">1️⃣ الحروف العربية</button>
+  <button class="btn" onclick="showContent(2)">2️⃣ الحركات</button>
+  <button class="btn" onclick="showContent(3)">3️⃣ كلمات من القرآن</button>
+  <button class="btn" onclick="showContent(4)">4️⃣ السور القصيرة</button>
+  <button class="btn" onclick="showContent(5)">5️⃣ أسماء الله الحسنى</button>
+  <button class="btn" onclick="showContent(6)">6️⃣ أذكار يومية</button>
+</div>
 
-<button class="btn" onclick="showExercises(1)">1️⃣ الحروف العربية</button>
-<button class="btn" onclick="showExercises(2)">2️⃣ الحركات</button>
-<button class="btn" onclick="showExercises(3)">3️⃣ كلمات من القرآن</button>
-<button class="btn" onclick="showExercises(4)">4️⃣ السور القصيرة</button>
-<button class="btn" onclick="showExercises(5)">5️⃣ أسماء الله الحسنى</button>
-<button class="btn" onclick="showExercises(6)">6️⃣ أذكار يومية</button>
-
-<div id="exerciseContent" class="exercise-container">
-  <!-- يتم عرض التمرين هنا -->
+<div id="contentContainer" class="exercise-container">
+  <!-- يتم عرض المحتوى هنا -->
+  <p>الرجاء اختيار درس من الأعلى.</p>
 </div>
 
 <script>
-  const exercisesData = {
-    1: [
-      "ما معنى كلمة 'كتاب'؟<br>أ) قلم<br>ب) دفتر<br>ج) كتاب<br>د) لوحة",
-      "كم عدد حروف الأبجدية العربية؟<br>أ) 26<br>ب) 28<br>ج) 30<br>د) 24"
-    ],
-    2: [
-      "ما هي الحركات الأساسية في العربية؟<br>أ) فتحة، ضمة، كسرة<br>ب) تنوين فقط<br>ج) سكون فقط<br>د) لا شيء",
-      "ما هو صوت الفتحة؟<br>أ) a<br>ب) u<br>ج) i<br>د) o"
-    ],
-    3: [
-      "ماذا تعني كلمة 'بسم'؟<br>أ) بداية<br>ب) اسم<br>ج) بداية ب<br>د) اسم الله",
-      "ما هي أول كلمة في القرآن؟<br>أ) بسم<br>ب) الرحمن<br>ج) الحمد<br>د) الله"
-    ],
-    4: [
-      "في أي سورة توجد الآية 'قل هو الله أحد'؟<br>أ) الإخلاص<br>ب) الناس<br>ج) الفلق<br>د) الكافرون",
-      "ما هو عدد آيات سورة الفلق؟<br>أ) 6<br>ب) 5<br>ج) 7<br>د) 4"
-    ],
-    5: [
-      "ما معنى اسم الله 'الرحمن'؟<br>أ) الرحيم<br>ب) الملك<br>ج) الغفور<br>د) المنان",
-      "ما معنى اسم الله 'الملك'؟<br>أ) الحاكم<br>ب) الغني<br>ج) الكريم<br>د) العزيز"
-    ],
-    6: [
-      "ما هو دعاء الصباح؟<br>أ) اللهم بك أصبحنا<br>ب) سبحان الله<br>ج) الحمد لله<br>د) لا إله إلا الله",
-      "متى يقال دعاء السفر؟<br>أ) عند بداية السفر<br>ب) عند الصلاة<br>ج) عند المغاربة<br>د) عند النوم"
-    ]
+  // بيانات الدروس (الآن تحتوي على كلمات لتنطق)
+  const contentData = {
+    1: ["أَلِف", "بَاء", "تَاء", "ثَاء", "جِيم"],
+    2: ["فَتْحَة", "ضَمَّة", "كَسْرَة", "سُكُون"],
+    3: ["بِسْمِ", "اللَّهِ", "الرَّحْمَٰنِ", "الرَّحِيمِ"],
+    4: ["قُلْ", "هُوَ", "اللَّهُ", "أَحَدٌ"],
+    5: ["الرَّحْمَنُ", "الرَّحِيمُ", "الْمَلِكُ", "الْقُدُّوسُ"],
+    6: ["سُبْحَانَ اللَّهِ", "الْحَمْدُ لِلَّهِ", "لَا إِلَٰهَ إِلَّا اللَّهُ", "اللَّهُ أَكْبَرُ"]
   };
 
-  function showExercises(num){
-    const container = document.getElementById('exerciseContent');
-    const exercises = exercisesData[num];
-    if(!exercises){
-      container.innerHTML = "<p>لا توجد تمارين لهذا الرقم.</p>";
+  function showContent(num) {
+    const container = document.getElementById('contentContainer');
+    const items = contentData[num];
+    
+    if (!items) {
+      container.innerHTML = "<p>لا يوجد محتوى لهذا الدرس.</p>";
       return;
     }
-    container.innerHTML = exercises.map((ex,i) => `<div class="exercise"><strong>السؤال ${i+1}:</strong> <p>${ex}</p></div>`).join('');
+    
+    // إنشاء بطاقات الكلمات مع أزرار النطق
+    container.innerHTML = items.map(item => `
+      <div class="word-card">
+        <span>${item}</span>
+        <button class="speak-btn" onclick="speak('${item}')">🔊</button>
+      </div>
+    `).join('');
   }
 
-  function goHome(){
-    window.location.href = 'index.html';  // غير 'index.html' إلى رابط الصفحة الرئيسية الفعلي
+  function goHome() {
+    window.location.href = 'index.html'; // تأكد من أن هذا هو اسم صفحتك الرئيسية
+  }
+  
+  // دالة النطق
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      var utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ar-SA'; // لغة ونبرة النطق (عربية - السعودية)
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('متصفحك لا يدعم خاصية النطق الصوتي.');
+    }
   }
 </script>
 
