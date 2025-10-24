@@ -1,67 +1,117 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<!-- ... نفس محتوى الـ head والـ body ... -->
-<script>
-    let curS=1,curE='ar',audio=document.getElementById('audio-player'),audioData=null;
-    let mediaRecorder, audioChunks=[], activeRecorder=null;
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة تحفيظ القرآن التفاعلية</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
+    .header{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px;text-align:center}
+    h1{color:#667eea;font-size:28px;margin-bottom:5px}
+    .main-container{display:flex;gap:15px;max-width:1600px;margin:0 auto}
+    .controls-sidebar{width:320px;flex-shrink:0}
+    .controls{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:15px}
+    .section{margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #eee}
+    select, button{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px}
+    #content{flex:1;background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);overflow-y:auto}
+    .verse{margin-bottom:10px;padding:10px;background:#f8f9ff;border-radius:8px;}
+    .arabic{font-size:24px;line-height:1.8;}
+    .loading{text-align:center;padding:40px;font-size:20px;color:#667eea}
+    .user-playback audio{width:100%;margin-top:10px;}
+</style>
+</head>
+<body>
 
-    // دالة لجلب البيانات مع مهلة زمنية
-    async function fetchWithTimeout(resource, options = {}, timeout = 15000) {
+<div class="header">
+    <h1>📖 منصة تحفيظ القرآن الكريم</h1>
+    <a href="lessons.html" style="padding:10px 20px;background:#28a745;color:white;text-decoration:none;border-radius:8px;">📚 دروس اللغة العربية</a>
+</div>
+
+<div class="main-container">
+    <div class="controls-sidebar">
+        <div class="controls">
+            <div class="section">
+                <label for="surah">السورة:</label>
+                <select id="surah">
+                    <option value="1">1-الفاتحة</option><option value="2">2-البقرة</option><option value="3">3-آل عمران</option><option value="4">4-النساء</option><option value="5">5-المائدة</option><option value="6">6-الأنعام</option><option value="7">7-الأعراف</option><option value="8">8-الأنفال</option><option value="9">9-التوبة</option><option value="10">10-يونس</option><option value="11">11-هود</option><option value="12">12-يوسف</option><option value="13">13-الرعد</option><option value="14">14-إبراهيم</option><option value="15">15-الحجر</option><option value="16">16-النحل</option><option value="17">17-الإسراء</option><option value="18">18-الكهف</option><option value="19">19-مريم</option><option value="20">20-طه</option><option value="21">21-الأنبياء</option><option value="22">22-الحج</option><option value="23">23-المؤمنون</option><option value="24">24-النور</option><option value="25">25-الفرقان</option><option value="26">26-الشعراء</option><option value="27">27-النمل</option><option value="28">28-القصص</option><option value="29">29-العنكبوت</option><option value="30">30-الروم</option><option value="31">31-لقمان</option><option value="32">32-السجدة</option><option value="33">33-الأحزاب</option><option value="34">34-سبأ</option><option value="35">35-فاطر</option><option value="36">36-يس</option><option value="37">37-الصافات</option><option value="38">38-ص</option><option value="39">39-الزمر</option><option value="40">40-غافر</option><option value="41">41-فصلت</option><option value="42">42-الشورى</option><option value="43">43-الزخرف</option><option value="44">44-الدخان</option><option value="45">45-الجاثية</option><option value="46">46-الأحقاف</option><option value="47">47-محمد</option><option value="48">48-الفتح</option><option value="49">49-الحجرات</option><option value="50">50-ق</option><option value="51">51-الذاريات</option><option value="52">52-الطور</option><option value="53">53-النجم</option><option value="54">54-القمر</option><option value="55">55-الرحمن</option><option value="56">56-الواقعة</option><option value="57">57-الحديد</option><option value="58">58-المجادلة</option><option value="59">59-الحشر</option><option value="60">60-الممتحنة</option><option value="61">61-الصف</option><option value="62">62-الجمعة</option><option value="63">63-المنافقون</option><option value="64">64-التغابن</option><option value="65">65-الطلاق</option><option value="66">66-التحريم</option><option value="67">67-الملك</option><option value="68">68-القلم</option><option value="69">69-الحاقة</option><option value="70">70-المعارج</option><option value="71">71-نوح</option><option value="72">72-الجن</option><option value="73">73-المزمل</option><option value="74">74-المدثر</option><option value="75">75-القيامة</option><option value="76">76-الإنسان</option><option value="77">77-المرسلات</option><option value="78">78-النبأ</option><option value="79">79-النازعات</option><option value="80">80-عبس</option><option value="81">81-التكوير</option><option value="82">82-الانفطار</option><option value="83">83-المطففين</option><option value="84">84-الانشقاق</option><option value="85">85-البروج</option><option value="86">86-الطارق</option><option value="87">87-الأعلى</option><option value="88">88-الغاشية</option><option value="89">89-الفجر</option><option value="90">90-البلد</option><option value="91">91-الشمس</option><option value="92">92-الليل</option><option value="93">93-الضحى</option><option value="94">94-الشرح</option><option value="95">95-التين</option><option value="96">96-العلق</option><option value="97">97-القدر</option><option value="98">98-البينة</option><option value="99">99-الزلزلة</option><option value="100">100-العاديات</option><option value="101">101-القارعة</option><option value="102">102-التكاثر</option><option value="103">103-العصر</option><option value="104">104-الهمزة</option><option value="105">105-الفيل</option><option value="106">106-قريش</option><option value="107">107-الماعون</option><option value="108">108-الكوثر</option><option value="109">109-الكافرون</option><option value="110">110-النصر</option><option value="111">111-المسد</option><option value="112">112-الإخلاص</option><option value="113">113-الفلق</option><option value="114">114-الناس</option>
+                </select>
+            </div>
+            <div class="section">
+                <label for="hide-percentage">نسبة الإخفاء:</label>
+                <select id="hide-percentage">
+                    <option value="10">10%</option><option value="20">20%</option><option value="30">30%</option><option value="40">40%</option><option value="50" selected>50%</option><option value="60">60%</option><option value="70">70%</option><option value="80">80%</option><option value="90">90%</option><option value="100">100%</option>
+                </select>
+            </div>
+            <div class="section">
+                <button id="hide-btn">إخفاء</button>
+                <button id="reveal-btn">إظهار</button>
+            </div>
+        </div>
+    </div>
+    <div id="content"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<script>
+    const surahSelect = document.getElementById('surah');
+    const contentDiv = document.getElementById('content');
+
+    async function fetchWithTimeout(resource, timeout = 15000) {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), timeout);
-        const response = await fetch(resource, {
-            ...options,
-            signal: controller.signal  
-        });
+        const response = await fetch(resource, { signal: controller.signal });
         clearTimeout(id);
         return response;
     }
 
-    async function load(n, e) {
-        const c = document.getElementById('content');
-        c.innerHTML = '<div class="loading">جاري التحميل...</div>';
+    async function loadSurah(surahNumber) {
+        contentDiv.innerHTML = '<div class="loading">جاري تحميل السورة...</div>';
         try {
-            // استخدام الدالة الجديدة مع مهلة زمنية
-            const arRes = await fetchWithTimeout(`https://api.alquran.cloud/v1/surah/${n}`);
-            const trRes = await fetchWithTimeout(`https://api.alquran.cloud/v1/surah/${n}/en.transliteration`);
-            const reciter = document.getElementById('reciter').value;
-            const audioResRes = await fetchWithTimeout(`https://api.alquran.cloud/v1/surah/${n}/${reciter}`);
-
-            if (!arRes.ok || !trRes.ok || !audioResRes.ok) {
-                throw new Error('فشل في جلب البيانات من الشبكة.');
-            }
-
-            const ar = await arRes.json();
-            const tr = await trRes.json();
-            audioData = (await audioResRes.json()).data.ayahs;
-            
-            let trans = null;
-            if (e !== 'ar') {
-                const transRes = await fetchWithTimeout(`https://api.alquran.cloud/v1/surah/${n}/${e}`);
-                if (transRes.ok) {
-                    trans = await transRes.json();
-                }
-            }
-            show(ar.data, tr.data, trans ? trans.data : null);
-
-        } catch (err) {
-            if (err.name === 'AbortError') {
-                c.innerHTML = '<div class="loading">استغرق الخادم وقتاً طويلاً للرد. يرجى تحديث الصفحة والمحاولة مرة أخرى.</div>';
-            } else {
-                c.innerHTML = '<div class="loading">خطأ في تحميل البيانات. يرجى التحقق من اتصالك بالإنترنت.</div>';
-            }
-            console.error("Error loading data:", err);
+            const response = await fetchWithTimeout(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`);
+            if (!response.ok) throw new Error('Network response was not ok.');
+            const data = await response.json();
+            displaySurah(data.data);
+        } catch (error) {
+            contentDiv.innerHTML = `<div class="loading">فشل تحميل البيانات. يرجى التحقق من اتصالك بالإنترنت. (${error.message})</div>`;
         }
     }
 
-    // ... باقي دوال جافاسكريبت تبقى كما هي ...
-    function show(ar,tr,trans){
-        // ... (نفس الكود بدون تغيير)
+    function displaySurah(surah) {
+        contentDiv.innerHTML = `<h2>${surah.name}</h2>`;
+        surah.ayahs.forEach((ayah, index) => {
+            const verseDiv = document.createElement('div');
+            verseDiv.className = 'verse';
+            verseDiv.innerHTML = `
+                <p class="arabic">${ayah.text} (${ayah.numberInSurah})</p>
+                <button onclick="playAudio('${ayah.audio}')">▶️ استماع</button>
+                <button onclick="startRecording(${index})">🎤 تسجيل</button>
+                <button onclick="stopRecording(${index})" disabled>⏹️ إيقاف</button>
+                <div class="user-playback" id="playback-${index}"></div>
+            `;
+            contentDiv.appendChild(verseDiv);
+        });
     }
-    window.playVerse = function(index){
-        // ... (نفس الكود بدون تغيير)
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let activeRecordingIndex = null;
+
+    function playAudio(audioUrl) {
+        const audio = new Audio(audioUrl);
+        audio.play();
     }
-    // ... وهكذا
+
+    async function startRecording(index) {
+        // ... (كود التسجيل من الردود السابقة)
+    }
+
+    function stopRecording(index) {
+        // ... (كود إيقاف التسجيل من الردود السابقة)
+    }
+
+    surahSelect.addEventListener('change', () => loadSurah(surahSelect.value));
+    loadSurah(1); // تحميل سورة الفاتحة عند فتح الصفحة
 </script>
+
 </body>
 </html>
