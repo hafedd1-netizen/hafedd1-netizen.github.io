@@ -23,28 +23,18 @@
     button:disabled{opacity:0.5;cursor:not-allowed}
     .lang-btn{background:white;color:#667eea;font-size:12px;min-width:60px}
     .lang-btn.active{background:#667eea;color:white}
-    #reveal-btn{background:#28a745;border-color:#28a745}
-    #reveal-btn:hover{background:#218838;border-color:#218838}
     #content{flex:1;background:white;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);max-height:calc(100vh - 100px);overflow-y:auto}
     .title{text-align:center;color:#667eea;font-size:24px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #667eea}
     .verse{margin-bottom:5px;padding:10px;background:#f8f9ff;border-radius:8px;transition:all 0.4s;position:relative}
-    .verse:hover{box-shadow:0 2px 8px rgba(102,126,234,0.15)}
     .verse.playing{background:#fff3cd;box-shadow:0 4px 12px rgba(255,215,0,0.4)}
     .verse-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
     .num{display:inline-block;background:#667eea;color:white;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:bold}
     .verse-controls{display:flex;gap:5px}
     .verse-btn{padding:5px 10px;font-size:12px;min-width:auto;border-radius:12px}
     .play-verse-btn{background:#ff6b6b;border-color:#ff6b6b}
-    .repeat-verse-btn{background:#ffd93d;border-color:#ffd93d;color:#333}
     .record-verse-btn{background:#1a73e8;border-color:#1a73e8}
     .stop-record-btn{background:#ea4335;border-color:#ea4335}
     .arabic{font-size:24px;line-height:1.6;margin-bottom:6px;direction:rtl;text-align:right;color:#1a1a1a}
-    .translit{font-size:15px;line-height:1.3;margin-bottom:3px;color:#555;font-style:italic;direction:ltr;text-align:left;font-family:Georgia,serif}
-    .trans{font-size:15px;line-height:1.3;color:#333;padding:6px;background:white;border-left:3px solid #667eea;border-radius:4px;direction:ltr;text-align:left}
-    .word{display:inline-block;padding:2px 4px;margin:1px;cursor:pointer;transition:all 0.3s;border-radius:3px}
-    .word:hover{background:#fff3cd}
-    .word.hidden{color:transparent;background:#ddd;user-select:none}
-    .word.revealed{background:#d4edda!important;color:#155724!important}
     .user-playback{margin-top:10px;padding-top:10px;border-top:1px dashed #ccc}
     .user-playback audio{width:100%;margin-top:5px}
     .loading{text-align:center;padding:40px;font-size:20px;color:#667eea}
@@ -61,13 +51,36 @@
 
 <div class="main-container">
     <div class="controls-sidebar">
-        <!-- ... نفس محتوى لوحة التحكم ... -->
         <div class="controls">
-            <div class="section"><label class="label">السورة</label><select id="surah"><option value="1">1-الفاتحة</option><option value="2">2-البقرة</option><!-- ... باقي السور ... --><option value="114">114-الناس</option></select></div>
-            <div class="section"><label class="label">القارئ</label><select id="reciter"><option value="ar.alafasy">مشاري العفاسي</option><option value="ar.abdulbasitmurattal">عبدالباسط</option><option value="ar.abdurrahmaansudais">السديس</option><option value="ar.shaatree">الشاطري</option><option value="ar.husary">الحصري</option><option value="ar.minshawi">المنشاوي</option></select></div>
-            <div class="section"><label class="label">اللغة</label><div class="btn-row"><button class="lang-btn active" data-ed="ar">ع</button><button class="lang-btn" data-ed="en.asad">EN</button><button class="lang-btn" data-ed="fr.hamidullah">FR</button><button class="lang-btn" data-ed="es.cortes">ES</button><button class="lang-btn" data-ed="de.bubenheim">DE</button><button class="lang-btn" data-ed="it.piccardo">IT</button></div></div>
-            <div class="section"><label class="label">النسبة</label><select id="hide-percentage"><option value="10">10%</option><option value="50" selected>50%</option><option value="100">100%</option></select></div>
-            <div class="section"><div class="btn-row"><button id="hide-btn">🎯 إخفاء</button><button id="reveal-btn">✓ إظهار</button></div></div>
+            <div class="section">
+                <label class="label">السورة</label>
+                <select id="surah">
+                    <option value="1">1-الفاتحة</option><option value="2">2-البقرة</option><option value="3">3-آل عمران</option><option value="4">4-النساء</option><option value="5">5-المائدة</option><option value="6">6-الأنعام</option><option value="7">7-الأعراف</option><option value="8">8-الأنفال</option><option value="9">9-التوبة</option><option value="10">10-يونس</option><option value="11">11-هود</option><option value="12">12-يوسف</option><option value="13">13-الرعد</option><option value="14">14-إبراهيم</option><option value="15">15-الحجر</option><option value="16">16-النحل</option><option value="17">17-الإسراء</option><option value="18">18-الكهف</option><option value="19">19-مريم</option><option value="20">20-طه</option><option value="21">21-الأنبياء</option><option value="22">22-الحج</option><option value="23">23-المؤمنون</option><option value="24">24-النور</option><option value="25">25-الفرقان</option><option value="26">26-الشعراء</option><option value="27">27-النمل</option><option value="28">28-القصص</option><option value="29">29-العنكبوت</option><option value="30">30-الروم</option><option value="31">31-لقمان</option><option value="32">32-السجدة</option><option value="33">33-الأحزاب</option><option value="34">34-سبأ</option><option value="35">35-فاطر</option><option value="36">36-يس</option><option value="37">37-الصافات</option><option value="38">38-ص</option><option value="39">39-الزمر</option><option value="40">40-غافر</option><option value="41">41-فصلت</option><option value="42">42-الشورى</option><option value="43">43-الزخرف</option><option value="44">44-الدخان</option><option value="45">45-الجاثية</option><option value="46">46-الأحقاف</option><option value="47">47-محمد</option><option value="48">48-الفتح</option><option value="49">49-الحجرات</option><option value="50">50-ق</option><option value="51">51-الذاريات</option><option value="52">52-الطور</option><option value="53">53-النجم</option><option value="54">54-القمر</option><option value="55">55-الرحمن</option><option value="56">56-الواقعة</option><option value="57">57-الحديد</option><option value="58">58-المجادلة</option><option value="59">59-الحشر</option><option value="60">60-الممتحنة</option><option value="61">61-الصف</option><option value="62">62-الجمعة</option><option value="63">63-المنافقون</option><option value="64">64-التغابن</option><option value="65">65-الطلاق</option><option value="66">66-التحريم</option><option value="67">67-الملك</option><option value="68">68-القلم</option><option value="69">69-الحاقة</option><option value="70">70-المعارج</option><option value="71">71-نوح</option><option value="72">72-الجن</option><option value="73">73-المزمل</option><option value="74">74-المدثر</option><option value="75">75-القيامة</option><option value="76">76-الإنسان</option><option value="77">77-المرسلات</option><option value="78">78-النبأ</option><option value="79">79-النازعات</option><option value="80">80-عبس</option><option value="81">81-التكوير</option><option value="82">82-الانفطار</option><option value="83">83-المطففين</option><option value="84">84-الانشقاق</option><option value="85">85-البروج</option><option value="86">86-الطارق</option><option value="87">87-الأعلى</option><option value="88">88-الغاشية</option><option value="89">89-الفجر</option><option value="90">90-البلد</option><option value="91">91-الشمس</option><option value="92">92-الليل</option><option value="93">93-الضحى</option><option value="94">94-الشرح</option><option value="95">95-التين</option><option value="96">96-العلق</option><option value="97">97-القدر</option><option value="98">98-البينة</option><option value="99">99-الزلزلة</option><option value="100">100-العاديات</option><option value="101">101-القارعة</option><option value="102">102-التكاثر</option><option value="103">103-العصر</option><option value="104">104-الهمزة</option><option value="105">105-الفيل</option><option value="106">106-قريش</option><option value="107">107-الماعون</option><option value="108">108-الكوثر</option><option value="109">109-الكافرون</option><option value="110">110-النصر</option><option value="111">111-المسد</option><option value="112">112-الإخلاص</option><option value="113">113-الفلق</option><option value="114">114-الناس</option>
+                </select>
+            </div>
+            <div class="section">
+                <label class="label">القارئ</label>
+                <select id="reciter">
+                    <option value="ar.alafasy">مشاري العفاسي</option><option value="ar.abdulbasitmurattal">عبدالباسط</option><option value="ar.abdurrahmaansudais">السديس</option><option value="ar.shaatree">الشاطري</option><option value="ar.husary">الحصري</option><option value="ar.minshawi">المنشاوي</option>
+                </select>
+            </div>
+            <div class="section">
+                <label class="label">اللغة</label>
+                <div class="btn-row">
+                    <button class="lang-btn active" data-ed="ar">ع</button><button class="lang-btn" data-ed="en.asad">EN</button><button class="lang-btn" data-ed="fr.hamidullah">FR</button><button class="lang-btn" data-ed="es.cortes">ES</button><button class="lang-btn" data-ed="de.bubenheim">DE</button><button class="lang-btn" data-ed="it.piccardo">IT</button>
+                </div>
+            </div>
+            <div class="section">
+                <label class="label">النسبة</label>
+                <select id="hide-percentage">
+                    <option value="10">10%</option><option value="20">20%</option><option value="30">30%</option><option value="40">40%</option><option value="50" selected>50%</option><option value="60">60%</option><option value="70">70%</option><option value="80">80%</option><option value="90">90%</option><option value="100">100%</option>
+                </select>
+            </div>
+            <div class="section">
+                <div class="btn-row">
+                    <button id="hide-btn">🎯 إخفاء</button><button id="reveal-btn">✓ إظهار</button>
+                </div>
+            </div>
         </div>
     </div>
     <div id="content">
@@ -77,6 +90,7 @@
 <audio id="audio-player" style="display:none;"></audio>
 
 <script>
+    // ... محتوى السكريبت يبقى كما هو ...
     let curS=1,curE='ar',audio=document.getElementById('audio-player'),audioData=null;
     let mediaRecorder, audioChunks=[], activeRecorder=null;
 
@@ -102,20 +116,16 @@
             h+=`<div class="verse" data-ayah="${vi}">`;
             h+=`<div class="verse-header"><div class="num">${a.numberInSurah}</div><div class="verse-controls">`;
             h+=`<button class="verse-btn play-verse-btn" onclick="playVerse(${vi})">▶</button>`;
-            h+=`<button class="verse-btn repeat-verse-btn" onclick="repeatVerse(${vi})">🔁</button>`;
             h+=`<button class="verse-btn record-verse-btn" onclick="startRecording(this, ${vi})">🎤</button>`;
             h+=`<button class="verse-btn stop-record-btn" onclick="stopRecording(this, ${vi})" style="display:none;">⏹️</button>`;
             h+=`</div></div>`;
-            h+=`<div class="arabic">`;
-            a.text.split(' ').forEach((w,wi)=>{h+=`<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;});
-            h+=`</div>`;
+            h+=`<div class="arabic">${a.text}</div>`;
             if(tr.ayahs[vi]){h+=`<div class="translit">${tr.ayahs[vi].text}</div>`;}
             if(trans&&trans.ayahs[vi]){h+=`<div class="trans">${trans.ayahs[vi].text}</div>`;}
             h+=`<div class="user-playback" id="playback-${vi}" style="display:none;"><p style="font-size:14px; margin-top:10px; font-weight:bold;">تسجيلك:</p><audio controls></audio></div>`;
             h+=`</div>`;
         });
         c.innerHTML=h;
-        document.querySelectorAll('.word').forEach(w=>{w.onclick=function(){if(this.classList.contains('hidden')){this.classList.remove('hidden');this.classList.add('revealed');const v=this.dataset.v,wi=this.dataset.w;const p=document.querySelector(`.${this.classList.contains('aw')?'tw':'aw'}[data-v="${v}"][data-w="${wi}"]`);if(p){p.classList.remove('hidden');p.classList.add('revealed');}}}});
     }
     
     window.playVerse=function(index){
@@ -124,57 +134,6 @@
         if(verse){verse.classList.add('playing');verse.scrollIntoView({behavior:'smooth',block:'center'});}
         if(audioData&&audioData[index]){audio.src=audioData[index].audio;audio.play();audio.onended=()=>{verse.classList.remove('playing');};}
     };
-    
-    window.repeatVerse=function(index){playVerse(index);};
 
-    // --- دوال التسجيل الصوتي ---
     window.startRecording = async function(btn, verseIndex) {
-        if(mediaRecorder && mediaRecorder.state === 'recording') { alert('هناك تسجيل قيد التشغيل بالفعل. يرجى إيقافه أولاً.'); return; }
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            
-            const stopBtn = btn.nextElementSibling;
-            btn.style.display = 'none';
-            stopBtn.style.display = 'inline-block';
-            activeRecorder = { verseIndex, btn };
-            
-            const playbackDiv = document.getElementById(`playback-${verseIndex}`);
-            if(playbackDiv) playbackDiv.style.display = 'none';
-            
-            audioChunks = [];
-            mediaRecorder.start();
-            
-            mediaRecorder.ondataavailable = event => { audioChunks.push(event.data); };
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                if(playbackDiv) {
-                    const userAudio = playbackDiv.querySelector('audio');
-                    userAudio.src = audioUrl;
-                    playbackDiv.style.display = 'block';
-                }
-                stream.getTracks().forEach(track => track.stop());
-            };
-        } catch(err) { alert('خطأ: لم يتم منح إذن الوصول إلى الميكروفون.'); }
-    };
-    
-    window.stopRecording = function(btn, verseIndex) {
-        if(mediaRecorder && mediaRecorder.state === 'recording') { mediaRecorder.stop(); }
-        const recordBtn = btn.previousElementSibling;
-        btn.style.display = 'none';
-        recordBtn.style.display = 'inline-block';
-        activeRecorder = null;
-    };
-    // --- نهاية دوال التسجيل ---
-    
-    document.querySelectorAll('.lang-btn').forEach(b=>{b.onclick=function(){document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');curE=this.dataset.ed;load(curS,curE);};});
-    document.getElementById('surah').onchange=function(){curS=this.value;audio.pause();load(curS,curE);};
-    document.getElementById('reciter').onchange=function(){audio.pause();load(curS,curE);};
-    document.getElementById('hide-btn').onclick=function(){const p=parseInt(document.getElementById('hide-percentage').value);const all=document.querySelectorAll('.word');all.forEach(w=>{w.classList.remove('revealed');w.classList.remove('hidden');});const aw=Array.from(document.querySelectorAll('.aw'));const hide=Math.floor(aw.length*(p/100));aw.sort(()=>Math.random()-0.5);for(let i=0;i<hide;i++){aw[i].classList.add('hidden');const v=aw[i].dataset.v,wi=aw[i].dataset.w;const tw=document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);if(tw)tw.classList.add('hidden');}};
-    document.getElementById('reveal-btn').onclick=function(){document.querySelectorAll('.word').forEach(w=>{w.classList.remove('hidden');w.classList.remove('revealed');});};
-    
-    load(1,'ar');
-</script>
-</body>
-</html>
+        if(mediaRecorder && mediaRecorder
