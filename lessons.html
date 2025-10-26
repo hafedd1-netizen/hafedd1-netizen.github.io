@@ -25,6 +25,25 @@
             padding: 20px;
         }
 
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .language-selector select {
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
         header {
             background: white;
             padding: 20px;
@@ -59,10 +78,6 @@
             font-size: 1.8em;
         }
 
-        .progress-item p {
-            color: #666;
-        }
-
         .badges {
             display: flex;
             gap: 10px;
@@ -89,52 +104,33 @@
             opacity: 0.5;
         }
 
-        .badge-tooltip {
-            position: absolute;
-            bottom: -30px;
-            background: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.7em;
-            white-space: nowrap;
-            display: none;
-            z-index: 1000;
-        }
-
-        .badge:hover .badge-tooltip {
-            display: block;
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .nav-btn {
+        /* Navigation */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
             transition: transform 0.2s;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .nav-btn:hover {
+        .home-button:hover {
             transform: scale(1.05);
         }
 
-        .back-btn {
-            background: #666;
+        .home-button.show {
+            display: block;
         }
 
-        /* Main Views */
+        /* Views */
         .main-view {
             display: none;
         }
@@ -155,13 +151,12 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             cursor: pointer;
         }
 
         .module-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         .module-card h2 {
@@ -170,18 +165,13 @@
             font-size: 1.8em;
         }
 
-        .module-card p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
         .progress-bar {
             width: 100%;
             height: 10px;
             background: #e0e0e0;
             border-radius: 5px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
 
         .progress-fill {
@@ -199,11 +189,7 @@
             cursor: pointer;
             font-size: 1.1em;
             width: 100%;
-            transition: transform 0.2s;
-        }
-
-        .module-btn:hover {
-            transform: scale(1.05);
+            margin-top: 15px;
         }
 
         /* Lesson Content */
@@ -212,13 +198,14 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-top: 80px;
         }
 
         .alphabet-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
 
         .letter-card {
@@ -232,16 +219,20 @@
         }
 
         .letter-card:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.1);
         }
 
-        .letter-card .arabic-letter {
-            font-size: 3em;
-            margin-bottom: 10px;
+        .letter-card.completed {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
         }
 
-        .letter-card .letter-name {
-            font-size: 1.2em;
+        .arabic-letter {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .letter-name {
+            font-size: 1em;
         }
 
         .audio-btn {
@@ -259,7 +250,14 @@
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            margin-top: 20px;
+            margin-top: 30px;
+        }
+
+        .quiz-progress {
+            text-align: center;
+            font-size: 1.2em;
+            color: #667eea;
+            margin-bottom: 20px;
         }
 
         .quiz-question {
@@ -267,6 +265,13 @@
             color: #333;
             margin-bottom: 20px;
             text-align: center;
+        }
+
+        .quiz-display {
+            font-size: 4em;
+            text-align: center;
+            color: #667eea;
+            margin: 30px 0;
         }
 
         .quiz-options {
@@ -284,6 +289,7 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 3px solid transparent;
+            font-size: 1.2em;
         }
 
         .quiz-option:hover {
@@ -294,11 +300,24 @@
         .quiz-option.correct {
             background: #4caf50;
             color: white;
+            animation: celebrate 0.5s;
         }
 
         .quiz-option.incorrect {
             background: #f44336;
             color: white;
+            animation: shake 0.5s;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .vocab-card {
@@ -310,6 +329,11 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .vocab-card:hover {
+            transform: translateX(-5px);
         }
 
         .vocab-arabic {
@@ -329,28 +353,12 @@
             margin-bottom: 20px;
         }
 
-        .grammar-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
         .example-box {
             background: white;
             padding: 15px;
             border-radius: 10px;
             margin-top: 10px;
             border-right: 5px solid #667eea;
-        }
-
-        .example-arabic {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .example-translation {
-            color: #666;
-            font-style: italic;
         }
 
         .achievement-popup {
@@ -380,50 +388,53 @@
             .modules-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .alphabet-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            }
-            
             .quiz-options {
                 grid-template-columns: 1fr;
+            }
+            .home-button {
+                padding: 10px 20px;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="it">Italiano</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+
+    <!-- Home Button -->
+    <button class="home-button" id="homeButton" onclick="showHome()">
+        <span id="homeButtonText">🏠 العودة للصفحة الرئيسية</span>
+    </button>
+
     <div class="container">
         <header>
-            <h1>🌙 تعلم اللغة العربية مع القرآن</h1>
-            <p>رحلتك لإتقان اللغة العربية من خلال القرآن الكريم</p>
+            <h1 id="mainTitle">🌙 تعلم اللغة العربية مع القرآن</h1>
+            <p id="mainSubtitle">رحلتك لإتقان اللغة العربية من خلال القرآن الكريم</p>
             
             <div class="user-progress">
                 <div class="progress-item">
                     <h3 id="totalPoints">0</h3>
-                    <p>النقاط</p>
+                    <p id="pointsLabel">النقاط</p>
                 </div>
                 <div class="progress-item">
                     <h3 id="completedLessons">0</h3>
-                    <p>الدروس المكتملة</p>
+                    <p id="lessonsLabel">الدروس المكتملة</p>
                 </div>
                 <div class="progress-item">
-                    <div class="badges" id="badgesContainer">
-                        <div class="badge locked">
-                            🎯
-                            <div class="badge-tooltip">مبتدئ</div>
-                        </div>
-                        <div class="badge locked">
-                            ⭐
-                            <div class="badge-tooltip">متقدم</div>
-                        </div>
-                        <div class="badge locked">
-                            🏆
-                            <div class="badge-tooltip">خبير</div>
-                        </div>
-                        <div class="badge locked">
-                            👑
-                            <div class="badge-tooltip">أستاذ</div>
-                        </div>
+                    <div class="badges">
+                        <div class="badge locked">🎯</div>
+                        <div class="badge locked">⭐</div>
+                        <div class="badge locked">🏆</div>
+                        <div class="badge locked">👑</div>
                     </div>
                 </div>
             </div>
@@ -432,154 +443,805 @@
         <!-- Home View -->
         <div id="homeView" class="main-view active">
             <div class="modules-grid">
-                <div class="module-card" data-module="alphabet">
-                    <h2>📚 الحروف الأبجدية</h2>
-                    <p>تعلم 28 حرفاً في اللغة العربية مع الأشكال الأربعة</p>
+                <div class="module-card" onclick="showModule('alphabet')">
+                    <h2 id="alphabetTitle">📚 الحروف الأبجدية</h2>
+                    <p id="alphabetDesc">تعلم 28 حرفاً في اللغة العربية</p>
                     <div class="progress-bar">
-                        <div class="progress-fill" data-progress="alphabet" style="width: 0%"></div>
+                        <div class="progress-fill" id="alphabetProgress" style="width: 0%"></div>
                     </div>
-                    <p>التقدم: <span class="progress-text" data-text="alphabet">0%</span></p>
-                    <button class="module-btn">ابدأ التعلم</button>
+                    <p><span id="alphabetProgressText">0</span>% <span id="progressLabel1">مكتمل</span></p>
+                    <button class="module-btn" id="alphabetBtn">ابدأ التعلم</button>
                 </div>
 
-                <div class="module-card" data-module="vowels">
-                    <h2>✨ الحركات والمدود</h2>
-                    <p>اتقن الفتحة والكسرة والضمة والمدود</p>
+                <div class="module-card" onclick="showModule('vowels')">
+                    <h2 id="vowelsTitle">✨ الحركات والمدود</h2>
+                    <p id="vowelsDesc">اتقن الفتحة والكسرة والضمة</p>
                     <div class="progress-bar">
-                        <div class="progress-fill" data-progress="vowels" style="width: 0%"></div>
+                        <div class="progress-fill" id="vowelsProgress" style="width: 0%"></div>
                     </div>
-                    <p>التقدم: <span class="progress-text" data-text="vowels">0%</span></p>
-                    <button class="module-btn">ابدأ التعلم</button>
+                    <p><span id="vowelsProgressText">0</span>% <span id="progressLabel2">مكتمل</span></p>
+                    <button class="module-btn" id="vowelsBtn">ابدأ التعلم</button>
                 </div>
 
-                <div class="module-card" data-module="vocabulary">
-                    <h2>📖 المفردات القرآنية</h2>
-                    <p>تعلم الكلمات الأساسية من القرآن الكريم</p>
+                <div class="module-card" onclick="showModule('vocabulary')">
+                    <h2 id="vocabTitle">📖 المفردات القرآنية</h2>
+                    <p id="vocabDesc">تعلم الكلمات الأساسية من القرآن</p>
                     <div class="progress-bar">
-                        <div class="progress-fill" data-progress="vocabulary" style="width: 0%"></div>
+                        <div class="progress-fill" id="vocabProgress" style="width: 0%"></div>
                     </div>
-                    <p>التقدم: <span class="progress-text" data-text="vocabulary">0%</span></p>
-                    <button class="module-btn">ابدأ التعلم</button>
+                    <p><span id="vocabProgressText">0</span>% <span id="progressLabel3">مكتمل</span></p>
+                    <button class="module-btn" id="vocabBtn">ابدأ التعلم</button>
                 </div>
 
-                <div class="module-card" data-module="grammar">
-                    <h2>⚙️ القواعد الأساسية</h2>
-                    <p>تعلم بناء الجمل والتراكيب العربية</p>
+                <div class="module-card" onclick="showModule('grammar')">
+                    <h2 id="grammarTitle">⚙️ القواعد الأساسية</h2>
+                    <p id="grammarDesc">تعلم بناء الجمل العربية</p>
                     <div class="progress-bar">
-                        <div class="progress-fill" data-progress="grammar" style="width: 0%"></div>
+                        <div class="progress-fill" id="grammarProgress" style="width: 0%"></div>
                     </div>
-                    <p>التقدم: <span class="progress-text" data-text="grammar">0%</span></p>
-                    <button class="module-btn">ابدأ التعلم</button>
+                    <p><span id="grammarProgressText">0</span>% <span id="progressLabel4">مكتمل</span></p>
+                    <button class="module-btn" id="grammarBtn">ابدأ التعلم</button>
                 </div>
             </div>
         </div>
 
-        <!-- Alphabet Module View -->
+        <!-- Alphabet Module -->
         <div id="alphabetView" class="main-view">
-            <div class="nav-buttons">
-                <button class="nav-btn back-btn" onclick="showHome()">🏠 العودة للصفحة الرئيسية</button>
-            </div>
             <div class="lesson-content">
-                <h2>📚 تعلم الحروف الأبجدية العربية</h2>
-                <p>انقر على كل حرف لسماع نطقه</p>
+                <h2 id="alphabetLessonTitle">📚 تعلم الحروف الأبجدية العربية</h2>
+                <p id="alphabetInstruction">انقر على كل حرف لسماع نطقه</p>
                 
                 <div class="alphabet-grid" id="alphabetGrid"></div>
                 
                 <div class="quiz-container">
-                    <h3>اختبر نفسك!</h3>
-                    <div class="quiz-question">ما هذا الحرف؟</div>
-                    <div id="alphabetQuizLetter" style="font-size: 5em; text-align: center; color: #667eea; margin: 20px 0;"></div>
+                    <h3 id="quizTitle1">اختبر نفسك!</h3>
+                    <div class="quiz-progress" id="alphabetQuizProgress">0 / 28</div>
+                    <div class="quiz-question" id="alphabetQuestion">ما هذا الحرف؟</div>
+                    <div class="quiz-display" id="alphabetQuizLetter"></div>
                     <div class="quiz-options" id="alphabetQuizOptions"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Vowels Module View -->
+        <!-- Vowels Module -->
         <div id="vowelsView" class="main-view">
-            <div class="nav-buttons">
-                <button class="nav-btn back-btn" onclick="showHome()">🏠 العودة للصفحة الرئيسية</button>
-            </div>
             <div class="lesson-content">
-                <h2>✨ الحركات والمدود</h2>
+                <h2 id="vowelsLessonTitle">✨ الحركات والمدود</h2>
                 
                 <div class="grammar-section">
-                    <h3>الحركات القصيرة</h3>
+                    <h3 id="shortVowelsTitle">الحركات القصيرة</h3>
                     <div class="example-box">
-                        <div class="example-arabic">بَ - الفتحة</div>
-                        <div class="example-translation">Fatha - son "a"</div>
-                        <button class="audio-btn" onclick="playVowelSound('بَ')">🔊 استمع</button>
+                        <div class="arabic-letter">بَ</div>
+                        <div id="fathaLabel">الفتحة - Fatha (son "a")</div>
+                        <button class="audio-btn" onclick="playSound('بَ')">🔊 <span id="listenLabel1">استمع</span></button>
                     </div>
                     <div class="example-box">
-                        <div class="example-arabic">بِ - الكسرة</div>
-                        <div class="example-translation">Kasra - son "i"</div>
-                        <button class="audio-btn" onclick="playVowelSound('بِ')">🔊 استمع</button>
+                        <div class="arabic-letter">بِ</div>
+                        <div id="kasraLabel">الكسرة - Kasra (son "i")</div>
+                        <button class="audio-btn" onclick="playSound('بِ')">🔊 <span id="listenLabel2">استمع</span></button>
                     </div>
                     <div class="example-box">
-                        <div class="example-arabic">بُ - الضمة</div>
-                        <div class="example-translation">Damma - son "ou"</div>
-                        <button class="audio-btn" onclick="playVowelSound('بُ')">🔊 استمع</button>
+                        <div class="arabic-letter">بُ</div>
+                        <div id="dammaLabel">الضمة - Damma (son "ou")</div>
+                        <button class="audio-btn" onclick="playSound('بُ')">🔊 <span id="listenLabel3">استمع</span></button>
                     </div>
                     <div class="example-box">
-                        <div class="example-arabic">بْ - السكون</div>
-                        <div class="example-translation">Soukoun - pas de voyelle</div>
-                        <button class="audio-btn" onclick="playVowelSound('بْ')">🔊 استمع</button>
-                    </div>
-                </div>
-
-                <div class="grammar-section">
-                    <h3>المدود (Voyelles longues)</h3>
-                    <div class="example-box">
-                        <div class="example-arabic">با - مد بالألف</div>
-                        <div class="example-translation">Ba - son "aa" long</div>
-                        <button class="audio-btn" onclick="playVowelSound('با')">🔊 استمع</button>
-                    </div>
-                    <div class="example-box">
-                        <div class="example-arabic">بي - مد بالياء</div>
-                        <div class="example-translation">Bi - son "ii" long</div>
-                        <button class="audio-btn" onclick="playVowelSound('بي')">🔊 استمع</button>
-                    </div>
-                    <div class="example-box">
-                        <div class="example-arabic">بو - مد بالواو</div>
-                        <div class="example-translation">Bou - son "ou" long</div>
-                        <button class="audio-btn" onclick="playVowelSound('بو')">🔊 استمع</button>
+                        <div class="arabic-letter">بْ</div>
+                        <div id="sukounLabel">السكون - Soukoun (pas de voyelle)</div>
+                        <button class="audio-btn" onclick="playSound('بْ')">🔊 <span id="listenLabel4">استمع</span></button>
                     </div>
                 </div>
 
                 <div class="quiz-container">
-                    <h3>تمرين: حدد الحركة الصحيحة</h3>
-                    <div class="quiz-question">أي حركة تسمع؟</div>
-                    <div class="quiz-options" id="vowelQuizOptions"></div>
+                    <h3 id="quizTitle2">اختبر نفسك!</h3>
+                    <div class="quiz-progress" id="vowelsQuizProgress">0 / 20</div>
+                    <div class="quiz-question" id="vowelsQuestion">ما هي الحركة الصحيحة؟</div>
+                    <div class="quiz-display" id="vowelsQuizLetter"></div>
+                    <div class="quiz-options" id="vowelsQuizOptions"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Vocabulary Module View -->
+        <!-- Vocabulary Module -->
         <div id="vocabularyView" class="main-view">
-            <div class="nav-buttons">
-                <button class="nav-btn back-btn" onclick="showHome()">🏠 العودة للصفحة الرئيسية</button>
-            </div>
             <div class="lesson-content">
-                <h2>📖 المفردات القرآنية الأساسية</h2>
+                <h2 id="vocabLessonTitle">📖 المفردات القرآنية الأساسية</h2>
                 
-                <h3>أسماء الله الحسنى</h3>
+                <h3 id="allahNamesTitle">أسماء الله الحسنى</h3>
                 <div id="allahNamesContainer"></div>
 
-                <h3 style="margin-top: 30px;">كلمات من الصلاة</h3>
+                <h3 id="prayerVocabTitle">كلمات من الصلاة</h3>
                 <div id="prayerVocabContainer"></div>
 
-                <h3 style="margin-top: 30px;">أفعال قرآنية</h3>
+                <h3 id="verbsTitle">أفعال قرآنية</h3>
                 <div id="verbsContainer"></div>
 
                 <div class="quiz-container">
-                    <h3>اختبار المفردات</h3>
-                    <div class="quiz-question">ما معنى هذه الكلمة؟</div>
-                    <div id="vocabQuizWord" style="font-size: 3em; text-align: center; color: #667eea; margin: 20px 0;"></div>
+                    <h3 id="quizTitle3">اختبار المفردات</h3>
+                    <div class="quiz-progress" id="vocabQuizProgress">0 / 20</div>
+                    <div class="quiz-question" id="vocabQuestion">ما معنى هذه الكلمة؟</div>
+                    <div class="quiz-display" id="vocabQuizWord"></div>
                     <div class="quiz-options" id="vocabQuizOptions"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Grammar Module View -->
+        <!-- Grammar Module -->
         <div id="grammarView" class="main-view">
-            <div class="nav-buttons">
-                <button class="nav-btn back-btn" onclick="showHome()">🏠 العودة للصفحة الرئيسية
+            <div class="lesson-content">
+                <h2 id="grammarLessonTitle">⚙️ القواعد الأساسية</h2>
+                
+                <div class="grammar-section">
+                    <h3 id="wordTypesTitle">الاسم والفعل والحرف</h3>
+                    <div class="example-box">
+                        <div class="arabic-letter">محمد، كتاب، مسجد</div>
+                        <div id="nounLabel">الاسم - Nom (personne, chose, lieu)</div>
+                    </div>
+                    <div class="example-box">
+                        <div class="arabic-letter">كتب، قرأ، ذهب</div>
+                        <div id="verbLabel">الفعل - Verbe (action)</div>
+                    </div>
+                    <div class="example-box">
+                        <div class="arabic-letter">في، من، إلى</div>
+                        <div id="particleLabel">الحرف - Particule (liaison)</div>
+                    </div>
+                </div>
+
+                <div class="quiz-container">
+                    <h3 id="quizTitle4">تمرين القواعد</h3>
+                    <div class="quiz-progress" id="grammarQuizProgress">0 / 20</div>
+                    <div class="quiz-question" id="grammarQuestion">حدد نوع الكلمة</div>
+                    <div class="quiz-display" id="grammarQuizWord"></div>
+                    <div class="quiz-options" id="grammarQuizOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievement Popup -->
+        <div class="achievement-popup" id="achievementPopup">
+            <div class="achievement-icon">🎉</div>
+            <h2 id="achievementTitle">إنجاز جديد!</h2>
+            <p id="achievementText">لقد حصلت على وسام جديد</p>
+            <button class="module-btn" onclick="closeAchievement()">رائع!</button>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            ar: {
+                mainTitle: "🌙 تعلم اللغة العربية مع القرآن",
+                mainSubtitle: "رحلتك لإتقان اللغة العربية من خلال القرآن الكريم",
+                homeButtonText: "🏠 العودة للصفحة الرئيسية",
+                pointsLabel: "النقاط",
+                lessonsLabel: "الدروس المكتملة",
+                alphabetTitle: "📚 الحروف الأبجدية",
+                alphabetDesc: "تعلم 28 حرفاً في اللغة العربية",
+                vowelsTitle: "✨ الحركات والمدود",
+                vowelsDesc: "اتقن الفتحة والكسرة والضمة",
+                vocabTitle: "📖 المفردات القرآنية",
+                vocabDesc: "تعلم الكلمات الأساسية من القرآن",
+                grammarTitle: "⚙️ القواعد الأساسية",
+                grammarDesc: "تعلم بناء الجمل العربية",
+                startBtn: "ابدأ التعلم",
+                progressLabel: "مكتمل",
+                alphabetQuestion: "ما هذا الحرف؟",
+                vowelsQuestion: "ما هي الحركة الصحيحة؟",
+                vocabQuestion: "ما معنى هذه الكلمة؟",
+                grammarQuestion: "حدد نوع الكلمة"
+            },
+            fr: {
+                mainTitle: "🌙 Apprendre l'arabe avec le Coran",
+                mainSubtitle: "Votre parcours pour maîtriser l'arabe à travers le Saint Coran",
+                homeButtonText: "🏠 Retour à l'accueil",
+                pointsLabel: "Points",
+                lessonsLabel: "Leçons complétées",
+                alphabetTitle: "📚 L'alphabet arabe",
+                alphabetDesc: "Apprenez les 28 lettres de l'alphabet arabe",
+                vowelsTitle: "✨ Les voyelles",
+                vowelsDesc: "Maîtrisez fatha, kasra et damma",
+                vocabTitle: "📖 Vocabulaire coranique",
+                vocabDesc: "Apprenez les mots de base du Coran",
+                grammarTitle: "⚙️ Grammaire de base",
+                grammarDesc: "Apprenez à construire des phrases arabes",
+                startBtn: "Commencer",
+                progressLabel: "complété",
+                alphabetQuestion: "Quelle est cette lettre ?",
+                vowelsQuestion: "Quelle est la voyelle correcte ?",
+                vocabQuestion: "Que signifie ce mot ?",
+                grammarQuestion: "Identifiez le type de mot"
+            },
+            en: {
+                mainTitle: "🌙 Learn Arabic with Quran",
+                mainSubtitle: "Your journey to master Arabic through the Holy Quran",
+                homeButtonText: "🏠 Back to Home",
+                pointsLabel: "Points",
+                lessonsLabel: "Lessons Completed",
+                alphabetTitle: "📚 Arabic Alphabet",
+                alphabetDesc: "Learn the 28 Arabic letters",
+                vowelsTitle: "✨ Vowels & Diacritics",
+                vowelsDesc: "Master fatha, kasra and damma",
+                vocabTitle: "📖 Quranic Vocabulary",
+                vocabDesc: "Learn essential words from Quran",
+                grammarTitle: "⚙️ Basic Grammar",
+                grammarDesc: "Learn to build Arabic sentences",
+                startBtn: "Start Learning",
+                progressLabel: "completed",
+                alphabetQuestion: "What is this letter?",
+                vowelsQuestion: "What is the correct vowel?",
+                vocabQuestion: "What does this word mean?",
+                grammarQuestion: "Identify the word type"
+            },
+            it: {
+                mainTitle: "🌙 Impara l'arabo con il Corano",
+                mainSubtitle: "Il tuo viaggio per padroneggiare l'arabo attraverso il Sacro Corano",
+                homeButtonText: "🏠 Torna alla Home",
+                pointsLabel: "Punti",
+                lessonsLabel: "Lezioni Completate",
+                alphabetTitle: "📚 Alfabeto arabo",
+                alphabetDesc: "Impara le 28 lettere arabe",
+                vowelsTitle: "✨ Vocali",
+                vowelsDesc: "Padroneggia fatha, kasra e damma",
+                vocabTitle: "📖 Vocabolario coranico",
+                vocabDesc: "Impara le parole essenziali del Corano",
+                grammarTitle: "⚙️ Grammatica di base",
+                grammarDesc: "Impara a costruire frasi arabe",
+                startBtn: "Inizia ad imparare",
+                progressLabel: "completato",
+                alphabetQuestion: "Qual è questa lettera?",
+                vowelsQuestion: "Qual è la vocale corretta?",
+                vocabQuestion: "Cosa significa questa parola?",
+                grammarQuestion: "Identifica il tipo di parola"
+            },
+            de: {
+                mainTitle: "🌙 Arabisch lernen mit dem Koran",
+                mainSubtitle: "Ihre Reise zur Beherrschung des Arabischen durch den Heiligen Koran",
+                homeButtonText: "🏠 Zurück zur Startseite",
+                pointsLabel: "Punkte",
+                lessonsLabel: "Abgeschlossene Lektionen",
+                alphabetTitle: "📚 Arabisches Alphabet",
+                alphabetDesc: "Lernen Sie die 28 arabischen Buchstaben",
+                vowelsTitle: "✨ Vokale",
+                vowelsDesc: "Meistern Sie Fatha, Kasra und Damma",
+                vocabTitle: "📖 Koranvokabular",
+                vocabDesc: "Lernen Sie wesentliche Wörter aus dem Koran",
+                grammarTitle: "⚙️ Grundgrammatik",
+                grammarDesc: "Lernen Sie arabische Sätze zu bilden",
+                startBtn: "Lernen beginnen",
+                progressLabel: "abgeschlossen",
+                alphabetQuestion: "Was ist dieser Buchstabe?",
+                vowelsQuestion: "Was ist der richtige Vokal?",
+                vocabQuestion: "Was bedeutet dieses Wort?",
+                grammarQuestion: "Identifizieren Sie den Worttyp"
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update all translatable elements
+            Object.keys(translations[lang]).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update buttons
+            document.querySelectorAll('.module-btn').forEach(btn => {
+                btn.textContent = translations[lang].startBtn;
+            });
+            
+            document.querySelectorAll('[id^="progressLabel"]').forEach(el => {
+                el.textContent = translations[lang].progressLabel;
+            });
+        }
+
+        // Data
+        const arabicLetters = [
+            {letter: 'ا', name: 'ألف'}, {letter: 'ب', name: 'باء'}, {letter: 'ت', name: 'تاء'},
+            {letter: 'ث', name: 'ثاء'}, {letter: 'ج', name: 'جيم'}, {letter: 'ح', name: 'حاء'},
+            {letter: 'خ', name: 'خاء'}, {letter: 'د', name: 'دال'}, {letter: 'ذ', name: 'ذال'},
+            {letter: 'ر', name: 'راء'}, {letter: 'ز', name: 'زاي'}, {letter: 'س', name: 'سين'},
+            {letter: 'ش', name: 'شين'}, {letter: 'ص', name: 'صاد'}, {letter: 'ض', name: 'ضاد'},
+            {letter: 'ط', name: 'طاء'}, {letter: 'ظ', name: 'ظاء'}, {letter: 'ع', name: 'عين'},
+            {letter: 'غ', name: 'غين'}, {letter: 'ف', name: 'فاء'}, {letter: 'ق', name: 'قاف'},
+            {letter: 'ك', name: 'كاف'}, {letter: 'ل', name: 'لام'}, {letter: 'م', name: 'ميم'},
+            {letter: 'ن', name: 'نون'}, {letter: 'ه', name: 'هاء'}, {letter: 'و', name: 'واو'},
+            {letter: 'ي', name: 'ياء'}
+        ];
+
+        const vowelExamples = [
+            {letter: 'بَ', name: 'فتحة'}, {letter: 'بِ', name: 'كسرة'},
+            {letter: 'بُ', name: 'ضمة'}, {letter: 'بْ', name: 'سكون'}
+        ];
+
+        const allahNames = [
+            {arabic: 'الله', translation: {ar: 'الله', fr: 'Allah', en: 'Allah', it: 'Allah', de: 'Allah'}},
+            {arabic: 'الرحمن', translation: {ar: 'الرحمن', fr: 'Le Miséricordieux', en: 'The Merciful', it: 'Il Misericordioso', de: 'Der Barmherzige'}},
+            {arabic: 'الرحيم', translation: {ar: 'الرحيم', fr: 'Le Très Miséricordieux', en: 'The Compassionate', it: 'Il Compassionevole', de: 'Der Gnädige'}},
+            {arabic: 'الملك', translation: {ar: 'الملك', fr: 'Le Roi', en: 'The King', it: 'Il Re', de: 'Der König'}},
+            {arabic: 'القدوس', translation: {ar: 'القدوس', fr: 'Le Pur', en: 'The Holy', it: 'Il Santo', de: 'Der Heilige'}},
+            {arabic: 'السلام', translation: {ar: 'السلام', fr: 'La Paix', en: 'The Peace', it: 'La Pace', de: 'Der Friede'}}
+        ];
+
+        const prayerVocab = [
+            {arabic: 'صلاة', translation: {ar: 'صلاة', fr: 'Prière', en: 'Prayer', it: 'Preghiera', de: 'Gebet'}},
+            {arabic: 'وضوء', translation: {ar: 'وضوء', fr: 'Ablution', en: 'Ablution', it: 'Abluzione', de: 'Waschung'}},
+            {arabic: 'ركوع', translation: {ar: 'ركوع', fr: 'Inclinaison', en: 'Bowing', it: 'Inchino', de: 'Verbeugung'}},
+            {arabic: 'سجود', translation: {ar: 'سجود', fr: 'Prosternation', en: 'Prostration', it: 'Prostrazione', de: 'Niederwerfung'}},
+            {arabic: 'قيام', translation: {ar: 'قيام', fr: 'Station debout', en: 'Standing', it: 'In piedi', de: 'Stehen'}},
+            {arabic: 'تسليم', translation: {ar: 'تسليم', fr: 'Salutation', en: 'Greeting', it: 'Saluto', de: 'Gruß'}}
+        ];
+
+        const quranVerbs = [
+            {arabic: 'قرأ', translation: {ar: 'قرأ', fr: 'Lire', en: 'To read', it: 'Leggere', de: 'Lesen'}},
+            {arabic: 'كتب', translation: {ar: 'كتب', fr: 'Écrire', en: 'To write', it: 'Scrivere', de: 'Schreiben'}},
+            {arabic: 'حفظ', translation: {ar: 'حفظ', fr: 'Mémoriser', en: 'To memorize', it: 'Memorizzare', de: 'Auswendig lernen'}},
+            {arabic: 'فهم', translation: {ar: 'فهم', fr: 'Comprendre', en: 'To understand', it: 'Capire', de: 'Verstehen'}},
+            {arabic: 'عمل', translation: {ar: 'عمل', fr: 'Faire', en: 'To do', it: 'Fare', de: 'Tun'}},
+            {arabic: 'ذهب', translation: {ar: 'ذهب', fr: 'Aller', en: 'To go', it: 'Andare', de: 'Gehen'}}
+        ];
+
+        const grammarWords = [
+            {word: 'محمد', type: 'اسم'}, {word: 'كتب', type: 'فعل'}, {word: 'في', type: 'حرف'},
+            {word: 'مسجد', type: 'اسم'}, {word: 'قرأ', type: 'فعل'}, {word: 'من', type: 'حرف'},
+            {word: 'فاطمة', type: 'اسم'}, {word: 'ذهب', type: 'فعل'}, {word: 'إلى', type: 'حرف'},
+            {word: 'كتاب', type: 'اسم'}, {word: 'جلس', type: 'فعل'}, {word: 'على', type: 'حرف'}
+        ];
+
+        // Progress tracking
+        let userProgress = {
+            points: 0,
+            completedLessons: 0,
+            moduleProgress: {alphabet: 0, vowels: 0, vocabulary: 0, grammar: 0},
+            completedItems: {
+                alphabet: new Set(),
+                vowels: new Set(),
+                vocabulary: new Set(),
+                grammar: new Set()
+            }
+        };
+
+        // Quiz state
+        let currentQuiz = {
+            module: '',
+            items: [],
+            currentIndex: 0,
+            correctAnswers: 0
+        };
+
+        function loadProgress() {
+            const saved = localStorage.getItem('arabicLearningProgress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                userProgress.points = data.points || 0;
+                userProgress.completedLessons = data.completedLessons || 0;
+                userProgress.moduleProgress = data.moduleProgress || {alphabet: 0, vowels: 0, vocabulary: 0, grammar: 0};
+                updateProgressDisplay();
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('arabicLearningProgress', JSON.stringify(userProgress));
+            updateProgressDisplay();
+        }
+
+        function updateProgressDisplay() {
+            document.getElementById('totalPoints').textContent = userProgress.points;
+            document.getElementById('completedLessons').textContent = userProgress.completedLessons;
+            
+            const badges = document.querySelectorAll('.badge');
+            if (userProgress.points >= 100) badges[0].classList.remove('locked');
+            if (userProgress.points >= 300) badges[1].classList.remove('locked');
+            if (userProgress.points >= 600) badges[2].classList.remove('locked');
+            if (userProgress.points >= 1000) badges[3].classList.remove('locked');
+            
+            ['alphabet', 'vowels', 'vocabulary', 'grammar'].forEach(module => {
+                const el = document.getElementById(module + 'Progress');
+                const textEl = document.getElementById(module + 'ProgressText');
+                if (el) el.style.width = userProgress.moduleProgress[module] + '%';
+                if (textEl) textEl.textContent = Math.round(userProgress.moduleProgress[module]);
+            });
+        }
+
+        function addPoints(points) {
+            const oldPoints = userProgress.points;
+            userProgress.points += points;
+            
+            if (oldPoints < 100 && userProgress.points >= 100) showAchievement('🎯 مبتدئ', 'حصلت على 100 نقطة!');
+            if (oldPoints < 300 && userProgress.points >= 300) showAchievement('⭐ متقدم', 'حصلت على 300 نقطة!');
+            if (oldPoints < 600 && userProgress.points >= 600) showAchievement('🏆 خبير', 'حصلت على 600 نقطة!');
+            if (oldPoints < 1000 && userProgress.points >= 1000) showAchievement('👑 أستاذ', 'حصلت على 1000 نقطة!');
+            
+            saveProgress();
+        }
+
+        function showAchievement(title, text) {
+            document.getElementById('achievementTitle').textContent = title;
+            document.getElementById('achievementText').textContent = text;
+            document.getElementById('achievementPopup').classList.add('show');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievementPopup').classList.remove('show');
+        }
+
+        // Navigation
+        function showHome() {
+            document.querySelectorAll('.main-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('homeView').classList.add('active');
+            document.getElementById('homeButton').classList.remove('show');
+        }
+
+        function showModule(moduleName) {
+            document.querySelectorAll('.main-view').forEach(v => v.classList.remove('active'));
+            document.getElementById(moduleName + 'View').classList.add('active');
+            document.getElementById('homeButton').classList.add('show');
+            
+            if (moduleName === 'alphabet') initAlphabetModule();
+            if (moduleName === 'vowels') initVowelsModule();
+            if (moduleName === 'vocabulary') initVocabularyModule();
+            if (moduleName === 'grammar') initGrammarModule();
+        }
+
+        // Audio with Web Speech API
+        function playSound(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.6;
+                utterance.pitch = 1;
+                window.speechSynthesis.speak(utterance);
+                addPoints(2);
+            }
+        }
+
+        // Alphabet Module
+        function initAlphabetModule() {
+            const grid = document.getElementById('alphabetGrid');
+            grid.innerHTML = '';
+            
+            arabicLetters.forEach(letter => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+                if (userProgress.completedItems.alphabet.has(letter.letter)) {
+                    card.classList.add('completed');
+                }
+                card.innerHTML = `
+                    <div class="arabic-letter">${letter.letter}</div>
+                    <div class="letter-name">${letter.name}</div>
+                `;
+                card.onclick = () => playSound(letter.letter);
+                grid.appendChild(card);
+            });
+            
+            startAlphabetQuiz();
+        }
+
+        function startAlphabetQuiz() {
+            currentQuiz = {
+                module: 'alphabet',
+                items: [...arabicLetters],
+                currentIndex: 0,
+                correctAnswers: 0
+            };
+            shuffleArray(currentQuiz.items);
+            showNextAlphabetQuestion();
+        }
+
+        function showNextAlphabetQuestion() {
+            if (currentQuiz.currentIndex >= currentQuiz.items.length) {
+                userProgress.completedLessons++;
+                userProgress.moduleProgress.alphabet = 100;
+                saveProgress();
+                showAchievement('🎉 أحسنت!', `أكملت اختبار الحروف! ${currentQuiz.correctAnswers}/${currentQuiz.items.length}`);
+                startAlphabetQuiz();
+                return;
+            }
+            
+            const correct = currentQuiz.items[currentQuiz.currentIndex];
+            const options = [correct];
+            
+            while (options.length < 4) {
+                const random = arabicLetters[Math.floor(Math.random() * arabicLetters.length)];
+                if (!options.find(o => o.name === random.name)) options.push(random);
+            }
+            shuffleArray(options);
+            
+            document.getElementById('alphabetQuizProgress').textContent = 
+                `${currentQuiz.currentIndex + 1} / ${currentQuiz.items.length}`;
+            document.getElementById('alphabetQuizLetter').textContent = correct.letter;
+            
+            const container = document.getElementById('alphabetQuizOptions');
+            container.innerHTML = '';
+            
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = option.name;
+                div.onclick = () => checkAlphabetAnswer(option.name, correct.name, div);
+                container.appendChild(div);
+            });
+            
+            playSound(correct.letter);
+        }
+
+        function checkAlphabetAnswer(selected, correct, element) {
+            if (selected === correct) {
+                element.classList.add('correct');
+                addPoints(10);
+                currentQuiz.correctAnswers++;
+                userProgress.completedItems.alphabet.add(currentQuiz.items[currentQuiz.currentIndex].letter);
+                const progress = (currentQuiz.correctAnswers / currentQuiz.items.length) * 100;
+                userProgress.moduleProgress.alphabet = Math.round(progress);
+                saveProgress();
+                setTimeout(() => {
+                    currentQuiz.currentIndex++;
+                    showNextAlphabetQuestion();
+                }, 1000);
+            } else {
+                element.classList.add('incorrect');
+                setTimeout(() => element.classList.remove('incorrect'), 800);
+            }
+        }
+
+        // Vowels Module
+        function initVowelsModule() {
+            startVowelsQuiz();
+        }
+
+        function startVowelsQuiz() {
+            const allVowels = [];
+            for (let i = 0; i < 5; i++) {
+                allVowels.push(...vowelExamples);
+            }
+            
+            currentQuiz = {
+                module: 'vowels',
+                items: allVowels,
+                currentIndex: 0,
+                correctAnswers: 0
+            };
+            shuffleArray(currentQuiz.items);
+            showNextVowelsQuestion();
+        }
+
+        function showNextVowelsQuestion() {
+            if (currentQuiz.currentIndex >= currentQuiz.items.length) {
+                userProgress.completedLessons++;
+                userProgress.moduleProgress.vowels = 100;
+                saveProgress();
+                showAchievement('🎉 ممتاز!', `أكملت اختبار الحركات! ${currentQuiz.correctAnswers}/${currentQuiz.items.length}`);
+                startVowelsQuiz();
+                return;
+            }
+            
+            const correct = currentQuiz.items[currentQuiz.currentIndex];
+            const options = [...vowelExamples];
+            shuffleArray(options);
+            
+            document.getElementById('vowelsQuizProgress').textContent = 
+                `${currentQuiz.currentIndex + 1} / ${currentQuiz.items.length}`;
+            document.getElementById('vowelsQuizLetter').textContent = correct.letter;
+            
+            const container = document.getElementById('vowelsQuizOptions');
+            container.innerHTML = '';
+            
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = option.name;
+                div.onclick = () => checkVowelsAnswer(option.name, correct.name, div);
+                container.appendChild(div);
+            });
+            
+            playSound(correct.letter);
+        }
+
+        function checkVowelsAnswer(selected, correct, element) {
+            if (selected === correct) {
+                element.classList.add('correct');
+                addPoints(10);
+                currentQuiz.correctAnswers++;
+                const progress = (currentQuiz.correctAnswers / currentQuiz.items.length) * 100;
+                userProgress.moduleProgress.vowels = Math.round(progress);
+                saveProgress();
+                setTimeout(() => {
+                    currentQuiz.currentIndex++;
+                    showNextVowelsQuestion();
+                }, 1000);
+            } else {
+                element.classList.add('incorrect');
+                setTimeout(() => element.classList.remove('incorrect'), 800);
+            }
+        }
+
+        // Vocabulary Module
+        function initVocabularyModule() {
+            createVocabCards('allahNamesContainer', allahNames);
+            createVocabCards('prayerVocabContainer', prayerVocab);
+            createVocabCards('verbsContainer', quranVerbs);
+            startVocabQuiz();
+        }
+
+        function createVocabCards(containerId, data) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'vocab-card';
+                const translation = item.translation[currentLang] || item.translation.en;
+                card.innerHTML = `
+                    <div class="vocab-arabic">${item.arabic}</div>
+                    <div class="vocab-translation">${translation}</div>
+                    <button class="audio-btn" onclick="playSound('${item.arabic}')">🔊</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function startVocabQuiz() {
+            const allVocab = [...allahNames, ...prayerVocab, ...quranVerbs];
+            const repeated = [];
+            for (let i = 0; i < 2; i++) {
+                repeated.push(...allVocab);
+            }
+            
+            currentQuiz = {
+                module: 'vocabulary',
+                items: repeated,
+                currentIndex: 0,
+                correctAnswers: 0
+            };
+            shuffleArray(currentQuiz.items);
+            showNextVocabQuestion();
+        }
+
+        function showNextVocabQuestion() {
+            if (currentQuiz.currentIndex >= currentQuiz.items.length) {
+                userProgress.completedLessons++;
+                userProgress.moduleProgress.vocabulary = 100;
+                saveProgress();
+                showAchievement('🎉 رائع!', `أكملت اختبار المفردات! ${currentQuiz.correctAnswers}/${currentQuiz.items.length}`);
+                startVocabQuiz();
+                return;
+            }
+            
+            const allVocab = [...allahNames, ...prayerVocab, ...quranVerbs];
+            const correct = currentQuiz.items[currentQuiz.currentIndex];
+            const options = [correct];
+            
+            while (options.length < 4) {
+                const random = allVocab[Math.floor(Math.random() * allVocab.length)];
+                if (!options.find(o => o.arabic === random.arabic)) options.push(random);
+            }
+            shuffleArray(options);
+            
+            document.getElementById('vocabQuizProgress').textContent = 
+                `${currentQuiz.currentIndex + 1} / ${currentQuiz.items.length}`;
+            document.getElementById('vocabQuizWord').textContent = correct.arabic;
+            
+            const container = document.getElementById('vocabQuizOptions');
+            container.innerHTML = '';
+            
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = option.translation[currentLang] || option.translation.en;
+                div.onclick = () => checkVocabAnswer(option.arabic, correct.arabic, div);
+                container.appendChild(div);
+            });
+            
+            playSound(correct.arabic);
+        }
+
+        function checkVocabAnswer(selected, correct, element) {
+            if (selected === correct) {
+                element.classList.add('correct');
+                addPoints(15);
+                currentQuiz.correctAnswers++;
+                const progress = (currentQuiz.correctAnswers / currentQuiz.items.length) * 100;
+                userProgress.moduleProgress.vocabulary = Math.round(progress);
+                saveProgress();
+                setTimeout(() => {
+                    currentQuiz.currentIndex++;
+                    showNextVocabQuestion();
+                }, 1000);
+            } else {
+                element.classList.add('incorrect');
+                setTimeout(() => element.classList.remove('incorrect'), 800);
+            }
+        }
+
+        // Grammar Module
+        function initGrammarModule() {
+            startGrammarQuiz();
+        }
+
+        function startGrammarQuiz() {
+            const repeated = [];
+            for (let i = 0; i < 2; i++) {
+                repeated.push(...grammarWords);
+            }
+            
+            currentQuiz = {
+                module: 'grammar',
+                items: repeated,
+                currentIndex: 0,
+                correctAnswers: 0
+            };
+            shuffleArray(currentQuiz.items);
+            showNextGrammarQuestion();
+        }
+
+        function showNextGrammarQuestion() {
+            if (currentQuiz.currentIndex >= currentQuiz.items.length) {
+                userProgress.completedLessons++;
+                userProgress.moduleProgress.grammar = 100;
+                saveProgress();
+                showAchievement('🎉 عظيم!', `أكملت اختبار القواعد! ${currentQuiz.correctAnswers}/${currentQuiz.items.length}`);
+                startGrammarQuiz();
+                return;
+            }
+            
+            const correct = currentQuiz.items[currentQuiz.currentIndex];
+            const types = ['اسم', 'فعل', 'حرف'];
+            shuffleArray(types);
+            
+            document.getElementById('grammarQuizProgress').textContent = 
+                `${currentQuiz.currentIndex + 1} / ${currentQuiz.items.length}`;
+            document.getElementById('grammarQuizWord').textContent = correct.word;
+            
+            const container = document.getElementById('grammarQuizOptions');
+            container.innerHTML = '';
+            
+            types.forEach(type => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = type;
+                div.onclick = () => checkGrammarAnswer(type, correct.type, div);
+                container.appendChild(div);
+            });
+            
+            playSound(correct.word);
+        }
+
+        function checkGrammarAnswer(selected, correct, element) {
+            if (selected === correct) {
+                element.classList.add('correct');
+                addPoints(15);
+                currentQuiz.correctAnswers++;
+                const progress = (currentQuiz.correctAnswers / currentQuiz.items.length) * 100;
+                userProgress.moduleProgress.grammar = Math.round(progress);
+                saveProgress();
+                setTimeout(() => {
+                    currentQuiz.currentIndex++;
+                    showNextGrammarQuestion();
+                }, 1000);
+            } else {
+                element.classList.add('incorrect');
+                setTimeout(() => element.classList.remove('incorrect'), 800);
+            }
+        }
+
+        // Utility
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+        });
+    </script>
+</body>
+</html>
