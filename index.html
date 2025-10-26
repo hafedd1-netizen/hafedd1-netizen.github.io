@@ -148,7 +148,6 @@
         const c=document.getElementById('content');
         let h=`<h2 class="title">${ar.name} - ${ar.englishName}</h2>`;
         ar.ayahs.forEach((a,vi)=>{
-            // Split Arabic and transliteration into word arrays
             const arabicWords = a.text.split(' ');
             const translitWords = tr.ayahs[vi] ? tr.ayahs[vi].text.split(' ') : [];
             
@@ -160,14 +159,12 @@
             h+=`<button class="verse-btn stop-record-btn" id="stop-${vi}" onclick="stopRecording(this, ${vi})" style="display:none;">⏹️</button>`;
             h+=`</div></div>`;
             
-            // Arabic text with individual word spans
             h+=`<div class="arabic">`;
             arabicWords.forEach((w,wi)=>{
                 h+=`<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;
             });
             h+=`</div>`;
             
-            // Transliteration with matching word spans
             if(translitWords.length > 0){
                 h+=`<div class="translit">`;
                 translitWords.forEach((w,wi)=>{
@@ -176,7 +173,6 @@
                 h+=`</div>`;
             }
             
-            // Translation (full text, no word splitting)
             if(trans&&trans.ayahs[vi]){
                 h+=`<div class="trans">${trans.ayahs[vi].text}</div>`;
             }
@@ -186,14 +182,12 @@
         });
         c.innerHTML=h;
         
-        // Click handler to reveal words
         document.querySelectorAll('.word').forEach(w=>{
             w.onclick=function(){
                 if(this.classList.contains('hidden')){
                     this.classList.remove('hidden');
                     this.classList.add('revealed');
                     const v=this.dataset.v, wi=this.dataset.w;
-                    // Reveal corresponding word in other line
                     const otherClass = this.classList.contains('aw') ? 'tw' : 'aw';
                     const paired = document.querySelector(`.${otherClass}[data-v="${v}"][data-w="${wi}"]`);
                     if(paired){
@@ -286,28 +280,23 @@
         load(curS,curE);
     };
     
-    // FIXED: Hide button - hides both Arabic and Transliteration words together
     document.getElementById('hide-btn').onclick=function(){
         const p=parseInt(document.getElementById('hide-percentage').value);
         
-        // Reset all words first
         document.querySelectorAll('.word').forEach(w=>{
             w.classList.remove('revealed');
             w.classList.remove('hidden');
         });
         
-        // Get all Arabic words and calculate how many to hide
         const arabicWords = Array.from(document.querySelectorAll('.aw'));
         const hideCount = Math.floor(arabicWords.length * (p/100));
         
-        // Shuffle and hide random words
         arabicWords.sort(() => Math.random() - 0.5);
         
         for(let i = 0; i < hideCount; i++){
             const arabicWord = arabicWords[i];
             arabicWord.classList.add('hidden');
             
-            // Also hide corresponding transliteration word
             const v = arabicWord.dataset.v;
             const wi = arabicWord.dataset.w;
             const translitWord = document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);
@@ -325,7 +314,6 @@
         });
     };
     
-    // Load first surah on page load
     load(1,'ar');
 </script>
 </body>
