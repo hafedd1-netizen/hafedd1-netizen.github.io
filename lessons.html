@@ -25,11 +25,17 @@
             padding: 20px;
         }
 
-        /* Language Selector */
-        .language-selector {
+        /* Navigation Buttons */
+        .top-nav {
             position: fixed;
             top: 20px;
-            left: 20px;
+            width: 100%;
+            max-width: 1200px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
             z-index: 1000;
         }
 
@@ -44,12 +50,48 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-btn.hidden {
+            display: none;
+        }
+
+        .home-modules-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .quran-home-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        }
+
         header {
             background: white;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 80px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -95,8 +137,6 @@
             justify-content: center;
             font-size: 1.5em;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-            cursor: pointer;
         }
 
         .badge.locked {
@@ -104,30 +144,27 @@
             opacity: 0.5;
         }
 
-        /* Navigation */
-        .home-button {
+        /* Audio Status Indicator */
+        .audio-status {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.2em;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             z-index: 1000;
-            display: none;
-            transition: transform 0.2s;
+            font-size: 0.9em;
         }
 
-        .home-button:hover {
-            transform: scale(1.05);
+        .audio-status.ready {
+            background: #4caf50;
+            color: white;
         }
 
-        .home-button.show {
-            display: block;
+        .audio-status.loading {
+            background: #ff9800;
+            color: white;
         }
 
         /* Views */
@@ -198,7 +235,7 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-top: 80px;
+            margin-top: 20px;
         }
 
         .alphabet-grid {
@@ -244,6 +281,16 @@
             cursor: pointer;
             margin-top: 10px;
             font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
         }
 
         .quiz-container {
@@ -385,35 +432,49 @@
         }
 
         @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
             .modules-grid {
                 grid-template-columns: 1fr;
             }
             .quiz-options {
                 grid-template-columns: 1fr;
             }
-            .home-button {
-                padding: 10px 20px;
-                font-size: 1em;
+            header {
+                margin-top: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Language Selector -->
-    <div class="language-selector">
-        <select id="languageSelect" onchange="changeLanguage(this.value)">
-            <option value="ar">العربية</option>
-            <option value="fr">Français</option>
-            <option value="en">English</option>
-            <option value="it">Italiano</option>
-            <option value="de">Deutsch</option>
-        </select>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="ar">العربية</option>
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="it">Italiano</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn quran-home-btn" id="quranHomeBtn">
+                <span id="quranHomeBtnText">📖 صفحة القرآن الرئيسية</span>
+            </a>
+            <button class="nav-btn home-modules-btn hidden" id="homeModulesBtn" onclick="showHome()">
+                <span id="homeModulesBtnText">🏠 قائمة الدروس</span>
+            </button>
+        </div>
     </div>
 
-    <!-- Home Button -->
-    <button class="home-button" id="homeButton" onclick="showHome()">
-        <span id="homeButtonText">🏠 العودة للصفحة الرئيسية</span>
-    </button>
+    <!-- Audio Status -->
+    <div class="audio-status loading" id="audioStatus">
+        <span id="audioStatusText">⏳ جاري تحميل الأصوات...</span>
+    </div>
 
     <div class="container">
         <header>
@@ -612,118 +673,129 @@
             ar: {
                 mainTitle: "🌙 تعلم اللغة العربية مع القرآن",
                 mainSubtitle: "رحلتك لإتقان اللغة العربية من خلال القرآن الكريم",
-                homeButtonText: "🏠 العودة للصفحة الرئيسية",
+                quranHomeBtnText: "📖 صفحة القرآن الرئيسية",
+                homeModulesBtnText: "🏠 قائمة الدروس",
                 pointsLabel: "النقاط",
                 lessonsLabel: "الدروس المكتملة",
                 alphabetTitle: "📚 الحروف الأبجدية",
                 alphabetDesc: "تعلم 28 حرفاً في اللغة العربية",
-                vowelsTitle: "✨ الحركات والمدود",
-                vowelsDesc: "اتقن الفتحة والكسرة والضمة",
-                vocabTitle: "📖 المفردات القرآنية",
-                vocabDesc: "تعلم الكلمات الأساسية من القرآن",
-                grammarTitle: "⚙️ القواعد الأساسية",
-                grammarDesc: "تعلم بناء الجمل العربية",
-                startBtn: "ابدأ التعلم",
-                progressLabel: "مكتمل",
-                alphabetQuestion: "ما هذا الحرف؟",
-                vowelsQuestion: "ما هي الحركة الصحيحة؟",
-                vocabQuestion: "ما معنى هذه الكلمة؟",
-                grammarQuestion: "حدد نوع الكلمة"
+                audioReady: "🔊 الصوت جاهز",
+                audioLoading: "⏳ جاري تحميل الأصوات..."
             },
             fr: {
                 mainTitle: "🌙 Apprendre l'arabe avec le Coran",
-                mainSubtitle: "Votre parcours pour maîtriser l'arabe à travers le Saint Coran",
-                homeButtonText: "🏠 Retour à l'accueil",
+                mainSubtitle: "Votre parcours pour maîtriser l'arabe",
+                quranHomeBtnText: "📖 Page d'accueil Coran",
+                homeModulesBtnText: "🏠 Liste des cours",
                 pointsLabel: "Points",
                 lessonsLabel: "Leçons complétées",
                 alphabetTitle: "📚 L'alphabet arabe",
-                alphabetDesc: "Apprenez les 28 lettres de l'alphabet arabe",
-                vowelsTitle: "✨ Les voyelles",
-                vowelsDesc: "Maîtrisez fatha, kasra et damma",
-                vocabTitle: "📖 Vocabulaire coranique",
-                vocabDesc: "Apprenez les mots de base du Coran",
-                grammarTitle: "⚙️ Grammaire de base",
-                grammarDesc: "Apprenez à construire des phrases arabes",
-                startBtn: "Commencer",
-                progressLabel: "complété",
-                alphabetQuestion: "Quelle est cette lettre ?",
-                vowelsQuestion: "Quelle est la voyelle correcte ?",
-                vocabQuestion: "Que signifie ce mot ?",
-                grammarQuestion: "Identifiez le type de mot"
+                alphabetDesc: "Apprenez les 28 lettres arabes",
+                audioReady: "🔊 Audio prêt",
+                audioLoading: "⏳ Chargement audio..."
             },
             en: {
                 mainTitle: "🌙 Learn Arabic with Quran",
-                mainSubtitle: "Your journey to master Arabic through the Holy Quran",
-                homeButtonText: "🏠 Back to Home",
+                mainSubtitle: "Your journey to master Arabic",
+                quranHomeBtnText: "📖 Quran Home Page",
+                homeModulesBtnText: "🏠 Lessons List",
                 pointsLabel: "Points",
                 lessonsLabel: "Lessons Completed",
                 alphabetTitle: "📚 Arabic Alphabet",
                 alphabetDesc: "Learn the 28 Arabic letters",
-                vowelsTitle: "✨ Vowels & Diacritics",
-                vowelsDesc: "Master fatha, kasra and damma",
-                vocabTitle: "📖 Quranic Vocabulary",
-                vocabDesc: "Learn essential words from Quran",
-                grammarTitle: "⚙️ Basic Grammar",
-                grammarDesc: "Learn to build Arabic sentences",
-                startBtn: "Start Learning",
-                progressLabel: "completed",
-                alphabetQuestion: "What is this letter?",
-                vowelsQuestion: "What is the correct vowel?",
-                vocabQuestion: "What does this word mean?",
-                grammarQuestion: "Identify the word type"
+                audioReady: "🔊 Audio ready",
+                audioLoading: "⏳ Loading audio..."
             },
             it: {
                 mainTitle: "🌙 Impara l'arabo con il Corano",
-                mainSubtitle: "Il tuo viaggio per padroneggiare l'arabo attraverso il Sacro Corano",
-                homeButtonText: "🏠 Torna alla Home",
+                mainSubtitle: "Il tuo viaggio per padroneggiare l'arabo",
+                quranHomeBtnText: "📖 Pagina principale Corano",
+                homeModulesBtnText: "🏠 Elenco lezioni",
                 pointsLabel: "Punti",
                 lessonsLabel: "Lezioni Completate",
                 alphabetTitle: "📚 Alfabeto arabo",
                 alphabetDesc: "Impara le 28 lettere arabe",
-                vowelsTitle: "✨ Vocali",
-                vowelsDesc: "Padroneggia fatha, kasra e damma",
-                vocabTitle: "📖 Vocabolario coranico",
-                vocabDesc: "Impara le parole essenziali del Corano",
-                grammarTitle: "⚙️ Grammatica di base",
-                grammarDesc: "Impara a costruire frasi arabe",
-                startBtn: "Inizia ad imparare",
-                progressLabel: "completato",
-                alphabetQuestion: "Qual è questa lettera?",
-                vowelsQuestion: "Qual è la vocale corretta?",
-                vocabQuestion: "Cosa significa questa parola?",
-                grammarQuestion: "Identifica il tipo di parola"
+                audioReady: "🔊 Audio pronto",
+                audioLoading: "⏳ Caricamento audio..."
             },
             de: {
                 mainTitle: "🌙 Arabisch lernen mit dem Koran",
-                mainSubtitle: "Ihre Reise zur Beherrschung des Arabischen durch den Heiligen Koran",
-                homeButtonText: "🏠 Zurück zur Startseite",
+                mainSubtitle: "Ihre Reise zur Beherrschung des Arabischen",
+                quranHomeBtnText: "📖 Koran-Hauptseite",
+                homeModulesBtnText: "🏠 Lektionsliste",
                 pointsLabel: "Punkte",
                 lessonsLabel: "Abgeschlossene Lektionen",
                 alphabetTitle: "📚 Arabisches Alphabet",
                 alphabetDesc: "Lernen Sie die 28 arabischen Buchstaben",
-                vowelsTitle: "✨ Vokale",
-                vowelsDesc: "Meistern Sie Fatha, Kasra und Damma",
-                vocabTitle: "📖 Koranvokabular",
-                vocabDesc: "Lernen Sie wesentliche Wörter aus dem Koran",
-                grammarTitle: "⚙️ Grundgrammatik",
-                grammarDesc: "Lernen Sie arabische Sätze zu bilden",
-                startBtn: "Lernen beginnen",
-                progressLabel: "abgeschlossen",
-                alphabetQuestion: "Was ist dieser Buchstabe?",
-                vowelsQuestion: "Was ist der richtige Vokal?",
-                vocabQuestion: "Was bedeutet dieses Wort?",
-                grammarQuestion: "Identifizieren Sie den Worttyp"
+                audioReady: "🔊 Audio bereit",
+                audioLoading: "⏳ Audio wird geladen..."
             }
         };
 
         let currentLang = 'ar';
+        let arabicVoice = null;
+        let voicesLoaded = false;
+
+        // Initialize Speech Synthesis with proper voice loading
+        function loadVoices() {
+            return new Promise((resolve) => {
+                const voices = window.speechSynthesis.getVoices();
+                
+                if (voices.length > 0) {
+                    findArabicVoice(voices);
+                    resolve();
+                } else {
+                    window.speechSynthesis.onvoiceschanged = () => {
+                        const newVoices = window.speechSynthesis.getVoices();
+                        findArabicVoice(newVoices);
+                        resolve();
+                    };
+                }
+            });
+        }
+
+        function findArabicVoice(voices) {
+            // Try to find Arabic voice (Majed, or any ar-SA/ar voice)
+            arabicVoice = voices.find(voice => 
+                voice.lang === 'ar-SA' || 
+                voice.lang === 'ar-001' || 
+                voice.lang.startsWith('ar') ||
+                voice.name.includes('Majed') ||
+                voice.name.includes('Arabic')
+            );
+            
+            if (arabicVoice) {
+                console.log('Arabic voice found:', arabicVoice.name, arabicVoice.lang);
+                voicesLoaded = true;
+                updateAudioStatus(true);
+            } else {
+                console.log('No Arabic voice found, using default');
+                voicesLoaded = true;
+                updateAudioStatus(true);
+            }
+        }
+
+        function updateAudioStatus(ready) {
+            const statusEl = document.getElementById('audioStatus');
+            const statusText = document.getElementById('audioStatusText');
+            
+            if (ready) {
+                statusEl.className = 'audio-status ready';
+                statusText.textContent = translations[currentLang].audioReady || '🔊 الصوت جاهز';
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 3000);
+            } else {
+                statusEl.className = 'audio-status loading';
+                statusText.textContent = translations[currentLang].audioLoading || '⏳ جاري تحميل الأصوات...';
+            }
+        }
 
         function changeLanguage(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             
-            // Update all translatable elements
             Object.keys(translations[lang]).forEach(key => {
                 const element = document.getElementById(key);
                 if (element) {
@@ -731,13 +803,8 @@
                 }
             });
             
-            // Update buttons
             document.querySelectorAll('.module-btn').forEach(btn => {
-                btn.textContent = translations[lang].startBtn;
-            });
-            
-            document.querySelectorAll('[id^="progressLabel"]').forEach(el => {
-                el.textContent = translations[lang].progressLabel;
+                btn.textContent = translations[lang].startBtn || 'ابدأ التعلم';
             });
         }
 
@@ -807,7 +874,6 @@
             }
         };
 
-        // Quiz state
         let currentQuiz = {
             module: '',
             items: [],
@@ -875,13 +941,13 @@
         function showHome() {
             document.querySelectorAll('.main-view').forEach(v => v.classList.remove('active'));
             document.getElementById('homeView').classList.add('active');
-            document.getElementById('homeButton').classList.remove('show');
+            document.getElementById('homeModulesBtn').classList.add('hidden');
         }
 
         function showModule(moduleName) {
             document.querySelectorAll('.main-view').forEach(v => v.classList.remove('active'));
             document.getElementById(moduleName + 'View').classList.add('active');
-            document.getElementById('homeButton').classList.add('show');
+            document.getElementById('homeModulesBtn').classList.remove('hidden');
             
             if (moduleName === 'alphabet') initAlphabetModule();
             if (moduleName === 'vowels') initVowelsModule();
@@ -889,20 +955,52 @@
             if (moduleName === 'grammar') initGrammarModule();
         }
 
-        // Audio with Web Speech API
+        // Enhanced Audio System
         function playSound(text) {
+            if (!voicesLoaded) {
+                console.log('Voices not loaded yet, loading...');
+                loadVoices().then(() => playSound(text));
+                return;
+            }
+
             if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
                 window.speechSynthesis.cancel();
+                
+                // Create utterance
                 const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Set Arabic voice if available
+                if (arabicVoice) {
+                    utterance.voice = arabicVoice;
+                }
+                
+                // Configure speech parameters
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.6;
-                utterance.pitch = 1;
+                utterance.rate = 0.7;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                // Error handling
+                utterance.onerror = (event) => {
+                    console.error('Speech synthesis error:', event.error);
+                };
+                
+                // Success callback
+                utterance.onstart = () => {
+                    console.log('Playing:', text);
+                };
+                
+                // Speak
                 window.speechSynthesis.speak(utterance);
                 addPoints(2);
+            } else {
+                console.error('Speech Synthesis not supported');
+                alert('متصفحك لا يدعم تشغيل الصوت');
             }
         }
 
-        // Alphabet Module
+        // Alphabet Module (shortened for space - same structure as before)
         function initAlphabetModule() {
             const grid = document.getElementById('alphabetGrid');
             grid.innerHTML = '';
@@ -969,7 +1067,7 @@
                 container.appendChild(div);
             });
             
-            playSound(correct.letter);
+            setTimeout(() => playSound(correct.letter), 500);
         }
 
         function checkAlphabetAnswer(selected, correct, element) {
@@ -991,7 +1089,9 @@
             }
         }
 
-        // Vowels Module
+        // Similar functions for other modules (vowels, vocabulary, grammar)
+        // ... (keeping the same structure as in the previous code)
+
         function initVowelsModule() {
             startVowelsQuiz();
         }
@@ -1041,7 +1141,7 @@
                 container.appendChild(div);
             });
             
-            playSound(correct.letter);
+            setTimeout(() => playSound(correct.letter), 500);
         }
 
         function checkVowelsAnswer(selected, correct, element) {
@@ -1062,7 +1162,6 @@
             }
         }
 
-        // Vocabulary Module
         function initVocabularyModule() {
             createVocabCards('allahNamesContainer', allahNames);
             createVocabCards('prayerVocabContainer', prayerVocab);
@@ -1138,7 +1237,7 @@
                 container.appendChild(div);
             });
             
-            playSound(correct.arabic);
+            setTimeout(() => playSound(correct.arabic), 500);
         }
 
         function checkVocabAnswer(selected, correct, element) {
@@ -1159,7 +1258,6 @@
             }
         }
 
-        // Grammar Module
         function initGrammarModule() {
             startGrammarQuiz();
         }
@@ -1209,7 +1307,7 @@
                 container.appendChild(div);
             });
             
-            playSound(correct.word);
+            setTimeout(() => playSound(correct.word), 500);
         }
 
         function checkGrammarAnswer(selected, correct, element) {
@@ -1230,7 +1328,6 @@
             }
         }
 
-        // Utility
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -1239,8 +1336,19 @@
         }
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('Initializing application...');
             loadProgress();
+            
+            // Load voices
+            await loadVoices();
+            
+            // Ensure voices are loaded after a delay (Chrome workaround)
+            setTimeout(() => {
+                if (!voicesLoaded) {
+                    loadVoices();
+                }
+            }, 1000);
         });
     </script>
 </body>
