@@ -173,11 +173,11 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-top: 20px;
-            display: none;
+            display: none !important; /* Force hide by default */
         }
 
         .lesson-container.active {
-            display: block;
+            display: block !important; /* Force show when active */
         }
 
         .alphabet-grid {
@@ -351,6 +351,14 @@
             margin-bottom: 20px;
         }
 
+        #modulesView {
+            display: block !important;
+        }
+
+        #modulesView.hidden {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
             .modules-grid {
                 grid-template-columns: 1fr;
@@ -414,7 +422,7 @@
                         <div class="progress-fill" style="width: 0%"></div>
                     </div>
                     <p>التقدم: <span class="progress-text">0%</span></p>
-                    <button class="module-btn" onclick="openModule('alphabet')">ابدأ التعلم</button>
+                    <button class="module-btn">ابدأ التعلم</button>
                 </div>
 
                 <!-- Module 2: Vowels -->
@@ -425,7 +433,7 @@
                         <div class="progress-fill" style="width: 0%"></div>
                     </div>
                     <p>التقدم: <span class="progress-text">0%</span></p>
-                    <button class="module-btn" onclick="openModule('vowels')">ابدأ التعلم</button>
+                    <button class="module-btn">ابدأ التعلم</button>
                 </div>
 
                 <!-- Module 3: Vocabulary -->
@@ -436,100 +444,7 @@
                         <div class="progress-fill" style="width: 0%"></div>
                     </div>
                     <p>التقدم: <span class="progress-text">0%</span></p>
-                    <button class="module-btn" onclick="openModule('vocabulary')">ابدأ التعلم</button>
+                    <button class="module-btn">ابدأ التعلم</button>
                 </div>
 
-                <!-- Module 4: Grammar -->
-                <div class="module-card" data-module="grammar">
-                    <h2>⚙️ القواعد الأساسية</h2>
-                    <p>تعلم بناء الجمل والتراكيب العربية</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%</div>
-                    </div>
-                    <p>التقدم: <span class="progress-text">0%</span></p>
-                    <button class="module-btn" onclick="openModule('grammar')">ابدأ التعلم</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Alphabet Module -->
-        <div id="alphabetLesson" class="lesson-container">
-            <button class="back-btn" onclick="closeModule()">← العودة للقائمة</button>
-            <h2>📚 تعلم الحروف الأبجدية العربية</h2>
-            <p>انقر على كل حرف لسماع نطقه</p>
-            
-            <div class="alphabet-grid" id="alphabetGrid"></div>
-            
-            <div class="quiz-container" style="margin-top: 30px;">
-                <h3>اختبر نفسك!</h3>
-                <div class="quiz-question" id="alphabetQuizQuestion">ما هذا الحرف؟</div>
-                <div id="alphabetQuizLetter" style="font-size: 5em; text-align: center; color: #667eea; margin: 20px 0;"></div>
-                <div class="quiz-options" id="alphabetQuizOptions"></div>
-            </div>
-        </div>
-
-        <!-- Vowels Module -->
-        <div id="vowelsLesson" class="lesson-container">
-            <button class="back-btn" onclick="closeModule()">← العودة للقائمة</button>
-            <h2>✨ الحركات والمدود</h2>
-            
-            <div class="grammar-section">
-                <h3>الحركات القصيرة</h3>
-                <div class="example-box">
-                    <div class="example-arabic">بَ - الفتحة</div>
-                    <div class="example-translation">Fatha - son "a"</div>
-                    <button class="audio-btn" onclick="playVowelSound('fatha')">🔊 استمع</button>
-                </div>
-                <div class="example-box">
-                    <div class="example-arabic">بِ - الكسرة</div>
-                    <div class="example-translation">Kasra - son "i"</div>
-                    <button class="audio-btn" onclick="playVowelSound('kasra')">🔊 استمع</button>
-                </div>
-                <div class="example-box">
-                    <div class="example-arabic">بُ - الضمة</div>
-                    <div class="example-translation">Damma - son "ou"</div>
-                    <button class="audio-btn" onclick="playVowelSound('damma')">🔊 استمع</button>
-                </div>
-                <div class="example-box">
-                    <div class="example-arabic">بْ - السكون</div>
-                    <div class="example-translation">Soukoun - pas de voyelle</div>
-                    <button class="audio-btn" onclick="playVowelSound('soukoun')">🔊 استمع</button>
-                </div>
-            </div>
-
-            <div class="grammar-section">
-                <h3>المدود (Voyelles longues)</h3>
-                <div class="example-box">
-                    <div class="example-arabic">با - مد بالألف</div>
-                    <div class="example-translation">Ba - son "aa" long</div>
-                </div>
-                <div class="example-box">
-                    <div class="example-arabic">بي - مد بالياء</div>
-                    <div class="example-translation">Bi - son "ii" long</div>
-                </div>
-                <div class="example-box">
-                    <div class="example-arabic">بو - مد بالواو</div>
-                    <div class="example-translation">Bou - son "ou" long</div>
-                </div>
-            </div>
-
-            <div class="quiz-container">
-                <h3>تمرين: حدد الحركة الصحيحة</h3>
-                <div class="quiz-question" id="vowelQuizQuestion">أي حركة تسمع؟</div>
-                <div class="quiz-options" id="vowelQuizOptions"></div>
-            </div>
-        </div>
-
-        <!-- Vocabulary Module -->
-        <div id="vocabularyLesson" class="lesson-container">
-            <button class="back-btn" onclick="closeModule()">← العودة للقائمة</button>
-            <h2>📖 المفردات القرآنية الأساسية</h2>
-            
-            <h3>أسماء الله الحسنى</h3>
-            <div id="allahNamesContainer"></div>
-
-            <h3 style="margin-top: 30px;">كلمات من الصلاة</h3>
-            <div id="prayerVocabContainer"></div>
-
-            <h3 style="margin-top: 30px;">أفعال قرآنية</h3>
-            <div id="verbsContainer"></div>
+                <!-- Module 4
