@@ -56,7 +56,7 @@
 <div class="header">
     <h1>📖 منصة تحفيظ القرآن الكريم</h1>
     <p class="subtitle">Quran Memorization Platform</p>
-    <a href="arabic-lessons.html" style="display:inline-block;padding:8px 20px;background:#28a745;color:white;text-decoration:none;border-radius:15px;font-size:14px">📚 دروس اللغة العربية</a>
+    <a href="arabic-lessons.html" style="display:inline-block;padding:8px 20px;background:#28a745;color:white;text-decoration:none;border-radius:15px;font-size:14px;margin-top:10px">📚 دروس اللغة العربية / Arabic Lessons</a>
 </div>
 
 <div class="main-container">
@@ -148,6 +148,10 @@
         const c=document.getElementById('content');
         let h=`<h2 class="title">${ar.name} - ${ar.englishName}</h2>`;
         ar.ayahs.forEach((a,vi)=>{
+            // Split Arabic and transliteration into word arrays
+            const arabicWords = a.text.split(' ');
+            const translitWords = tr.ayahs[vi] ? tr.ayahs[vi].text.split(' ') : [];
+            
             h+=`<div class="verse" data-ayah="${vi}">`;
             h+=`<div class="verse-header"><div class="num">${a.numberInSurah}</div><div class="verse-controls">`;
             h+=`<button class="verse-btn play-verse-btn" onclick="playVerse(${vi})">▶</button>`;
@@ -156,21 +160,26 @@
             h+=`<button class="verse-btn stop-record-btn" id="stop-${vi}" onclick="stopRecording(this, ${vi})" style="display:none;">⏹️</button>`;
             h+=`</div></div>`;
             
-            // Arabic text with words
+            // Arabic text with individual word spans
             h+=`<div class="arabic">`;
-            a.text.split(' ').forEach((w,wi)=>{h+=`<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;});
+            arabicWords.forEach((w,wi)=>{
+                h+=`<span class="word aw" data-v="${vi}" data-w="${wi}">${w} </span>`;
+            });
             h+=`</div>`;
             
-            // Transliteration with words matching Arabic
-            if(tr.ayahs[vi]){
+            // Transliteration with matching word spans
+            if(translitWords.length > 0){
                 h+=`<div class="translit">`;
-                const translitWords = tr.ayahs[vi].text.split(' ');
-                translitWords.forEach((w,wi)=>{h+=`<span class="word tw" data-v="${vi}" data-w="${wi}">${w} </span>`;});
+                translitWords.forEach((w,wi)=>{
+                    h+=`<span class="word tw" data-v="${vi}" data-w="${wi}">${w} </span>`;
+                });
                 h+=`</div>`;
             }
             
             // Translation (full text, no word splitting)
-            if(trans&&trans.ayahs[vi]){h+=`<div class="trans">${trans.ayahs[vi].text}</div>`;}
+            if(trans&&trans.ayahs[vi]){
+                h+=`<div class="trans">${trans.ayahs[vi].text}</div>`;
+            }
             
             h+=`<div class="user-playback" id="playback-${vi}" style="display:none;"><p style="font-size:14px; margin-top:10px; font-weight:bold;">تسجيلك:</p><audio controls></audio></div>`;
             h+=`</div>`;
@@ -183,8 +192,8 @@
                 if(this.classList.contains('hidden')){
                     this.classList.remove('hidden');
                     this.classList.add('revealed');
-                    const v=this.dataset.v,wi=this.dataset.w;
-                    // Reveal corresponding word in other line (Arabic or Transliteration)
+                    const v=this.dataset.v, wi=this.dataset.w;
+                    // Reveal corresponding word in other line
                     const otherClass = this.classList.contains('aw') ? 'tw' : 'aw';
                     const paired = document.querySelector(`.${otherClass}[data-v="${v}"][data-w="${wi}"]`);
                     if(paired){
@@ -199,14 +208,24 @@
     window.playVerse=function(index){
         document.querySelectorAll('.verse').forEach(v=>v.classList.remove('playing'));
         const verse=document.querySelector(`.verse[data-ayah="${index}"]`);
-        if(verse){verse.classList.add('playing');verse.scrollIntoView({behavior:'smooth',block:'center'});}
-        if(audioData&&audioData[index]){audio.src=audioData[index].audio;audio.play();audio.onended=()=>{if(verse)verse.classList.remove('playing');};}
+        if(verse){
+            verse.classList.add('playing');
+            verse.scrollIntoView({behavior:'smooth',block:'center'});
+        }
+        if(audioData&&audioData[index]){
+            audio.src=audioData[index].audio;
+            audio.play();
+            audio.onended=()=>{if(verse)verse.classList.remove('playing');};
+        }
     };
     
     window.repeatVerse=function(index){playVerse(index);};
 
     window.startRecording = async function(btn, verseIndex) {
-        if(mediaRecorder && mediaRecorder.state === 'recording') { alert('هناك تسجيل قيد التشغيل بالفعل. يرجى إيقافه أولاً.'); return; }
+        if(mediaRecorder && mediaRecorder.state === 'recording') { 
+            alert('هناك تسجيل قيد التشغيل بالفعل. يرجى إيقافه أولاً.'); 
+            return; 
+        }
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
@@ -232,41 +251,81 @@
                 }
                 stream.getTracks().forEach(track => track.stop());
             };
-        } catch(err) { alert('خطأ: لم يتم منح إذن الوصول إلى الميكروفون. يرجى السماح به في إعدادات المتصفح.'); console.error(err); }
+        } catch(err) { 
+            alert('خطأ: لم يتم منح إذن الوصول إلى الميكروفون. يرجى السماح به في إعدادات المتصفح.'); 
+            console.error(err); 
+        }
     };
     
     window.stopRecording = function(btn, verseIndex) {
-        if(mediaRecorder && mediaRecorder.state === 'recording') { mediaRecorder.stop(); }
+        if(mediaRecorder && mediaRecorder.state === 'recording') { 
+            mediaRecorder.stop(); 
+        }
         const recordBtn = document.getElementById(`record-${verseIndex}`);
         btn.style.display = 'none';
         recordBtn.style.display = 'inline-block';
     };
     
-    document.querySelectorAll('.lang-btn').forEach(b=>{b.onclick=function(){document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');curE=this.dataset.ed;load(curS,curE);};});
-    document.getElementById('surah').onchange=function(){curS=this.value;audio.pause();load(curS,curE);};
-    document.getElementById('reciter').onchange=function(){audio.pause();load(curS,curE);};
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+        b.onclick=function(){
+            document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));
+            this.classList.add('active');
+            curE=this.dataset.ed;
+            load(curS,curE);
+        };
+    });
     
-    // FIXED: Hide button now hides both Arabic and Transliteration words together
+    document.getElementById('surah').onchange=function(){
+        curS=this.value;
+        audio.pause();
+        load(curS,curE);
+    };
+    
+    document.getElementById('reciter').onchange=function(){
+        audio.pause();
+        load(curS,curE);
+    };
+    
+    // FIXED: Hide button - hides both Arabic and Transliteration words together
     document.getElementById('hide-btn').onclick=function(){
         const p=parseInt(document.getElementById('hide-percentage').value);
-        const all=document.querySelectorAll('.word');
-        all.forEach(w=>{w.classList.remove('revealed');w.classList.remove('hidden');});
         
-        const aw=Array.from(document.querySelectorAll('.aw'));
-        const hide=Math.floor(aw.length*(p/100));
-        aw.sort(()=>Math.random()-0.5);
+        // Reset all words first
+        document.querySelectorAll('.word').forEach(w=>{
+            w.classList.remove('revealed');
+            w.classList.remove('hidden');
+        });
         
-        for(let i=0;i<hide;i++){
-            aw[i].classList.add('hidden');
-            const v=aw[i].dataset.v,wi=aw[i].dataset.w;
+        // Get all Arabic words and calculate how many to hide
+        const arabicWords = Array.from(document.querySelectorAll('.aw'));
+        const hideCount = Math.floor(arabicWords.length * (p/100));
+        
+        // Shuffle and hide random words
+        arabicWords.sort(() => Math.random() - 0.5);
+        
+        for(let i = 0; i < hideCount; i++){
+            const arabicWord = arabicWords[i];
+            arabicWord.classList.add('hidden');
+            
             // Also hide corresponding transliteration word
-            const tw=document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);
-            if(tw) tw.classList.add('hidden');
+            const v = arabicWord.dataset.v;
+            const wi = arabicWord.dataset.w;
+            const translitWord = document.querySelector(`.tw[data-v="${v}"][data-w="${wi}"]`);
+            
+            if(translitWord) {
+                translitWord.classList.add('hidden');
+            }
         }
     };
     
-    document.getElementById('reveal-btn').onclick=function(){document.querySelectorAll('.word').forEach(w=>{w.classList.remove('hidden');w.classList.remove('revealed');});};
+    document.getElementById('reveal-btn').onclick=function(){
+        document.querySelectorAll('.word').forEach(w=>{
+            w.classList.remove('hidden');
+            w.classList.remove('revealed');
+        });
+    };
     
+    // Load first surah on page load
     load(1,'ar');
 </script>
 </body>
