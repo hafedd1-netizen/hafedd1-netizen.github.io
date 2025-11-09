@@ -1,33 +1,19 @@
 name: AI Assistant Pipeline
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
 
 permissions:
-  contents: write   # يسمح بالكتابة لتحديث الملفات
+  contents: write
 
 jobs:
-  build-and-commit:
+  test-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Generate updates
-        run: |
-          echo "/* تحديث من المساعد الذكي */" >> ai-log.txt
-          # ضع هنا أوامر التوليد/التعديل الفعلية (مثلاً بناء صفحات أو تمارين)
-      
-      - name: Commit changes
-        run: |
+      - uses: actions/checkout@v4
+      - run: |
+          echo "$(date) - test run" >> ai-log.txt
           git config user.name "ai-bot"
           git config user.email "bot@example.com"
-          git add -A
-          git commit -m "AI: mise à jour automatique" || echo "No changes"
+          git add ai-log.txt
+          git commit -m "AI: test write"
           git push
