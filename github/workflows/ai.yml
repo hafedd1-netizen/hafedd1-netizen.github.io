@@ -6,14 +6,8 @@ permissions:
   contents: write
 
 jobs:
-  test-commit:
+  ping:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          echo "$(date) - test run" >> ai-log.txt
-          git config user.name "ai-bot"
-          git config user.email "bot@example.com"
-          git add ai-log.txt
-          git commit -m "AI: test write" || echo "No changes"
-          git push
+      - run: echo "ok: workflow detected"
