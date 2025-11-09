@@ -9,11 +9,17 @@ jobs:
   test-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate updates
+        run: |
           echo "$(date) - test run" >> ai-log.txt
+
+      - name: Commit changes
+        run: |
           git config user.name "ai-bot"
           git config user.email "bot@example.com"
           git add ai-log.txt
-          git commit -m "AI: test write"
+          git commit -m "AI: test write" || echo "No changes"
           git push
