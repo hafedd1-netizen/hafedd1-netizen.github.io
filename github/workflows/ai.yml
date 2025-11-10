@@ -16,8 +16,8 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
-      # Step AI (اختياري): توليد مواد تعليمية/مخرجات قبل الرفع
-      # - run: node scripts/generate-ai-feedback.js
+      # AI step (اختياري الآن، سنضيفها لاحقًا)
+      # - run: node scripts/generate-ai-assets.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with: { path: dist }  # غيّرها إلى build أو . أو _site
