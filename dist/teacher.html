@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>المعلّم الذكي للتجويد</title>
+  <link rel="preconnect" href="https://api.alquran.cloud">
+  <style>
+    body{font-family:system-ui; margin:1rem; background:#f6f7ff}
+    header{display:flex;gap:.75rem; align-items:center; margin-bottom:1rem}
+    select,button{padding:.5rem .75rem; border-radius:10px; border:2px solid #667eea}
+    button{background:#667eea; color:#fff; cursor:pointer}
+    button.secondary{background:#fff; color:#667eea}
+    .ayah{font-size:1.8rem; line-height:2.4rem; background:#fff; padding:1rem; border-radius:12px; margin-top:.75rem}
+    .ok{background:#d1fae5}
+    .miss{background:#fee2e2}
+    .hints{margin-top:1rem; background:#fff; padding:1rem; border-radius:12px}
+    .hints li{margin:.35rem 0}
+    .panel{display:grid; gap:.75rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+    audio{width:100%}
+    .warn{color:#b45309}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./" class="secondary" style="text-decoration:none;padding:.5rem .75rem;border:2px solid #667eea;border-radius:10px">العودة</a>
+    <label>السورة
+      <select id="surah"></select>
+    </label>
+    <label>القارئ
+      <select id="reciter"></select>
+    </label>
+    <button id="play">تشغيل الآية</button>
+    <button id="rec">بدء التسجيل</button>
+    <button id="stop" class="secondary">إيقاف</button>
+  </header>
+
+  <div class="panel">
+    <div>
+      <div id="ayah" class="ayah">—</div>
+      <div style="margin-top:.5rem">
+        <audio id="refAudio" controls></audio>
+      </div>
+      <div style="margin-top:.5rem">
+        <audio id="userAudio" controls></audio>
+      </div>
+    </div>
+    <div class="hints">
+      <h3>ملاحظات المعلم</h3>
+      <ul id="hints">
+        <li>ابدأ بوضوح وهدوء، ثم زد السرعة تدريجيًا مع الحفاظ على المخارج [تعليمية].</li>
+      </ul>
+      <p class="warn">ملاحظة: التسجيل يتطلب السماح للميكروفون والعمل عبر HTTPS أو localhost لضمان الأذونات [إرشاد تقني].</p>
+    </div>
+  </div>
+
+  <script src="./teacher.js" defer></script>
+</body>
+</html>
