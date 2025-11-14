@@ -24,13 +24,10 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
       
-      # (اختياري) أضف هنا خطوات ذكاء اصطناعي لتوليد محتوى داخل dist
-      # - run: node scripts/generate-ai-data.js
-      
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: '.'  # ✅ رفع الجذر كاملاً بدل dist فقط
 
   deploy:
     needs: build
