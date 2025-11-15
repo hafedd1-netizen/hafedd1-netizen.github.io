@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المعلّم الذكي للتجويد</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Traditional Arabic', Arial, sans-serif; 
+      background: linear-gradient(135deg, #667eea, #764ba2); 
+      direction: rtl; 
+      min-height: 100vh; 
+      padding: 1rem; 
+    }
+    header { 
+      display: flex; 
+      gap: 0.75rem; 
+      align-items: center; 
+      margin-bottom: 1rem; 
+      flex-wrap: wrap;
+    }
+    a { 
+      text-decoration: none; 
+      padding: 0.5rem 0.75rem; 
+      border: 2px solid #667eea; 
+      border-radius: 10px; 
+      background: white; 
+      color: #667eea; 
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    a:hover { background: #667eea; color: white; }
+    select, button { 
+      padding: 0.5rem 0.75rem; 
+      border-radius: 10px; 
+      border: 2px solid #667eea; 
+      font-size: 0.9rem;
+    }
+    button { 
+      background: #667eea; 
+      color: white; 
+      cursor: pointer; 
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    button:hover { background: #764ba2; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .container { 
+      max-width: 900px; 
+      margin: 0 auto; 
+      background: white; 
+      padding: 1.5rem; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    h2 { 
+      color: #667eea; 
+      margin-bottom: 1rem; 
+      text-align: center; 
+      border-bottom: 2px solid #667eea; 
+      padding-bottom: 0.5rem;
+    }
+    .verse { 
+      background: #f8f9ff; 
+      padding: 1rem; 
+      border-radius: 8px; 
+      margin-bottom: 1rem; 
+      line-height: 2rem; 
+      font-size: 1.8rem;
+    }
+    .verse .word { 
+      display: inline-block; 
+      padding: 0.25rem 0.5rem; 
+      margin: 0.25rem; 
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .verse .word:hover { background: #fff3cd; }
+    .verse .word.correct { background: #d1fae5; color: #155724; }
+    .verse .word.missing { background: #fee2e2; color: #b02c2c; }
+    audio { width: 100%; margin: 1rem 0; }
+    .hints { 
+      background: #f0f4ff; 
+      padding: 1rem; 
+      border-radius: 8px; 
+      border-left: 4px solid #667eea; 
+      margin-top: 1rem;
+    }
+    .hints h3 { color: #667eea; margin-bottom: 0.5rem; }
+    .hints li { margin: 0.35rem 0; }
+    .warn { color: #b45309; font-size: 0.9rem; margin-top: 0.5rem; }
+    label { 
+      display: inline-block; 
+      margin-right: 1rem; 
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./">← العودة للصفحة الرئيسية</a>
+    <label>السورة: <select id="surah" style="width: 150px;"></select></label>
+    <label>القارئ: <select id="reciter" style="width: 150px;"></select></label>
+  </header>
+
+  <div class="container">
+    <h2>المعلّم الذكي للتجويد والترتيل</h2>
+    
+    <div style="margin-bottom: 1rem;">
+      <button id="play">▶ تشغيل الآية</button>
+      <button id="rec">🎤 بدء التسجيل</button>
+      <button id="stop" style="display:none;">⏹ إيقاف</button>
+    </div>
+
+    <div class="verse" id="ayah">جاري التحميل...</div>
+    
+    <div>
+      <h3>الآية المرجعية:</h3>
+      <audio id="refAudio" controls></audio>
+    </div>
+
+    <div>
+      <h3>تسجيلك:</h3>
+      <audio id="userAudio" controls></audio>
+    </div>
+
+    <div class="hints">
+      <h3>ملاحظات المعلم</h3>
+      <ul id="hints">
+        <li>ابدأ بوضوح وهدوء، ثم زد السرعة تدريجياً مع الحفاظ على المخارج.</li>
+        <li>طبّق الغنة في النون والميم المشددتين.</li>
+        <li>راقب طول المدود بحس متزن.</li>
+      </ul>
+      <p class="warn">⚠️ التسجيل يتطلب السماح للميكروفون والعمل عبر HTTPS أو localhost.</p>
+    </div>
+  </div>
+
+  <script src="./teacher.js" defer></script>
+</body>
+</html>
