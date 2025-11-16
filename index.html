@@ -49,8 +49,6 @@
   .user-playback audio{width:100%;margin-top:5px}
   .loading{text-align:center;padding:40px;font-size:20px;color:#667eea}
   @media (max-width:1024px){.main-container{flex-direction:column}.controls-sidebar{width:100%}#content{max-height:none}}
-
-  /* شبكة أمان: إخفاء أي عناصر تحكّم في الهيدر إن وُجدت لاحقًا */
   .header .btn-row, .header select, .header .controls, .header .lang-btn { display:none !important; }
 </style>
 </head>
@@ -60,18 +58,17 @@
     <h1>📖 منصة تحفيظ القرآن الكريم</h1>
     <p class="subtitle">Quran Memorization Platform</p>
 
-    <!-- أزرار رأسية بسيطة فقط: تم تصحيح الروابط للعمل على GitHub Pages -->
-    <div style="display:flex; gap:10px; justify-content:center; margin-top:10px;">
-      <!-- ✓ تم تغيير ./teacher.html إلى /teacher.html للعمل على GitHub Pages -->
-      <a href="/teacher.html"
-         style="display:inline-block;padding:8px 20px;background:#667eea;color:#fff;text-decoration:none;border-radius:15px;font-weight:bold">
-        🤖 المعلّم الذكي
-      </a>
-      <!-- ✓ تم تغيير ./learn.html إلى /learn.html للعمل على GitHub Pages -->
-      <a href="/learn.html"
-         style="display:inline-block;padding:8px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:15px;font-size:14px">
-        📚 دروس اللغة العربية / Arabic Lessons
-      </a>
+    <!-- أزرار الانتقال إلى الصفحات الأخرى -->
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
+      <button onclick="goToTeacher()" 
+              style="display:inline-block;padding:8px 20px;background:#667eea;color:white;border:none;text-decoration:none;border-radius:15px;font-weight:bold;cursor:pointer;font-size:14px">
+        🎓 المعلّم الذكي للتجويد والترتيل
+      </button>
+      
+      <button onclick="goToLearn()" 
+              style="display:inline-block;padding:8px 20px;background:#28a745;color:white;border:none;text-decoration:none;border-radius:15px;font-size:14px;cursor:pointer">
+        📚 دروس اللغة العربية
+      </button>
     </div>
   </div>
 
@@ -122,6 +119,16 @@
   <audio id="audio-player" style="display:none;"></audio>
 
   <script>
+    // دوال الانتقال إلى الصفحات الأخرى
+    function goToTeacher() {
+      window.location.href = '/teacher.html';
+    }
+    
+    function goToLearn() {
+      window.location.href = '/learn.html';
+    }
+
+    // بقية الكود الأصلي للصفحة الرئيسية
     let curS=1,curE='ar',audio=document.getElementById('audio-player'),audioData=null;
     let mediaRecorder, audioChunks=[], activeRecorder=null;
 
@@ -275,17 +282,5 @@
 
     load(1,'ar');
   </script>
- <script>
-  // إزالة أي منع قد يمنع الانتقال عند النقر على الأزرار
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      // السماح بالانتقال الطبيعي دون تدخل
-      if (this.href && !this.hasAttribute('onclick')) {
-        e.stopImmediatePropagation();
-      }
-    });
-  });
-</script>
-
 </body>
 </html>
