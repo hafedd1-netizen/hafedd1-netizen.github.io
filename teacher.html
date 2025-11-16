@@ -4,27 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>المعلّم الذكي | منصة التحفيظ</title>
-/* إخفاء أي تحكّم خارج اللوحة اليمنى (اختبار) */
-body > .header .btn-row,
-body > .header select,
-body > .header button,
-body > .header .controls,
-body > .header [id="surah"],
-body > .header [id="reciter"],
-body > .header .lang-btn { display:none !important; }
-  <script>
-  (function dedupeControls(){
-    const panel = document.querySelector('aside.controls-sidebar');
-    const inside = el => panel && panel.contains(el);
-
-    document.querySelectorAll('.lang-btn').forEach(el=>{ if(!inside(el)) el.remove(); });
-    ['surah','reciter'].forEach(id=>{
-      document.querySelectorAll('#'+id).forEach(el=>{ if(!inside(el)) el.remove(); });
-    });
-  })();
-</script>
-
-
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Traditional Arabic',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);direction:rtl;min-height:100vh;padding:15px}
