@@ -275,5 +275,17 @@
 
     load(1,'ar');
   </script>
+ <script>
+  // إزالة أي منع قد يمنع الانتقال عند النقر على الأزرار
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      // السماح بالانتقال الطبيعي دون تدخل
+      if (this.href && !this.hasAttribute('onclick')) {
+        e.stopImmediatePropagation();
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
