@@ -58,17 +58,17 @@
     <h1>📖 منصة تحفيظ القرآن الكريم</h1>
     <p class="subtitle">Quran Memorization Platform</p>
 
-    <!-- أزرار الانتقال إلى الصفحات الأخرى -->
+    <!-- أزرار الانتقال إلى الصفحات الأخرى - مع روابط مطلقة -->
     <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
-      <button onclick="goToTeacher()" 
-              style="display:inline-block;padding:8px 20px;background:#667eea;color:white;border:none;text-decoration:none;border-radius:15px;font-weight:bold;cursor:pointer;font-size:14px">
+      <a href="https://hafedd1-netizen.github.io/teacher.html" 
+         style="display:inline-block;padding:8px 20px;background:#667eea;color:white;text-decoration:none;border-radius:15px;font-weight:bold;cursor:pointer;font-size:14px">
         🎓 المعلّم الذكي للتجويد والترتيل
-      </button>
+      </a>
       
-      <button onclick="goToLearn()" 
-              style="display:inline-block;padding:8px 20px;background:#28a745;color:white;border:none;text-decoration:none;border-radius:15px;font-size:14px;cursor:pointer">
+      <a href="https://hafedd1-netizen.github.io/learn.html" 
+         style="display:inline-block;padding:8px 20px;background:#28a745;color:white;text-decoration:none;border-radius:15px;font-size:14px;cursor:pointer">
         📚 دروس اللغة العربية
-      </button>
+      </a>
     </div>
   </div>
 
@@ -119,16 +119,6 @@
   <audio id="audio-player" style="display:none;"></audio>
 
   <script>
-    // دوال الانتقال إلى الصفحات الأخرى
-    function goToTeacher() {
-      window.location.href = '/teacher.html';
-    }
-    
-    function goToLearn() {
-      window.location.href = '/learn.html';
-    }
-
-    // بقية الكود الأصلي للصفحة الرئيسية
     let curS=1,curE='ar',audio=document.getElementById('audio-player'),audioData=null;
     let mediaRecorder, audioChunks=[], activeRecorder=null;
 
