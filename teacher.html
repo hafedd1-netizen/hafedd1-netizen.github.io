@@ -12,6 +12,18 @@ body > .header .controls,
 body > .header [id="surah"],
 body > .header [id="reciter"],
 body > .header .lang-btn { display:none !important; }
+  <script>
+  (function dedupeControls(){
+    const panel = document.querySelector('aside.controls-sidebar');
+    const inside = el => panel && panel.contains(el);
+
+    document.querySelectorAll('.lang-btn').forEach(el=>{ if(!inside(el)) el.remove(); });
+    ['surah','reciter'].forEach(id=>{
+      document.querySelectorAll('#'+id).forEach(el=>{ if(!inside(el)) el.remove(); });
+    });
+  })();
+</script>
+
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
