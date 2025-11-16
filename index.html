@@ -56,6 +56,64 @@
 <div class="header">
     <h1>📖 منصة تحفيظ القرآن الكريم</h1>
     <p class="subtitle">Quran Memorization Platform</p>
+   <!-- كتلة تحكّم موحّدة لتمرير الإعدادات إلى المعلّم الذكي -->
+<div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap; justify-content:center">
+  <!-- لغة الواجهة/الترجمة -->
+  <select id="home-lang" style="padding:6px 10px;border-radius:12px;border:2px solid #667eea;color:#667eea">
+    <option value="ar">العربية</option>
+    <option value="en.asad">English</option>
+    <option value="fr.hamidullah">Français</option>
+  </select>
+
+  <!-- المقرئ (نفس المعرفات في المعلّم الذكي) -->
+  <select id="home-reciter" style="padding:6px 10px;border-radius:12px;border:2px solid #667eea;color:#667eea">
+    <option value="ar.alafasy">مشاري العفاسي</option>
+    <option value="ar.abdulbasitmurattal">عبدالباسط (مرتل)</option>
+    <option value="ar.husary">الحصري</option>
+    <option value="ar.minshawi">المنشاوي</option>
+    <option value="ar.shaatree">الشاطري</option>
+    <option value="ar.abdurrahmaansudais">السديس</option>
+  </select>
+
+  <!-- اختيار السورة ونطاق الآيات (اختياري) -->
+  <input id="home-surah" type="number" min="1" max="114" placeholder="سورة (1-114)" style="width:120px;padding:6px 10px;border-radius:12px;border:2px solid #667eea;color:#667eea">
+  <input id="home-start" type="number" min="1" placeholder="بداية الآية" style="width:120px;padding:6px 10px;border-radius:12px;border:2px solid #667eea;color:#667eea">
+  <input id="home-end" type="number" min="1" placeholder="نهاية الآية" style="width:120px;padding:6px 10px;border-radius:12px;border:2px solid #667eea;color:#667eea">
+
+  <!-- زر الذهاب إلى المعلّم الذكي مع تمرير الإعدادات -->
+  <a id="go-teacher" href="./teacher.html" style="display:inline-block;padding:8px 20px;background:#667eea;color:#fff;text-decoration:none;border-radius:15px;font-weight:bold">
+    المعلّم الذكي
+  </a>
+</div>
+
+<script>
+  // يبني رابط teacher.html مع الاستعلامات المختارة
+  (function(){
+    function buildURL(){
+      const lang = document.getElementById('home-lang').value || 'ar';
+      const rec  = document.getElementById('home-reciter').value || 'ar.alafasy';
+      const sVal = document.getElementById('home-surah').value;
+      const a1   = document.getElementById('home-start').value;
+      const a2   = document.getElementById('home-end').value;
+
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (rec)  params.set('reciter', rec);
+      if (sVal) params.set('surah', sVal);
+      if (a1)   params.set('start', a1);
+      if (a2)   params.set('end', a2);
+
+      document.getElementById('go-teacher').href = './teacher.html' + (params.toString() ? ('?' + params.toString()) : '');
+    }
+
+    ['home-lang','home-reciter','home-surah','home-start','home-end'].forEach(id=>{
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', buildURL);
+    });
+    buildURL(); // تهيئة أولية
+  })();
+</script>
+
    <a href="./teacher.html" style="display:inline-block;padding:8px 20px;background:#667eea;color:#fff;text-decoration:none;border-radius:15px;font-weight:bold;margin:8px 6px 0">
   المعلّم الذكي
 </a>
